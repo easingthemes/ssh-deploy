@@ -1,6 +1,6 @@
-# Contention rsync deployments over ssh
+# rsync deployments
 
-Deploys *everything* in `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh. 
+This GitHub Action deploys *everything* in `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh. 
 
 This action would usually follow a build/test action which leaves deployable code in `GITHUB_WORKSPACE`.
 

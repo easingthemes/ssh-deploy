@@ -4,35 +4,68 @@ This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folde
 
 This action would usually follow a build/test action which leaves deployable code in `GITHUB_WORKSPACE`, eg `dist`;
 
-# Required SECRETs
+# Configuration
 
-This action needs a `DEPLOY_KEY` secret variable. This should be the private key part of an ssh key pair. The public key part should be added to the authorized_keys file on the server that receives the deployment.
+Pass configuration with `env` vars
 
-# Required ARGs
+1. `DEPLOY_KEY`
+This should be the private key part of an ssh key pair. The public key part should be added to the authorized_keys file on the server that receives the deployment.
 
-This action can receive three `ARG`s:
+2. `ARGS`
+For any initial/required rsync flags, eg: `-avzr --delete`
 
-1. The first is for any initial/required rsync flags, eg: `-avzr --delete`
+3. `SOURCE`
+The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist`
 
-2. The second is for any `--exclude` flags and directory pairs, eg: `--exclude .htaccess --exclude /uploads/`. Use "" if none required.
+4. `TARGET`
+The target directory, in the format`[USER]@[HOST]:[PATH]`
 
-3. The third is for the source target, path relative to `$GITHUB_WORKSPACE` root, eg: `dist`
 
-4. The fourth is for the deployment target, and should be in the format: `[USER]@[HOST]:[PATH]`
+```
+- name: Deploy to Staging server
+        uses: easingthemes/ssh-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO --delete"
+          SOURCE: "dist"
+          TARGET: ${{ secrets.SERVER_STAGING }}
+```
 
 # Example usage
 
 ```
-workflow "All pushes" {
-  on = "push"
-  resolves = ["Deploy to Staging"]
-}
+name: Node CI
 
-action "Deploy to Staging" {
-  uses = "contention/action-rsync-deploy@master"
-  secrets = ["DEPLOY_KEY"]
-  args = ["-avzr --delete", "--exclude .htaccess --exclude /uploads/", "user@server.com:/srv/myapp/public/htdocs/"]
-} 
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install npm dependencies
+      run: |
+        npm install
+    - name: Run build task
+      run: |
+        npm run build --if-present
+    - name: Deploy to Staging server
+            uses: easingthemes/ssh-deploy@v1.0
+            env:
+              DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
+              ARGS: "-rltgoDzvO --delete"
+              SOURCE: "dist"
+              TARGET: ${{ secrets.SERVER_STAGING }}
 ```
 
 ## Disclaimer

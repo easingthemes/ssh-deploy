@@ -23,7 +23,7 @@ The target directory, in the format`[USER]@[HOST]:[PATH]`
 
 ```
 - name: Deploy to Staging server
-        uses: easingthemes/ssh-deploy@v1.0
+        uses: easingthemes/ssh-deploy@v1.0.0
         env:
           DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"
@@ -60,7 +60,7 @@ jobs:
       run: |
         npm run build --if-present
     - name: Deploy to Staging server
-            uses: easingthemes/ssh-deploy@v1.0
+            uses: easingthemes/ssh-deploy@v1.0.0
             env:
               DEPLOY_KEY: ${{ secrets.SERVER_SSH_KEY }}
               ARGS: "-rltgoDzvO --delete"

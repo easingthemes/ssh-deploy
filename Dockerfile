@@ -7,7 +7,7 @@ RUN apt-get update
 RUN apt-get -yq install rsync openssh-client
 
 # Label
-LABEL "com.github.actions.name"="ssh deployments"
+LABEL "com.github.actions.name"="ssh deploy"
 LABEL "com.github.actions.description"="For deploying code over ssh"
 LABEL "com.github.actions.icon"="truck"
 LABEL "com.github.actions.color"="green"

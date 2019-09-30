@@ -1,11 +1,5 @@
 FROM debian:9.5-slim
 
-# Update
-RUN apt-get update
-
-# Install packages
-RUN apt-get -yq install rsync openssh-client
-
 # Label
 LABEL "com.github.actions.name"="ssh deploy"
 LABEL "com.github.actions.description"="For deploying code over ssh"

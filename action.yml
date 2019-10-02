@@ -20,7 +20,7 @@ outputs:
   status:
     description: 'Status'
 runs:
-  using: 'node10'
+  using: 'node12'
   main: 'dist/index.js'
 branding:
   color: 'green'

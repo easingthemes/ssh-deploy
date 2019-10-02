@@ -1,5 +1,6 @@
 name: 'ssh deploy'
 description: 'NodeJS action for FAST deployment with rsync/ssh'
+author: 'easingthemes'
 inputs:
   SSH_PRIVATE_KEY:  # Private Key
     description: 'Private Key'

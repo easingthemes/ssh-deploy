@@ -1,0 +1,32 @@
+{
+  "name": "ssh-deploy",
+  "version": "2.0.0",
+  "description": "This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh.",
+  "main": "src/index.js",
+  "dependencies": {
+    "command-exists": "1.2.8",
+    "node-cmd": "3.0.0",
+    "rsyncwrapper": "3.0.1"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.20.5"
+  },
+  "scripts": {
+    "build": "ncc build ./src/index.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easingthemes/ssh-deploy.git"
+  },
+  "keywords": [
+    "deploy",
+    "ssh",
+    "rsync"
+  ],
+  "author": "Dragan Filipovic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easingthemes/ssh-deploy/issues"
+  },
+  "homepage": "https://github.com/easingthemes/ssh-deploy#readme"
+}

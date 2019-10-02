@@ -1,0 +1,27 @@
+name: 'ssh deploy'
+description: 'For deploying code over ssh'
+inputs:
+  SSH_PRIVATE_KEY:  # Private Key
+    description: 'Private Key'
+    required: true
+  REMOTE_HOST:
+    description: 'Remote host'
+    required: true
+  REMOTE_USER:
+    description: 'Remote user'
+    required: true
+  SOURCE:
+    description: 'Source directory'
+    default: ''
+  TARGET:
+    description: 'Target directory'
+    default: '/home/REMOTE_USER/'
+outputs:
+  status:
+    description: 'Status'
+runs:
+  using: 'node10'
+  main: 'dist/index.js'
+branding:
+  color: 'green'
+  icon: 'truck'

@@ -1,5 +1,9 @@
 # ssh deployments
 
+Deploy code with rsync over ssh, using NodeJS.
+
+NodeJS version is more than a minute `faster` than simple Docker version.
+
 This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh, using NodeJS. 
 
 This action would usually follow a build/test action which leaves deployable code in `GITHUB_WORKSPACE`, eg `dist`;
@@ -9,27 +13,37 @@ This action would usually follow a build/test action which leaves deployable cod
 Pass configuration with `env` vars
 
 1. `SSH_PRIVATE_KEY` [required]
+
 This should be the private key part of an ssh key pair. The public key part should be added to the authorized_keys file on the server that receives the deployment.
 
 2. `REMOTE_HOST`  [required]
+
+eg: mydomain.com
+
 3. `REMOTE_USER`  [required]
 
-2. `ARGS` (optional)
+eg: myusername
+
+2. `ARGS` (optional, default '-rltgoDzvO')
+
 For any initial/required rsync flags, eg: `-avzr --delete`
 
 3. `SOURCE` (optional, default '')
+
 The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
 
 4. `TARGET` (optional, default '/home/REMOTE_USER/')
+
 The target directory
 
+# Usage
 
 ```
   - name: Deploy to Staging server
     uses: easingthemes/ssh-deploy@v2.0.2
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-      ARGS: "-rltgoDzvO --delete"
+      ARGS: "-rltgoDzvO"
       SOURCE: "dist/"
       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
       REMOTE_USER: ${{ secrets.REMOTE_USER }}

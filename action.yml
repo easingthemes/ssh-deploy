@@ -1,28 +1,31 @@
-name: 'ssh deploy'
-description: 'NodeJS action for FAST deployment with rsync/ssh'
-author: 'easingthemes'
+name: "ssh deploy"
+description: "NodeJS action for FAST deployment with rsync/ssh"
+author: "easingthemes"
 inputs:
-  SSH_PRIVATE_KEY:  # Private Key
-    description: 'Private Key'
+  SSH_PRIVATE_KEY: # Private Key
+    description: "Private Key"
     required: true
   REMOTE_HOST:
-    description: 'Remote host'
+    description: "Remote host"
     required: true
   REMOTE_USER:
-    description: 'Remote user'
+    description: "Remote user"
     required: true
+  REMOTE_PORT:
+    description: "Remote port"
+    default: "22"
   SOURCE:
-    description: 'Source directory'
-    default: ''
+    description: "Source directory"
+    default: ""
   TARGET:
-    description: 'Target directory'
-    default: '/home/REMOTE_USER/'
+    description: "Target directory"
+    default: "/home/REMOTE_USER/"
 outputs:
   status:
-    description: 'Status'
+    description: "Status"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
 branding:
-  color: 'green'
-  icon: 'truck'
+  color: "green"
+  icon: "truck"

@@ -4,7 +4,7 @@ Deploy code with rsync over ssh, using NodeJS.
 
 NodeJS version is more than a minute `faster` than simple Docker version.
 
-This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh, using NodeJS. 
+This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh, using NodeJS.
 
 This action would usually follow a build/test action which leaves deployable code in `GITHUB_WORKSPACE`, eg `dist`;
 
@@ -16,13 +16,17 @@ Pass configuration with `env` vars
 
 This should be the private key part of an ssh key pair. The public key part should be added to the authorized_keys file on the server that receives the deployment.
 
-2. `REMOTE_HOST`  [required]
+2. `REMOTE_HOST` [required]
 
 eg: mydomain.com
 
-3. `REMOTE_USER`  [required]
+3. `REMOTE_USER` [required]
 
 eg: myusername
+
+3. `REMOTE_PORT` (optional, default '22')
+
+eg: '59184'
 
 2. `ARGS` (optional, default '-rltgoDzvO')
 
@@ -85,6 +89,6 @@ jobs:
 
 ## Disclaimer
 
-If you're using GitHub Actions, you'll probably already know that it's still in limited public beta, and GitHub advise against using Actions in production. 
+If you're using GitHub Actions, you'll probably already know that it's still in limited public beta, and GitHub advise against using Actions in production.
 
 So, check your keys. Check your deployment paths. And use at your own risk.

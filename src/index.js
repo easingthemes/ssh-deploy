@@ -5,16 +5,16 @@ const commandExists = require('command-exists');
 const nodeCmd = require('node-cmd');
 const nodeRsync = require('rsyncwrapper');
 
-const { REMOTE_HOST, REMOTE_USER, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
+const { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
 console.log('GITHUB_WORKSPACE', GITHUB_WORKSPACE);
 
 const sshDeploy = (() => {
-    const rsync = ({ privateKey, src, dest, args }) => {
+    const rsync = ({ privateKey, port, src, dest, args }) => {
         console.log(`Starting Rsync Action: ${src} to ${dest}`);
 
         try {
             // RSYNC COMMAND
-            nodeRsync({ src, dest, args, privateKey, ssh: true, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
+            nodeRsync({ src, dest, args, privateKey, ssh: true, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
                 if (error) {
                     console.error('⚠️ Rsync error', error.message);
                     process.abort();
@@ -34,14 +34,15 @@ const sshDeploy = (() => {
                       args,
                       host = 'localhost',
                       username,
-                      privateKeyContent
+                      privateKeyContent,
+                      port
                   }) => {
         validateRsync(() => {
             const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME ||'deploy_key');
 
             const remoteDest = username + '@' + host + ':' + dest;
 
-            rsync({ privateKey, src, dest: remoteDest, args });
+            rsync({ privateKey, port, src, dest: remoteDest, args });
         });
     };
 
@@ -141,6 +142,7 @@ const run = () => {
         dest: TARGET || '/home/' + REMOTE_USER + '/',
         args: [ARGS] || ['-rltgoDzvO'],
         host: REMOTE_HOST,
+        port: REMOTE_PORT || '22',
         username: REMOTE_USER,
         privateKeyContent: SSH_PRIVATE_KEY,
     });

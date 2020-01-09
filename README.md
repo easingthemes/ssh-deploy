@@ -44,7 +44,7 @@ The target directory
 
 ```
   - name: Deploy to Staging server
-    uses: easingthemes/ssh-deploy@v2.0.2
+    uses: easingthemes/ssh-deploy@v2.0.7
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
       ARGS: "-rltgoDzvO"
@@ -77,7 +77,7 @@ jobs:
     - name: Run build task
       run: npm run build --if-present
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.0.2
+      uses: easingthemes/ssh-deploy@v2.0.7
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"

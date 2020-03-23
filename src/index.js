@@ -140,7 +140,7 @@ const run = () => {
     sshDeploy.init({
         src: GITHUB_WORKSPACE + '/' + SOURCE || '',
         dest: TARGET || '/home/' + REMOTE_USER + '/',
-        args: [ARGS] || ['-rltgoDzvO'],
+        args: ARGS ? [ARGS] : ['-rltgoDzvO'],
         host: REMOTE_HOST,
         port: REMOTE_PORT || '22',
         username: REMOTE_USER,

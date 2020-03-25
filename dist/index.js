@@ -489,7 +489,7 @@ const sshDeploy = (() => {
 
         try {
             // RSYNC COMMAND
-            nodeRsync({ src, dest, args, privateKey, ssh: true, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
+            nodeRsync({ src, dest, args, privateKey, ssh: false, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
                 if (error) {
                     console.error('⚠️ Rsync error', error.message);
                     process.abort();
@@ -615,7 +615,7 @@ const run = () => {
     sshDeploy.init({
         src: GITHUB_WORKSPACE + '/' + SOURCE || '',
         dest: TARGET || '/home/' + REMOTE_USER + '/',
-        args: [ARGS] || false,
+        args: ARGS ? [ARGS] : ['-rltgoDzvO'],
         host: REMOTE_HOST,
         port: REMOTE_PORT || '22',
         username: REMOTE_USER,

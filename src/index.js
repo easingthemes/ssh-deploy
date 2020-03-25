@@ -121,9 +121,10 @@ const sshDeploy = (() => {
 })();
 
 const validateInputs = (inputs) => {
-    const validInputs = inputs.filter(input => {
+    const validInputs = Object.keys(inputs).filter((key) => {
+        const input = inputs[key];
         if (!input) {
-            console.error(`⚠️ ${input} is mandatory`);
+            console.error(`⚠️ ${key} is mandatory`);
         }
 
         return input;
@@ -135,7 +136,7 @@ const validateInputs = (inputs) => {
 };
 
 const run = () => {
-    validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+    validateInputs({SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER});
 
     sshDeploy.init({
         src: GITHUB_WORKSPACE + '/' + SOURCE || '',

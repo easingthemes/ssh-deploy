@@ -481,7 +481,6 @@ const nodeCmd = __webpack_require__(428);
 const nodeRsync = __webpack_require__(250);
 
 const { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
-console.log('GITHUB_WORKSPACE', GITHUB_WORKSPACE);
 
 const sshDeploy = (() => {
     const rsync = ({ privateKey, port, src, dest, args }) => {
@@ -504,14 +503,14 @@ const sshDeploy = (() => {
     };
 
     const init = ({
-                      src,
-                      dest,
-                      args,
-                      host = 'localhost',
-                      username,
-                      privateKeyContent,
-                      port
-                  }) => {
+        src,
+        dest,
+        args,
+        host = 'localhost',
+        username,
+        privateKeyContent,
+        port
+    }) => {
         validateRsync(() => {
             const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME ||'deploy_key');
 
@@ -605,7 +604,7 @@ const validateInputs = (inputs) => {
         return input;
     });
 
-    if (validInputs.length !== inputs.length) {
+    if (validInputs.length !== Object.keys(inputs).length) {
         process.abort();
     }
 };

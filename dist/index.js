@@ -480,7 +480,9 @@ const commandExists = __webpack_require__(677);
 const nodeCmd = __webpack_require__(428);
 const nodeRsync = __webpack_require__(250);
 
-const { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
+const vars = { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
+
+console.log(vars);
 
 const sshDeploy = (() => {
     const rsync = ({ privateKey, port, src, dest, args }) => {

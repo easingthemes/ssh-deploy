@@ -480,26 +480,28 @@ const commandExists = __webpack_require__(677);
 const nodeCmd = __webpack_require__(428);
 const nodeRsync = __webpack_require__(250);
 
-const vars = { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
-
-console.log(vars);
+const { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
 
 const sshDeploy = (() => {
     const rsync = ({ privateKey, port, src, dest, args }) => {
         console.log(`Starting Rsync Action: ${src} to ${dest}`);
 
+        console.log(privateKey, port, src, dest, args);
+
         try {
             // RSYNC COMMAND
             nodeRsync({ src, dest, args, privateKey, ssh: false, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
                 if (error) {
-                    console.error('⚠️ Rsync error', error.message);
+                    console.error('⚠️ Rsync error', error);
+                    console.log(stderr);
+                    console.log(stdout);
                     process.abort();
                 } else {
                     console.log("✅ Rsync finished.", stdout);
                 }
             });
         } catch (err) {
-            console.error(`⚠️ An error happened:(.`, err.message, err.stack);
+            console.error(`⚠️ An error happened:(.`, err);
             process.abort();
         }
     };

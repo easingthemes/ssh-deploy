@@ -2,7 +2,7 @@ const { sync: commandExists } = require('command-exists');
 const { get: nodeCmd } = require('node-cmd');
 
 const validateRsync = (callback = () => {}) => {
-  const rsyncCli = commandExists.sync('rsync');
+  const rsyncCli = commandExists('rsync');
 
   if (!rsyncCli) {
     nodeCmd(

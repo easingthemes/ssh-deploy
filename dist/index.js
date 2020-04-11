@@ -51,6 +51,51 @@ module.exports = require("child_process");
 
 /***/ }),
 
+/***/ 197:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { existsSync, mkdirSync, writeFileSync } = __webpack_require__(747);
+
+const {
+  GITHUB_WORKSPACE
+} = process.env;
+
+const validateDir = (dir) => {
+  if (!existsSync(dir)) {
+    console.log(`[SSH] Creating ${dir} dir in `, GITHUB_WORKSPACE);
+    mkdirSync(dir);
+    console.log('✅ [SSH] dir created.');
+  } else {
+    console.log(`[SSH] ${dir} dir exist`);
+  }
+};
+
+const validateFile = (filePath) => {
+  if (!existsSync(filePath)) {
+    console.log(`[SSH] Creating ${filePath} file in `, GITHUB_WORKSPACE);
+    try {
+      writeFileSync(filePath, '', {
+        encoding: 'utf8',
+        mode: 0o600
+      });
+      console.log('✅ [SSH] file created.');
+    } catch (e) {
+      console.error('⚠️ [SSH] writeFileSync error', filePath, e.message);
+      process.abort();
+    }
+  } else {
+    console.log(`[SSH] ${filePath} file exist`);
+  }
+};
+
+module.exports = {
+  validateDir,
+  validateFile
+};
+
+
+/***/ }),
+
 /***/ 243:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -457,6 +502,50 @@ module.exports=commandline;
 
 /***/ }),
 
+/***/ 613:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { writeFileSync } = __webpack_require__(747);
+const { join } = __webpack_require__(622);
+
+const {
+  validateDir,
+  validateFile
+} = __webpack_require__(197);
+
+const {
+  HOME
+} = process.env;
+
+const addSshKey = (key, name) => {
+  const sshDir = join(HOME || __dirname, '.ssh');
+  const filePath = join(sshDir, name);
+
+  validateDir(sshDir);
+  validateFile(`${sshDir}/known_hosts`);
+
+  try {
+    writeFileSync(filePath, key, {
+      encoding: 'utf8',
+      mode: 0o600
+    });
+  } catch (e) {
+    console.error('⚠️ writeFileSync error', filePath, e.message);
+    process.abort();
+  }
+
+  console.log('✅ Ssh key added to `.ssh` dir ', filePath);
+
+  return filePath;
+};
+
+module.exports = {
+  addSshKey
+}
+
+
+/***/ }),
+
 /***/ 622:
 /***/ (function(module) {
 
@@ -474,158 +563,80 @@ module.exports = require("util");
 /***/ 676:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const fs = __webpack_require__(747);
-const path = __webpack_require__(622);
-const commandExists = __webpack_require__(677);
-const nodeCmd = __webpack_require__(428);
 const nodeRsync = __webpack_require__(250);
 
-const { REMOTE_HOST, REMOTE_USER, REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME, SOURCE, TARGET, ARGS, GITHUB_WORKSPACE, HOME } = process.env;
-console.log('GITHUB_WORKSPACE', GITHUB_WORKSPACE);
+const { validateRsync, validateInputs } = __webpack_require__(735);
+const { addSshKey } = __webpack_require__(613);
 
-const sshDeploy = (() => {
-    const rsync = ({ privateKey, port, src, dest, args }) => {
-        console.log(`Starting Rsync Action: ${src} to ${dest}`);
+const {
+  REMOTE_HOST, REMOTE_USER,
+  REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
+  SOURCE, TARGET, ARGS,
+  GITHUB_WORKSPACE
+} = process.env;
 
-        try {
-            // RSYNC COMMAND
-            nodeRsync({ src, dest, args, privateKey, ssh: true, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
-                if (error) {
-                    console.error('⚠️ Rsync error', error.message);
-                    process.abort();
-                } else {
-                    console.log("✅ Rsync finished.", stdout);
-                }
-            });
-        } catch (err) {
-            console.error(`⚠️ An error happened:(.`, err.message, err.stack);
-            process.abort();
-        }
-    };
-
-    const init = ({
-                      src,
-                      dest,
-                      args,
-                      host = 'localhost',
-                      username,
-                      privateKeyContent,
-                      port
-                  }) => {
-        validateRsync(() => {
-            const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME ||'deploy_key');
-
-            const remoteDest = username + '@' + host + ':' + dest;
-
-            rsync({ privateKey, port, src, dest: remoteDest, args });
-        });
-    };
-
-    const validateDir = (dir) => {
-        if (!fs.existsSync(dir)){
-            console.log(`Creating ${dir} dir in `, GITHUB_WORKSPACE);
-            fs.mkdirSync(dir);
-        } else {
-            console.log(`${dir} dir exist`);
-        }
-    };
-
-    const validateFile = (filePath) => {
-        if (!fs.existsSync(filePath)){
-            console.log(`Creating ${filePath} file in `, GITHUB_WORKSPACE);
-            try {
-                fs.writeFileSync(filePath, '', {
-                    encoding: 'utf8',
-                    mode: 0o600
-                });
-            } catch (e) {
-                console.error('⚠️ writeFileSync error', filePath, e.message);
-                process.abort();
-            }
-        } else {
-            console.log(`${filePath} file exist`);
-        }
-    };
-
-    const addSshKey = (key, name) => {
-        const sshDir = path.join(HOME || __dirname, '.ssh');
-        const filePath = path.join(sshDir, name);
-
-        validateDir(sshDir);
-        validateFile(sshDir + '/known_hosts');
-
-        try {
-            fs.writeFileSync(filePath, key, {
-                encoding: 'utf8',
-                mode: 0o600
-            });
-        } catch (e) {
-            console.error('⚠️ writeFileSync error', filePath, e.message);
-            process.abort();
-        }
-
-        console.log('✅ Ssh key added to `.ssh` dir ', filePath);
-
-        return filePath;
-    };
-
-    const validateRsync = (callback = () => {}) => {
-        const rsyncCli = commandExists.sync('rsync');
-
-        if (!rsyncCli) {
-            nodeCmd.get(
-                'sudo apt-get --no-install-recommends install rsync',
-                function(err, data, stderr){
-                    if (err) {
-                        console.log('⚠️ Rsync installation failed ', err.message);
-                        process.abort();
-                    } else {
-                        console.log('✅ Rsync installed. \n', data, stderr);
-                        callback();
-                    }
-                }
-            );
-        } else {
-            callback();
-        }
-    };
-
-    return {
-        init
-    }
-})();
-
-const validateInputs = (inputs) => {
-    const validInputs = inputs.filter(input => {
-        if (!input) {
-            console.error(`⚠️ ${input} is mandatory`);
-        }
-
-        return input;
-    });
-
-    if (validInputs.length !== inputs.length) {
-        process.abort();
-    }
+const defaultOptions = {
+  ssh: true,
+  sshCmdArgs: ['-o StrictHostKeyChecking=no'],
+  recursive: true
 };
 
-const run = () => {
-    validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+console.log('[general] GITHUB_WORKSPACE: ', GITHUB_WORKSPACE);
 
-    sshDeploy.init({
-        src: GITHUB_WORKSPACE + '/' + SOURCE || '',
-        dest: TARGET || '/home/' + REMOTE_USER + '/',
-        args: [ARGS] || false,
-        host: REMOTE_HOST,
-        port: REMOTE_PORT || '22',
-        username: REMOTE_USER,
-        privateKeyContent: SSH_PRIVATE_KEY,
+const sshDeploy = (() => {
+  const rsync = ({ privateKey, port, src, dest, args }) => {
+    console.log(`[Rsync] Starting Rsync Action: ${src} to ${dest}`);
+
+    try {
+      // RSYNC COMMAND
+      nodeRsync({
+        src, dest, args, privateKey, port, ...defaultOptions
+      }, (error, stdout, stderr, cmd) => {
+        if (error) {
+          console.error('⚠️ [Rsync] error: ', error.message);
+          console.log('⚠️ [Rsync] stderr: ', stderr);
+          console.log('⚠️ [Rsync] stdout: ', stdout);
+          console.log('⚠️ [Rsync] cmd: ', cmd);
+          process.abort();
+        } else {
+          console.log('✅ [Rsync] finished.', stdout);
+        }
+      });
+    } catch (err) {
+      console.error('⚠️ [Rsync] command error: ', err.message, err.stack);
+      process.abort();
+    }
+  };
+
+  const init = ({ src, dest, args, host = 'localhost', port, username, privateKeyContent }) => {
+    validateRsync(() => {
+      const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME || 'deploy_key');
+      const remoteDest = `${username}@${host}:${dest}`;
+
+      rsync({ privateKey, port, src, dest: remoteDest, args });
     });
+  };
+
+  return {
+    init
+  };
+})();
+
+const run = () => {
+  validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+
+  sshDeploy.init({
+    src: `${GITHUB_WORKSPACE}/${SOURCE}` || '',
+    dest: TARGET || `/home/${REMOTE_USER}/`,
+    args: ARGS ? [ARGS] : ['-rltgoDzvO'],
+    host: REMOTE_HOST,
+    port: REMOTE_PORT || '22',
+    username: REMOTE_USER,
+    privateKeyContent: SSH_PRIVATE_KEY
+  });
 };
 
 run();
-
-
 
 
 /***/ }),
@@ -634,6 +645,55 @@ run();
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 module.exports = __webpack_require__(243);
+
+
+/***/ }),
+
+/***/ 735:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { sync: commandExists } = __webpack_require__(677);
+const { get: nodeCmd } = __webpack_require__(428);
+
+const validateRsync = (callback = () => {}) => {
+  const rsyncCli = commandExists.sync('rsync');
+
+  if (!rsyncCli) {
+    nodeCmd(
+      'sudo apt-get --no-install-recommends install rsync',
+      (err, data, stderr) => {
+        if (err) {
+          console.log('⚠️ [CLI] Rsync installation failed ', err.message);
+          process.abort();
+        } else {
+          console.log('✅ [CLI] Rsync installed. \n', data, stderr);
+          callback();
+        }
+      }
+    );
+  } else {
+    callback();
+  }
+};
+
+const validateInputs = (inputs) => {
+  const validInputs = inputs.filter((input) => {
+    if (!input) {
+      console.error(`⚠️ ${input} is mandatory`);
+    }
+
+    return input;
+  });
+
+  if (validInputs.length !== inputs.length) {
+    process.abort();
+  }
+};
+
+module.exports = {
+  validateRsync,
+  validateInputs
+}
 
 
 /***/ }),

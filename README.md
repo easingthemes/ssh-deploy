@@ -15,7 +15,8 @@ Pass configuration with `env` vars
 1. `SSH_PRIVATE_KEY` [required]
 
 This should be the private key part of an ssh key pair.
-The public key part should be added to the authorized_keys file on the server that receives the deployment.
+The public key part should be added to the `authorized_keys` file on the server that receives the deployment.
+
 The keys should be generated using the PEM format. You can us this command
 
 ```
@@ -83,7 +84,7 @@ jobs:
     - name: Run build task
       run: npm run build --if-present
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.0.7
+      uses: easingthemes/ssh-deploy@2.1.1
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"

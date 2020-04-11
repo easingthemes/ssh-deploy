@@ -84,7 +84,7 @@ jobs:
     - name: Run build task
       run: npm run build --if-present
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@2.1.1
+      uses: easingthemes/ssh-deploy@v2.1.1
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"

@@ -656,7 +656,7 @@ const { sync: commandExists } = __webpack_require__(677);
 const { get: nodeCmd } = __webpack_require__(428);
 
 const validateRsync = (callback = () => {}) => {
-  const rsyncCli = commandExists.sync('rsync');
+  const rsyncCli = commandExists('rsync');
 
   if (!rsyncCli) {
     nodeCmd(

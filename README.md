@@ -89,6 +89,4 @@ jobs:
 
 ## Disclaimer
 
-If you're using GitHub Actions, you'll probably already know that it's still in limited public beta, and GitHub advise against using Actions in production.
-
-So, check your keys. Check your deployment paths. And use at your own risk.
+Check your keys. Check your deployment paths. And use at your own risk.

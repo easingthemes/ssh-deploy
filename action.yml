@@ -13,12 +13,15 @@ inputs:
     required: true
   REMOTE_PORT:
     description: "Remote port"
+    required: false
     default: "22"
   SOURCE:
     description: "Source directory"
+    required: false
     default: ""
   TARGET:
     description: "Target directory"
+    required: false
     default: "/home/REMOTE_USER/"
 outputs:
   status:

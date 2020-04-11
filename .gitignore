@@ -17,3 +17,5 @@ node_modules/
 .env
 .env.test
 
+# jetbrains
+.idea

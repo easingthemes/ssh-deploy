@@ -17,6 +17,9 @@ const sshDeploy = (() => {
             nodeRsync({ src, dest, args, privateKey, ssh: true, port, sshCmdArgs: ['-o StrictHostKeyChecking=no'], recursive: true }, (error, stdout, stderr, cmd) => {
                 if (error) {
                     console.error('⚠️ Rsync error', error.message);
+                    console.log('stderr: ', stderr);
+                    console.log('stdout: ', stdout);
+                    console.log('cmd: ', cmd);
                     process.abort();
                 } else {
                     console.log("✅ Rsync finished.", stdout);
@@ -29,14 +32,14 @@ const sshDeploy = (() => {
     };
 
     const init = ({
-                      src,
-                      dest,
-                      args,
-                      host = 'localhost',
-                      username,
-                      privateKeyContent,
-                      port
-                  }) => {
+        src,
+        dest,
+        args,
+        host = 'localhost',
+        username,
+        privateKeyContent,
+        port
+    }) => {
         validateRsync(() => {
             const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME ||'deploy_key');
 
@@ -121,21 +124,22 @@ const sshDeploy = (() => {
 })();
 
 const validateInputs = (inputs) => {
-    const validInputs = inputs.filter(input => {
+    const validInputs = Object.keys(inputs).filter((key) => {
+        const input = inputs[key];
         if (!input) {
-            console.error(`⚠️ ${input} is mandatory`);
+            console.error(`⚠️ ${key} is mandatory`);
         }
 
         return input;
     });
 
-    if (validInputs.length !== inputs.length) {
+    if (validInputs.length !== Object.keys(inputs).length) {
         process.abort();
     }
 };
 
 const run = () => {
-    validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+    validateInputs({SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER});
 
     sshDeploy.init({
         src: GITHUB_WORKSPACE + '/' + SOURCE || '',

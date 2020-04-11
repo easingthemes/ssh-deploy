@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "npm run lint && ncc build ./src/index.js -o dist",
-    "lint": "eslint ./src/index.js"
+    "lint": "eslint ./src/index.js",
+    "lint:fix": "eslint ./src/index.js --fix"
   },
   "repository": {
     "type": "git",

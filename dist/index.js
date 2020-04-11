@@ -623,7 +623,7 @@ const sshDeploy = (() => {
 })();
 
 const run = () => {
-  validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+  validateInputs({ SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER });
 
   sshDeploy.init({
     src: `${GITHUB_WORKSPACE}/${SOURCE}` || '',
@@ -663,7 +663,7 @@ const validateRsync = (callback = () => {}) => {
       'sudo apt-get --no-install-recommends install rsync',
       (err, data, stderr) => {
         if (err) {
-          console.log('⚠️ [CLI] Rsync installation failed ', err.message);
+          console.log('⚠️ [CLI] Rsync installation failed. Aborting ... ', err.message);
           process.abort();
         } else {
           console.log('✅ [CLI] Rsync installed. \n', data, stderr);
@@ -677,15 +677,19 @@ const validateRsync = (callback = () => {}) => {
 };
 
 const validateInputs = (inputs) => {
-  const validInputs = inputs.filter((input) => {
-    if (!input) {
-      console.error(`⚠️ ${input} is mandatory`);
+  const inputKeys = Object.keys(inputs);
+  const validInputs = inputKeys.filter((inputKey) => {
+    const inputValue = inputs[inputKey];
+
+    if (!inputValue) {
+      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
     }
 
-    return input;
+    return inputValue;
   });
 
-  if (validInputs.length !== inputs.length) {
+  if (validInputs.length !== inputKeys.length) {
+    console.error(`⚠️ [INPUTS] Inputs not valid, aborting ...`);
     process.abort();
   }
 };

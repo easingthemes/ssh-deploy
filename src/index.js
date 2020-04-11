@@ -59,7 +59,7 @@ const sshDeploy = (() => {
 })();
 
 const run = () => {
-  validateInputs([SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER]);
+  validateInputs({ SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER });
 
   sshDeploy.init({
     src: `${GITHUB_WORKSPACE}/${SOURCE}` || '',

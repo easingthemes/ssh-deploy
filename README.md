@@ -17,7 +17,7 @@ Pass configuration with `env` vars
 This should be the private key part of an ssh key pair. 
 The public key part should be added to the authorized_keys file on the server that receives the deployment.
 
-The keys should be generated using the PEM format. You can us this command
+The keys should be generated using the PEM format. You can use this command
 `ssh-keygen -m PEM -t rsa -b 4096`
 
 2. `REMOTE_HOST` [required]

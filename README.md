@@ -12,10 +12,12 @@ This action would usually follow a build/test action which leaves deployable cod
 
 Pass configuration with `env` vars
 
-1. `SSH_PRIVATE_KEY` [required]
+##### 1. `SSH_PRIVATE_KEY` [required]
 
-This should be the private key part of an ssh key pair.
+Private key part of an SSH key pair.
 The public key part should be added to the `authorized_keys` file on the server that receives the deployment.
+
+More info for SSH keys: https://www.ssh.com/ssh/public-key-authentication
 
 The keys should be generated using the PEM format. You can use this command
 
@@ -23,27 +25,27 @@ The keys should be generated using the PEM format. You can use this command
 ssh-keygen -m PEM -t rsa -b 4096
 ```
 
-2. `REMOTE_HOST` [required]
+##### 2. `REMOTE_HOST` [required]
 
 eg: mydomain.com
 
-3. `REMOTE_USER` [required]
+##### 3. `REMOTE_USER` [required]
 
 eg: myusername
 
-3. `REMOTE_PORT` (optional, default '22')
+##### 4. `REMOTE_PORT` (optional, default '22')
 
 eg: '59184'
 
-2. `ARGS` (optional, default '-rltgoDzvO')
+##### 5. `ARGS` (optional, default '-rltgoDzvO')
 
 For any initial/required rsync flags, eg: `-avzr --delete`
 
-3. `SOURCE` (optional, default '')
+##### 6. `SOURCE` (optional, default '')
 
 The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
 
-4. `TARGET` (optional, default '/home/REMOTE_USER/')
+##### 7. `TARGET` (optional, default '/home/REMOTE_USER/')
 
 The target directory
 

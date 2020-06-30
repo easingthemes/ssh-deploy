@@ -553,6 +553,24 @@ module.exports = require("path");
 
 /***/ }),
 
+/***/ 659:
+/***/ (function(module) {
+
+const inputNames = ['REMOTE_HOST', 'REMOTE_USER', 'REMOTE_PORT', 'SSH_PRIVATE_KEY', 'DEPLOY_KEY_NAME', 'SOURCE', 'TARGET', 'ARGS'];
+
+const inputs = {
+  GITHUB_WORKSPACE: process.env.GITHUB_WORKSPACE
+};
+// Get inputs from ENV or WITH workflow settings
+inputNames.forEach((input) => {
+  inputs[input] = process.env[input] || process.env[`INPUT_${input}`];
+});
+
+module.exports = inputs;
+
+
+/***/ }),
+
 /***/ 669:
 /***/ (function(module) {
 
@@ -573,7 +591,7 @@ const {
   REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
   SOURCE, TARGET, ARGS,
   GITHUB_WORKSPACE
-} = process.env;
+} = __webpack_require__(659);
 
 const defaultOptions = {
   ssh: true,
@@ -626,7 +644,7 @@ const run = () => {
   validateInputs({ SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER });
 
   sshDeploy.init({
-    src: `${GITHUB_WORKSPACE}/${SOURCE}` || '',
+    src: `${GITHUB_WORKSPACE}/${SOURCE || ''}`,
     dest: TARGET || `/home/${REMOTE_USER}/`,
     args: ARGS ? [ARGS] : ['-rltgoDzvO'],
     host: REMOTE_HOST,

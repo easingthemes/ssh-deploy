@@ -23,6 +23,10 @@ inputs:
     description: "Target directory"
     required: false
     default: "/home/REMOTE_USER/"
+  ARGS:
+    description: "Arguments to pass to rsync"
+    required: false
+    default: "-rltgoDzvO"
 outputs:
   status:
     description: "Status"

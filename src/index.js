@@ -9,7 +9,7 @@ const {
   REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
   SOURCE, TARGET, ARGS,
   GITHUB_WORKSPACE
-} = process.env;
+} = require('./inputs');
 
 const defaultOptions = {
   ssh: true,
@@ -62,7 +62,7 @@ const run = () => {
   validateInputs({ SSH_PRIVATE_KEY, REMOTE_HOST, REMOTE_USER });
 
   sshDeploy.init({
-    src: `${GITHUB_WORKSPACE}/${SOURCE}` || '',
+    src: `${GITHUB_WORKSPACE}/${SOURCE || ''}`,
     dest: TARGET || `/home/${REMOTE_USER}/`,
     args: ARGS ? [ARGS] : ['-rltgoDzvO'],
     host: REMOTE_HOST,

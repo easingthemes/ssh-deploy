@@ -707,7 +707,7 @@ const validateInputs = (inputs) => {
   });
 
   if (validInputs.length !== inputKeys.length) {
-    console.error(`⚠️ [INPUTS] Inputs not valid, aborting ...`);
+    console.error('⚠️ [INPUTS] Inputs not valid, aborting ...');
     process.abort();
   }
 };
@@ -715,7 +715,7 @@ const validateInputs = (inputs) => {
 module.exports = {
   validateRsync,
   validateInputs
-}
+};
 
 
 /***/ }),

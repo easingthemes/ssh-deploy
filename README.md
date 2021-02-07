@@ -45,7 +45,7 @@ For any initial/required rsync flags, eg: `-avzr --delete`
 
 The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
 
-##### 7. `TARGET` (optional, default '/home/REMOTE_USER/')
+##### 7. `REMOTE_TARGET` (optional, default '/home/REMOTE_USER/')
 
 The target directory
 

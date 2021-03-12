@@ -27,6 +27,10 @@ inputs:
     description: "Arguments to pass to rsync"
     required: false
     default: "-rltgoDzvO"
+  EXCLUDE: 
+    description: "An array of folder to exclude"
+    required: false
+    default: ""
 outputs:
   status:
     description: "Status"

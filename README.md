@@ -49,6 +49,10 @@ The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
 
 The target directory
 
+##### 8. `EXCLUDE` (optional, default '')
+
+path to exclude separated by `,`, ie: `/dist/, /node_modules/`
+
 # Usage
 
 !!! Please use latest version, Readme file is just an example, eg: ssh-deploy@v2.1.5
@@ -63,6 +67,7 @@ The target directory
       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
       REMOTE_USER: ${{ secrets.REMOTE_USER }}
       TARGET: ${{ secrets.REMOTE_TARGET }}
+      EXCLUDE: "/dist/, /node_modules/"
 ```
 
 # Example usage in workflow
@@ -96,6 +101,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
+          EXCLUDE: "/dist/, /node_modules/"
 ```
 
 ## Disclaimer

@@ -609,7 +609,7 @@ const sshDeploy = (() => {
     try {
       // RSYNC COMMAND
       nodeRsync({
-        src, dest, args, privateKey, port, exclude, ...defaultOptions
+        src, dest, args, privateKey, port, excludeFirst: exclude, ...defaultOptions
       }, (error, stdout, stderr, cmd) => {
         if (error) {
           console.error('⚠️ [Rsync] error: ', error.message);

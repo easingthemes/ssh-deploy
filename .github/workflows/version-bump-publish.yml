@@ -1,4 +1,4 @@
-name: Manage version
+name: Release
 on:
   workflow_dispatch:
     inputs:
@@ -21,10 +21,10 @@ jobs:
           npm install
           npm run lint
           npm run build
-      - name: Setup version and git tag
+      - name: Setup version
         if: ${{ github.event.inputs.tag != '' }}
         run: |
           npm version ${{ github.event.inputs.tag }}
-          git tag -a v${{ github.event.inputs.tag }} -m "v${{ github.event.inputs.tag }}"
-      - name: Push changes
-        run: git push
+          git push
+      - name: Add tag
+        run: git tag -a v${{ github.event.inputs.tag }} -m "v${{ github.event.inputs.tag }}"

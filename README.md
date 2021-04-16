@@ -55,11 +55,11 @@ path to exclude separated by `,`, ie: `/dist/, /node_modules/`
 
 # Usage
 
-!!! Please use latest version, Readme file is just an example, eg: ssh-deploy@v2.1.5
+!!! Please use latest version, Readme file is just an example, eg: ssh-deploy@v2.1.6
 
 ```
   - name: Deploy to Staging server
-    uses: easingthemes/ssh-deploy@v2.1.5
+    uses: easingthemes/ssh-deploy@v2.1.6
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
       ARGS: "-rltgoDzvO"
@@ -93,7 +93,7 @@ jobs:
     - name: Run build task
       run: npm run build --if-present
     - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@v2.1.5
+      uses: easingthemes/ssh-deploy@v2.1.6
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"

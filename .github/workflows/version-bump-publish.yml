@@ -22,6 +22,6 @@ jobs:
       - name: bump and pub
         if: ${{ github.event.inputs.tag != '' }}
         run: |
-          npm version ${{ github.event.inputs.level }}
+          npm version ${{ github.event.inputs.tag }}
           git push
-          git tag -a v${{ github.event.inputs.level }} -m "v${{ github.event.inputs.level }}"
+          git tag -a v${{ github.event.inputs.tag }} -m "v${{ github.event.inputs.tag }}"

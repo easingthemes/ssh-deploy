@@ -1,4 +1,4 @@
-name: Manage veresion
+name: Manage version
 on:
   workflow_dispatch:
     inputs:

@@ -1,0 +1,27 @@
+name: version-bump-publish
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '<newversion> | major | minor | patch'
+        required: true
+        default: 'patch'
+jobs:
+  checkout:
+    name: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: |
+          npm install
+          npm run lint
+          npm run build
+      - name: bump and pub
+        if: ${{ github.event.inputs.tag != '' }}
+        run: |
+          npm version ${{ github.event.inputs.level }}
+          git push
+          git tag -a v${{ github.event.inputs.level }} -m "v${{ github.event.inputs.level }}"

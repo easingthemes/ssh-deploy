@@ -24,7 +24,7 @@ jobs:
       - name: Setup version and git tag
         if: ${{ github.event.inputs.tag != '' }}
         run: |
-          npm version ${{ github.event.inputs.tag }
+          npm version ${{ github.event.inputs.tag }}
           git tag -a v${{ github.event.inputs.tag }} -m "v${{ github.event.inputs.tag }}"
       - name: Push changes
         run: git push

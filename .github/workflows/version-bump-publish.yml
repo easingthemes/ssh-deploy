@@ -1,0 +1,29 @@
+name: Manage version
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '<newversion> | major | minor | patch'
+        required: true
+        default: 'patch'
+jobs:
+  checkout:
+    name: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup NodeJS and run build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: |
+          npm install
+          npm run lint
+          npm run build
+      - name: Setup version and git tag
+        if: ${{ github.event.inputs.tag != '' }}
+        run: |
+          npm version ${{ github.event.inputs.tag }}
+          git push
+          git tag -a v${{ github.event.inputs.tag }} -m "v${{ github.event.inputs.tag }}"

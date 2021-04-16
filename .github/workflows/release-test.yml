@@ -1,0 +1,20 @@
+name: List tags
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '<newversion> | major | minor | patch'
+        required: true
+        default: 'patch'
+jobs:
+  checkout:
+    name: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: List tags
+        run: git tag -l

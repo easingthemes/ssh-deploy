@@ -1,3 +1,10 @@
+## [2.2.9](https://github.com/easingthemes/ssh-deploy/compare/v2.2.8...v2.2.9) (2021-05-27)
+
+
+### Bug Fixes
+
+* change npm to public ([191c82d](https://github.com/easingthemes/ssh-deploy/commit/191c82d9b441e26cf43f81041376dbf5ecdc1647))
+
 ## [2.2.8](https://github.com/easingthemes/ssh-deploy/compare/v2.2.7...v2.2.8) (2021-05-27)
 
 

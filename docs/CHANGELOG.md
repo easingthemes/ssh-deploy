@@ -1,3 +1,10 @@
+## [2.2.7](https://github.com/easingthemes/ssh-deploy/compare/v2.2.6...v2.2.7) (2021-05-27)
+
+
+### Bug Fixes
+
+* minify dist ([87551c3](https://github.com/easingthemes/ssh-deploy/commit/87551c38936fc91c0fbe3346ca43319d8098ac09))
+
 ## [2.2.6](https://github.com/easingthemes/ssh-deploy/compare/v2.2.5...v2.2.6) (2021-05-27)
 
 

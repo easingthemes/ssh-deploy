@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/easingthemes/ssh-deploy/compare/v2.2.0...v2.2.1) (2021-05-27)
+
+
+### Bug Fixes
+
+* add package json auto updates ([ce56d75](https://github.com/easingthemes/ssh-deploy/commit/ce56d75fc1b62a99d72ffba70dcb24fcc3b6b3df))
+
 # [2.2.0](https://github.com/easingthemes/ssh-deploy/compare/v2.1.7...v2.2.0) (2021-05-27)
 
 

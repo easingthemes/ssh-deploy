@@ -2,7 +2,7 @@
   "name": "ssh-deploy",
   "version": "2.1.9",
   "description": "Fast NodeJS action to deploy specific directory from `GITHUB_WORKSPACE` to a server via rsync over ssh.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "command-exists": "1.2.9",
     "node-cmd": "4.0.0",
@@ -15,7 +15,7 @@
     "eslint-plugin-import": "^2.23.3"
   },
   "scripts": {
-    "build": "npm run lint && ncc build ./src/index.js -o dist",
+    "build": "npm run lint && ncc build ./src/index.js -o dist -m",
     "lint": "eslint ./src/index.js",
     "lint:fix": "eslint ./src/index.js --fix"
   },

@@ -1,3 +1,10 @@
+## [2.2.8](https://github.com/easingthemes/ssh-deploy/compare/v2.2.7...v2.2.8) (2021-05-27)
+
+
+### Bug Fixes
+
+* update npm package name ([9c4e411](https://github.com/easingthemes/ssh-deploy/commit/9c4e4119ad64792e5435e4dbe574c56a3e70839c))
+
 ## [2.2.7](https://github.com/easingthemes/ssh-deploy/compare/v2.2.6...v2.2.7) (2021-05-27)
 
 

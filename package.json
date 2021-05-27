@@ -4,15 +4,15 @@
   "description": "This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh.",
   "main": "src/index.js",
   "dependencies": {
-    "command-exists": "1.2.8",
-    "node-cmd": "3.0.0",
+    "command-exists": "1.2.9",
+    "node-cmd": "4.0.0",
     "rsyncwrapper": "3.0.1"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.20.5",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2"
+    "@vercel/ncc": "^0.28.6",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.3"
   },
   "scripts": {
     "build": "npm run lint && ncc build ./src/index.js -o dist",

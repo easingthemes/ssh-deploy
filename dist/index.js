@@ -1,111 +1,25 @@
 #!/usr/bin/env node
-module.exports =
-/******/ (function(modules, runtime) { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	__webpack_require__.ab = __dirname + "/";
-/******/
-/******/ 	// the startup function
-/******/ 	function startup() {
-/******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(676);
-/******/ 	};
-/******/
-/******/ 	// run startup
-/******/ 	return startup();
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-/***/ 129:
-/***/ (function(module) {
+/***/ 569:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = require("child_process");
-
-/***/ }),
-
-/***/ 197:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const { existsSync, mkdirSync, writeFileSync } = __webpack_require__(747);
-
-const {
-  GITHUB_WORKSPACE
-} = process.env;
-
-const validateDir = (dir) => {
-  if (!existsSync(dir)) {
-    console.log(`[SSH] Creating ${dir} dir in `, GITHUB_WORKSPACE);
-    mkdirSync(dir);
-    console.log('✅ [SSH] dir created.');
-  } else {
-    console.log(`[SSH] ${dir} dir exist`);
-  }
-};
-
-const validateFile = (filePath) => {
-  if (!existsSync(filePath)) {
-    console.log(`[SSH] Creating ${filePath} file in `, GITHUB_WORKSPACE);
-    try {
-      writeFileSync(filePath, '', {
-        encoding: 'utf8',
-        mode: 0o600
-      });
-      console.log('✅ [SSH] file created.');
-    } catch (e) {
-      console.error('⚠️ [SSH] writeFileSync error', filePath, e.message);
-      process.abort();
-    }
-  } else {
-    console.log(`[SSH] ${filePath} file exist`);
-  }
-};
-
-module.exports = {
-  validateDir,
-  validateFile
-};
+module.exports = __nccwpck_require__(325);
 
 
 /***/ }),
 
-/***/ 243:
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ 325:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-var exec = __webpack_require__(129).exec;
-var execSync = __webpack_require__(129).execSync;
-var fs = __webpack_require__(747);
-var path = __webpack_require__(622);
+var exec = __nccwpck_require__(129).exec;
+var execSync = __nccwpck_require__(129).execSync;
+var fs = __nccwpck_require__(747);
+var path = __nccwpck_require__(622);
 var access = fs.access;
 var accessSync = fs.accessSync;
 var constants = fs.constants || fs;
@@ -164,7 +78,8 @@ var commandExistsUnix = function(commandName, cleanedCommandName, callback) {
 }
 
 var commandExistsWindows = function(commandName, cleanedCommandName, callback) {
-  if (/[\x00-\x1f<>:"\|\?\*]/.test(commandName)) {
+  // Regex from Julio from: https://stackoverflow.com/questions/51494579/regex-windows-path-validator
+  if (!(/^(?!(?:.*\s|.*\.|\W+)$)(?:[a-zA-Z]:)?(?:(?:[^<>:"\|\?\*\n])+(?:\/\/|\/|\\\\|\\)?)+$/m.test(commandName))) {
     callback(null, false);
     return;
   }
@@ -195,7 +110,8 @@ var commandExistsUnixSync = function(commandName, cleanedCommandName) {
 }
 
 var commandExistsWindowsSync = function(commandName, cleanedCommandName, callback) {
-  if (/[\x00-\x1f<>:"\|\?\*]/.test(commandName)) {
+  // Regex from Julio from: https://stackoverflow.com/questions/51494579/regex-windows-path-validator
+  if (!(/^(?!(?:.*\s|.*\.|\W+)$)(?:[a-zA-Z]:)?(?:(?:[^<>:"\|\?\*\n])+(?:\/\/|\/|\\\\|\\)?)+$/m.test(commandName))) {
     return false;
   }
   try {
@@ -259,14 +175,66 @@ module.exports.sync = function(commandName) {
 
 /***/ }),
 
-/***/ 250:
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ 748:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const { exec, execSync } = __nccwpck_require__(129); 
+
+const commandline={
+    run:runCommand,
+    runSync:runSync,
+    //will be deprecated soon as run is now the same.
+    get:runCommand,
+    
+};
+
+function runCommand(command,callback){
+    
+    return exec(
+        command,
+        (
+            function(){
+                return function(err,data,stderr){
+                    if(!callback)
+                        return;
+
+                    callback(err, data, stderr);
+                }
+            }
+        )(callback)
+    );
+}
+
+function runSync(command){
+    try {
+        return { 
+            data:   execSync(command).toString(), 
+            err:    null, 
+            stderr: null 
+        }
+    } 
+    catch (error) {
+        return { 
+            data:   null, 
+            err:    error.stderr.toString(), 
+            stderr: error.stderr.toString() 
+        }
+    }
+}
+
+module.exports=commandline;
+
+
+/***/ }),
+
+/***/ 898:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
 
 
-var spawn = __webpack_require__(129).spawn
-var util = __webpack_require__(669)
+var spawn = __nccwpck_require__(129).spawn
+var util = __nccwpck_require__(669)
 
 var escapeSpaces = function(path) {
   if (typeof path === 'string') {
@@ -463,55 +431,132 @@ module.exports = function(options, callback) {
 
 /***/ }),
 
-/***/ 428:
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ 505:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-var exec = __webpack_require__(129).exec;
+const { existsSync, mkdirSync, writeFileSync } = __nccwpck_require__(747);
 
-var commandline={
-    get:getString,
-    run:runCommand
+const {
+  GITHUB_WORKSPACE
+} = process.env;
+
+const validateDir = (dir) => {
+  if (!existsSync(dir)) {
+    console.log(`[SSH] Creating ${dir} dir in `, GITHUB_WORKSPACE);
+    mkdirSync(dir);
+    console.log('✅ [SSH] dir created.');
+  } else {
+    console.log(`[SSH] ${dir} dir exist`);
+  }
 };
 
-function runCommand(command){
-    //return refrence to the child process
-    return exec(
-        command
-    );
-}
+const validateFile = (filePath) => {
+  if (!existsSync(filePath)) {
+    console.log(`[SSH] Creating ${filePath} file in `, GITHUB_WORKSPACE);
+    try {
+      writeFileSync(filePath, '', {
+        encoding: 'utf8',
+        mode: 0o600
+      });
+      console.log('✅ [SSH] file created.');
+    } catch (e) {
+      console.error('⚠️ [SSH] writeFileSync error', filePath, e.message);
+      process.abort();
+    }
+  } else {
+    console.log(`[SSH] ${filePath} file exist`);
+  }
+};
 
-function getString(command,callback){
-    //return refrence to the child process
-    return exec(
-        command,
-        (
-            function(){
-                return function(err,data,stderr){
-                    if(!callback)
-                        return;
-
-                    callback(err, data, stderr);
-                }
-            }
-        )(callback)
-    );
-}
-
-module.exports=commandline;
+module.exports = {
+  validateDir,
+  validateFile
+};
 
 
 /***/ }),
 
-/***/ 613:
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ 229:
+/***/ ((module) => {
 
-const { writeFileSync } = __webpack_require__(747);
-const { join } = __webpack_require__(622);
+const inputNames = ['REMOTE_HOST', 'REMOTE_USER', 'REMOTE_PORT', 'SSH_PRIVATE_KEY', 'DEPLOY_KEY_NAME', 'SOURCE', 'TARGET', 'ARGS', 'EXCLUDE'];
+
+const inputs = {
+  GITHUB_WORKSPACE: process.env.GITHUB_WORKSPACE
+};
+// Get inputs from ENV or WITH workflow settings
+inputNames.forEach((input) => {
+  inputs[input] = process.env[input] || process.env[`INPUT_${input}`];
+});
+
+module.exports = inputs;
+
+
+/***/ }),
+
+/***/ 447:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const { sync: commandExists } = __nccwpck_require__(569);
+const { get: nodeCmd } = __nccwpck_require__(748);
+
+const validateRsync = (callback = () => {}) => {
+  const rsyncCli = commandExists('rsync');
+
+  if (!rsyncCli) {
+    nodeCmd(
+      'sudo apt-get --no-install-recommends install rsync',
+      (err, data, stderr) => {
+        if (err) {
+          console.log('⚠️ [CLI] Rsync installation failed. Aborting ... ', err.message);
+          process.abort();
+        } else {
+          console.log('✅ [CLI] Rsync installed. \n', data, stderr);
+          callback();
+        }
+      }
+    );
+  } else {
+    callback();
+  }
+};
+
+const validateInputs = (inputs) => {
+  const inputKeys = Object.keys(inputs);
+  const validInputs = inputKeys.filter((inputKey) => {
+    const inputValue = inputs[inputKey];
+
+    if (!inputValue) {
+      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
+    }
+
+    return inputValue;
+  });
+
+  if (validInputs.length !== inputKeys.length) {
+    console.error('⚠️ [INPUTS] Inputs not valid, aborting ...');
+    process.abort();
+  }
+};
+
+module.exports = {
+  validateRsync,
+  validateInputs
+};
+
+
+/***/ }),
+
+/***/ 822:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const { writeFileSync } = __nccwpck_require__(747);
+const { join } = __nccwpck_require__(622);
 
 const {
   validateDir,
   validateFile
-} = __webpack_require__(197);
+} = __nccwpck_require__(505);
 
 const {
   HOME
@@ -546,52 +591,88 @@ module.exports = {
 
 /***/ }),
 
-/***/ 622:
-/***/ (function(module) {
+/***/ 129:
+/***/ ((module) => {
 
-module.exports = require("path");
+"use strict";
+module.exports = require("child_process");;
 
 /***/ }),
 
-/***/ 659:
-/***/ (function(module) {
+/***/ 747:
+/***/ ((module) => {
 
-const inputNames = ['REMOTE_HOST', 'REMOTE_USER', 'REMOTE_PORT', 'SSH_PRIVATE_KEY', 'DEPLOY_KEY_NAME', 'SOURCE', 'TARGET', 'ARGS', 'EXCLUDE'];
+"use strict";
+module.exports = require("fs");;
 
-const inputs = {
-  GITHUB_WORKSPACE: process.env.GITHUB_WORKSPACE
-};
-// Get inputs from ENV or WITH workflow settings
-inputNames.forEach((input) => {
-  inputs[input] = process.env[input] || process.env[`INPUT_${input}`];
-});
+/***/ }),
 
-module.exports = inputs;
+/***/ 622:
+/***/ ((module) => {
 
+"use strict";
+module.exports = require("path");;
 
 /***/ }),
 
 /***/ 669:
-/***/ (function(module) {
+/***/ ((module) => {
 
-module.exports = require("util");
+"use strict";
+module.exports = require("util");;
 
-/***/ }),
+/***/ })
 
-/***/ 676:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __nccwpck_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		var threw = true;
+/******/ 		try {
+/******/ 			__webpack_modules__[moduleId](module, module.exports, __nccwpck_require__);
+/******/ 			threw = false;
+/******/ 		} finally {
+/******/ 			if(threw) delete __webpack_module_cache__[moduleId];
+/******/ 		}
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat */
+/******/ 	
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+const nodeRsync = __nccwpck_require__(898);
 
-const nodeRsync = __webpack_require__(250);
-
-const { validateRsync, validateInputs } = __webpack_require__(735);
-const { addSshKey } = __webpack_require__(613);
+const { validateRsync, validateInputs } = __nccwpck_require__(447);
+const { addSshKey } = __nccwpck_require__(822);
 
 const {
   REMOTE_HOST, REMOTE_USER,
   REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
   SOURCE, TARGET, ARGS, EXCLUDE,
   GITHUB_WORKSPACE
-} = __webpack_require__(659);
+} = __nccwpck_require__(229);
 
 const defaultOptions = {
   ssh: true,
@@ -658,75 +739,8 @@ const run = () => {
 
 run();
 
+})();
 
-/***/ }),
-
-/***/ 677:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-module.exports = __webpack_require__(243);
-
-
-/***/ }),
-
-/***/ 735:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const { sync: commandExists } = __webpack_require__(677);
-const { get: nodeCmd } = __webpack_require__(428);
-
-const validateRsync = (callback = () => {}) => {
-  const rsyncCli = commandExists('rsync');
-
-  if (!rsyncCli) {
-    nodeCmd(
-      'sudo apt-get --no-install-recommends install rsync',
-      (err, data, stderr) => {
-        if (err) {
-          console.log('⚠️ [CLI] Rsync installation failed. Aborting ... ', err.message);
-          process.abort();
-        } else {
-          console.log('✅ [CLI] Rsync installed. \n', data, stderr);
-          callback();
-        }
-      }
-    );
-  } else {
-    callback();
-  }
-};
-
-const validateInputs = (inputs) => {
-  const inputKeys = Object.keys(inputs);
-  const validInputs = inputKeys.filter((inputKey) => {
-    const inputValue = inputs[inputKey];
-
-    if (!inputValue) {
-      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
-    }
-
-    return inputValue;
-  });
-
-  if (validInputs.length !== inputKeys.length) {
-    console.error('⚠️ [INPUTS] Inputs not valid, aborting ...');
-    process.abort();
-  }
-};
-
-module.exports = {
-  validateRsync,
-  validateInputs
-};
-
-
-/***/ }),
-
-/***/ 747:
-/***/ (function(module) {
-
-module.exports = require("fs");
-
-/***/ })
-
-/******/ });
+module.exports = __webpack_exports__;
+/******/ })()
+;

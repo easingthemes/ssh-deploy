@@ -1,7 +1,6 @@
 {
   "name": "ssh-deploy",
   "version": "2.1.9",
-  "private": true,
   "description": "Fast NodeJS action to deploy specific directory from `GITHUB_WORKSPACE` to a server via rsync over ssh.",
   "main": "src/index.js",
   "dependencies": {

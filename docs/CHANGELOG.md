@@ -1,3 +1,10 @@
+## [2.2.10](https://github.com/easingthemes/ssh-deploy/compare/v2.2.9...v2.2.10) (2021-05-27)
+
+
+### Bug Fixes
+
+* add assets to semantic-release git ([0867b12](https://github.com/easingthemes/ssh-deploy/commit/0867b12954dee2b8a2cccb7dfea3b8f3aa62d679))
+
 ## [2.2.9](https://github.com/easingthemes/ssh-deploy/compare/v2.2.8...v2.2.9) (2021-05-27)
 
 

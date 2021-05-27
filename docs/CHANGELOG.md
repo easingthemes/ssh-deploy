@@ -1,3 +1,10 @@
+## [2.2.3](https://github.com/easingthemes/ssh-deploy/compare/v2.2.2...v2.2.3) (2021-05-27)
+
+
+### Bug Fixes
+
+* codeql yaml syntax update ([87ad671](https://github.com/easingthemes/ssh-deploy/commit/87ad6713b53d454bd7ad6c4576cea7b2e3e2f4f3))
+
 ## [2.2.2](https://github.com/easingthemes/ssh-deploy/compare/v2.2.1...v2.2.2) (2021-05-27)
 
 

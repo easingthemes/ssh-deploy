@@ -1,8 +1,14 @@
 {
-  "name": "ssh-deploy",
+  "name": "@draganfilipovic/ssh-deploy",
   "version": "2.1.9",
   "description": "Fast NodeJS action to deploy specific directory from `GITHUB_WORKSPACE` to a server via rsync over ssh.",
   "main": "dist/index.js",
+  "files": [
+    "/dist",
+    "./action.yml",
+    "./README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "command-exists": "1.2.9",
     "node-cmd": "4.0.0",

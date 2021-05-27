@@ -1,3 +1,10 @@
+## [2.2.5](https://github.com/easingthemes/ssh-deploy/compare/v2.2.4...v2.2.5) (2021-05-27)
+
+
+### Bug Fixes
+
+* semantic-release/npm update config ([40096bf](https://github.com/easingthemes/ssh-deploy/commit/40096bf22459d1dd82172d2bd20c0c149e70b1e1))
+
 ## [2.2.4](https://github.com/easingthemes/ssh-deploy/compare/v2.2.3...v2.2.4) (2021-05-27)
 
 

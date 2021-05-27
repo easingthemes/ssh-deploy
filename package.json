@@ -9,6 +9,10 @@
     "./README.md",
     "LICENSE"
   ],
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "command-exists": "1.2.9",
     "node-cmd": "4.0.0",

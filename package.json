@@ -1,7 +1,7 @@
 {
   "name": "ssh-deploy",
   "version": "2.1.9",
-  "description": "This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh.",
+  "description": "Fast NodeJS action to deploy specific directory from `GITHUB_WORKSPACE` to a server via rsync over ssh.",
   "main": "src/index.js",
   "dependencies": {
     "command-exists": "1.2.9",
@@ -29,7 +29,7 @@
     "rsync"
   ],
   "author": "Dragan Filipovic",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/easingthemes/ssh-deploy/issues"
   },

@@ -1,3 +1,10 @@
+## [2.2.4](https://github.com/easingthemes/ssh-deploy/compare/v2.2.3...v2.2.4) (2021-05-27)
+
+
+### Bug Fixes
+
+* add branch instead of a version in a readme ([8218c8e](https://github.com/easingthemes/ssh-deploy/commit/8218c8ed9514d772933e1ab4d1c725a7c05e149f))
+
 ## [2.2.3](https://github.com/easingthemes/ssh-deploy/compare/v2.2.2...v2.2.3) (2021-05-27)
 
 

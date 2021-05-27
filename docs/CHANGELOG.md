@@ -1,3 +1,10 @@
+## [2.2.6](https://github.com/easingthemes/ssh-deploy/compare/v2.2.5...v2.2.6) (2021-05-27)
+
+
+### Bug Fixes
+
+* add NPM token ([2197bc6](https://github.com/easingthemes/ssh-deploy/commit/2197bc60ef7870d4bd494966b314eabec1615bd7))
+
 ## [2.2.5](https://github.com/easingthemes/ssh-deploy/compare/v2.2.4...v2.2.5) (2021-05-27)
 
 

@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/easingthemes/ssh-deploy/compare/v3.0.0...v3.0.1) (2022-10-28)
+
+
+### Bug Fixes
+
+* readme update ([80a7f53](https://github.com/easingthemes/ssh-deploy/commit/80a7f53ec918930fd23f0524fec0b1d4f52183bf)), closes [#67](https://github.com/easingthemes/ssh-deploy/issues/67)
+
 # [3.0.0](https://github.com/easingthemes/ssh-deploy/compare/v2.2.11...v3.0.0) (2022-10-28)
 
 

@@ -27,7 +27,7 @@ inputs:
     description: "Arguments to pass to rsync"
     required: false
     default: "-rltgoDzvO"
-  EXCLUDE: 
+  EXCLUDE:
     description: "An array of folder to exclude"
     required: false
     default: ""
@@ -35,7 +35,7 @@ outputs:
   status:
     description: "Status"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 branding:
   color: "green"

@@ -10,15 +10,9 @@
     "LICENSE"
   ],
   "dependencies": {
-    "command-exists": "1.2.9",
-    "node-cmd": "4.0.0",
-    "rsyncwrapper": "3.0.1"
-  },
-  "devDependencies": {
-    "@vercel/ncc": "^0.28.6",
-    "eslint": "^7.27.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.3"
+    "command-exists": "^1.2.9",
+    "node-cmd": "^5.0.0",
+    "rsyncwrapper": "^3.0.1"
   },
   "scripts": {
     "build": "npm run lint && ncc build ./src/index.js -o dist -m",
@@ -39,5 +33,11 @@
   "bugs": {
     "url": "https://github.com/easingthemes/ssh-deploy/issues"
   },
-  "homepage": "https://github.com/easingthemes/ssh-deploy#readme"
+  "homepage": "https://github.com/easingthemes/ssh-deploy#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.26.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
 }

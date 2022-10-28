@@ -1,3 +1,18 @@
+# [3.0.0](https://github.com/easingthemes/ssh-deploy/compare/v2.2.11...v3.0.0) (2022-10-28)
+
+
+### Bug Fixes
+
+* plugins versions ([2f40dde](https://github.com/easingthemes/ssh-deploy/commit/2f40dde84fde36f5b9b81ededd7090c5159d9885))
+
+
+* Merge pull request #83 from easingthemes/feature/#82-update-node-version ([76660a8](https://github.com/easingthemes/ssh-deploy/commit/76660a8456dbf26e6328674e25d083941ddd645e)), closes [#83](https://github.com/easingthemes/ssh-deploy/issues/83) [easingthemes/feature/#82](https://github.com/easingthemes/feature//issues/82)
+
+
+### BREAKING CHANGES
+
+* update to use nodeJS v16
+
 ## [2.2.11](https://github.com/easingthemes/ssh-deploy/compare/v2.2.10...v2.2.11) (2021-05-28)
 
 

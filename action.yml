@@ -31,6 +31,10 @@ inputs:
     description: "An array of folder to exclude"
     required: false
     default: ""
+  SSH_CMD_ARGS:
+    description: "An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 "
+    required: false
+    default: "-o StrictHostKeyChecking=no"
 outputs:
   status:
     description: "Status"

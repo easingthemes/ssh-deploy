@@ -8,26 +8,34 @@ const {
   REMOTE_HOST, REMOTE_USER,
   REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
   SOURCE, TARGET, ARGS, EXCLUDE,
+  SSH_CMD_ARGS,
   GITHUB_WORKSPACE
 } = require('./inputs');
 
 const defaultOptions = {
   ssh: true,
-  sshCmdArgs: ['-o StrictHostKeyChecking=no'],
   recursive: true
 };
 
 console.log('[general] GITHUB_WORKSPACE: ', GITHUB_WORKSPACE);
 
 const sshDeploy = (() => {
-  const rsync = ({ privateKey, port, src, dest, args, exclude }) => {
+  const rsync = ({ privateKey, port, src, dest, args, exclude, sshCmdArgs }) => {
     console.log(`[Rsync] Starting Rsync Action: ${src} to ${dest}`);
+
     if (exclude) console.log(`[Rsync] exluding folders ${exclude}`);
 
     try {
       // RSYNC COMMAND
       nodeRsync({
-        src, dest, args, privateKey, port, excludeFirst: exclude, ...defaultOptions
+        src,
+        dest,
+        args,
+        privateKey,
+        port,
+        sshCmdArgs,
+        excludeFirst: exclude,
+        ...defaultOptions
       }, (error, stdout, stderr, cmd) => {
         if (error) {
           console.error('⚠️ [Rsync] error: ', error.message);
@@ -45,12 +53,12 @@ const sshDeploy = (() => {
     }
   };
 
-  const init = ({ src, dest, args, host = 'localhost', port, username, privateKeyContent, exclude = [] }) => {
+  const init = ({ src, dest, args, host = 'localhost', port, username, privateKeyContent, exclude = [], sshCmdArgs = [] }) => {
     validateRsync(() => {
       const privateKey = addSshKey(privateKeyContent, DEPLOY_KEY_NAME || 'deploy_key');
       const remoteDest = `${username}@${host}:${dest}`;
 
-      rsync({ privateKey, port, src, dest: remoteDest, args, exclude });
+      rsync({ privateKey, port, src, dest: remoteDest, args, exclude, sshCmdArgs });
     });
   };
 
@@ -70,6 +78,7 @@ const run = () => {
     port: REMOTE_PORT || '22',
     username: REMOTE_USER,
     privateKeyContent: SSH_PRIVATE_KEY,
+    sshCmdArgs: (SSH_CMD_ARGS || '').split(',').map((item) => item.trim()),
     exclude: (EXCLUDE || '').split(',').map((item) => item.trim()) // split by comma and trim whitespace
   });
 };

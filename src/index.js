@@ -16,7 +16,7 @@ const defaultOptions = {
   sshCmdArgs: [
     '-o StrictHostKeyChecking=no',
     `-o HostKeyAlgorithms=${REMOTE_KEY_TYPES || '+ssh-rsa'}`,
-    `-o PubkeyAcceptedKeyTypes = ${REMOTE_KEY_TYPES || '+ssh-rsa'}`
+    `-o PubkeyAcceptedKeyTypes=${REMOTE_KEY_TYPES || '+ssh-rsa'}`
   ],
   recursive: true
 };

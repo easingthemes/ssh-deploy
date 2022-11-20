@@ -6,14 +6,18 @@ const { addSshKey } = require('./sshKey');
 
 const {
   REMOTE_HOST, REMOTE_USER,
-  REMOTE_PORT, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
+  REMOTE_PORT, REMOTE_KEY_TYPES, SSH_PRIVATE_KEY, DEPLOY_KEY_NAME,
   SOURCE, TARGET, ARGS, EXCLUDE,
   GITHUB_WORKSPACE
 } = require('./inputs');
 
 const defaultOptions = {
   ssh: true,
-  sshCmdArgs: ['-o StrictHostKeyChecking=no'],
+  sshCmdArgs: [
+    '-o StrictHostKeyChecking=no',
+    `-o HostKeyAlgorithms=${REMOTE_KEY_TYPES || '+ssh-rsa'}`,
+    `-o PubkeyAcceptedKeyTypes=${REMOTE_KEY_TYPES || '+ssh-rsa'}`,
+  ],
   recursive: true
 };
 

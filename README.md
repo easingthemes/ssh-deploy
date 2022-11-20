@@ -37,19 +37,23 @@ eg: myusername
 
 eg: '59184'
 
-##### 5. `ARGS` (optional, default '-rltgoDzvO')
+##### 5. `REMOTE_KEY_TYPES` (optional, default '+ssh-rsa')
+
+eg: '+ssh-rsa,+ssh-dss'
+
+##### 6. `ARGS` (optional, default '-rltgoDzvO')
 
 For any initial/required rsync flags, eg: `-avzr --delete`
 
-##### 6. `SOURCE` (optional, default '')
+##### 7. `SOURCE` (optional, default '')
 
 The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
 
-##### 7. `TARGET` (optional, default '/home/REMOTE_USER/')
+##### 8. `TARGET` (optional, default '/home/REMOTE_USER/')
 
 The target directory
 
-##### 8. `EXCLUDE` (optional, default '')
+##### 9. `EXCLUDE` (optional, default '')
 
 path to exclude separated by `,`, ie: `/dist/, /node_modules/`
 

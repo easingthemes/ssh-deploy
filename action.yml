@@ -15,6 +15,10 @@ inputs:
     description: "Remote port"
     required: false
     default: "22"
+  REMOTE_KEY_TYPES:
+    description: "Remote key types"
+    required: false
+    default: "+ssh-rsa"
   SOURCE:
     description: "Source directory"
     required: false

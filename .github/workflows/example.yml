@@ -3,7 +3,7 @@ name: e2e Test
 on:
   push:
     branches:
-      - main
+      - add-test
 
 env:
   TEST_PROJECT: ./test_project
@@ -13,7 +13,7 @@ jobs:
   host:
 
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       matrix:
         os: [ ubuntu-latest ]

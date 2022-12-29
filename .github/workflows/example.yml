@@ -7,6 +7,13 @@ on:
 
 env:
   TEST_PROJECT: ./test_project
+  EXAMPLE_REMOTE_HOST:
+  REMOTE_USER:
+  REMOTE_PORT:
+  ARGS:
+  SOURCE:
+  TARGET:
+  EXCLUDE: ''
 
 
 jobs:
@@ -21,9 +28,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Create ssh keys
+      - name: Get Host info
         run: |
-          ssh-keygen -m PEM -t rsa -b 4096 -q -f "$HOME/.ssh/id_rsa" -N ""
+          ls -l
+          ip addr show
+          whoami
+      - name: 1. Create ssh keys
+        run: |
+          ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
         shell: bash
       - name: Create project file
         run: |

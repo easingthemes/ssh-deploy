@@ -3,7 +3,7 @@ name: e2e Test
 on:
   push:
     branches:
-      - add-test
+      - add-tests
 
 env:
   TEST_PROJECT: ./test_project

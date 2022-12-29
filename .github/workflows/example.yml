@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create ssh keys
         run: |
-          ssh-keygen -m PEM -t rsa -b 4096
+          ssh-keygen -m PEM -t rsa -b 4096 -q -f "$HOME/.ssh/id_rsa" -N ""
         shell: bash
       - name: Create project file
         run: |

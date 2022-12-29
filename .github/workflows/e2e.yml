@@ -9,12 +9,6 @@ env:
   TEST_PROJECT: ./test_project
   TEST_HOST_DOCKER: ./test
   TEST_USER: kaja
-  REMOTE_USER: ''
-  REMOTE_PORT: ''
-  ARGS: ''
-  SOURCE: ''
-  TARGET: ''
-  EXCLUDE: ''
 
 jobs:
   e2e:
@@ -28,7 +22,7 @@ jobs:
         run: |
           ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
           EXAMPLE_SSH_PRIVATE_KEY=$(cat $HOME/.ssh/id_rsa)
-          echo "EXAMPLE_SSH_PRIVATE_KEY=$EXAMPLE_SSH_PRIVATE_KEY" >> $GITHUB_ENV
+          echo "EXAMPLE_SSH_PRIVATE_KEY=$EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
           ssh-add "$HOME/.ssh/id_rsa"
           ssh-add -l
 
@@ -58,7 +52,7 @@ jobs:
           touch index.html
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
-          
+
       - name: e2e Test ssh-deploy action
         uses: easingthemes/ssh-deploy@main
         env:

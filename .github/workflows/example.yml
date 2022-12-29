@@ -1,0 +1,34 @@
+name: e2e Test
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  TEST_PROJECT: ./test_project
+
+
+jobs:
+  host:
+
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create ssh keys
+        run: |
+          ssh-keygen -m PEM -t rsa -b 4096
+        shell: bash
+      - name: Create project file
+        run: |
+          mkdir $TEST_PROJECT && cd $TEST_PROJECT
+          touch index.html
+          date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
+          cat index.html
+        shell: bash

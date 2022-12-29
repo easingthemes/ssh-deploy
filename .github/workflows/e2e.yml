@@ -1,0 +1,72 @@
+name: e2e Test
+
+on:
+  push:
+    branches:
+      - feature/add-tests
+
+env:
+  TEST_PROJECT: ./test_project
+  TEST_HOST_DOCKER: ./test
+  TEST_USER: kaja
+  REMOTE_USER: ''
+  REMOTE_PORT: ''
+  ARGS: ''
+  SOURCE: ''
+  TARGET: ''
+  EXCLUDE: ''
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 1. Create ssh keys
+        run: |
+          ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
+          EXAMPLE_SSH_PRIVATE_KEY=$(cat $HOME/.ssh/id_rsa)
+          echo "EXAMPLE_SSH_PRIVATE_KEY=$EXAMPLE_SSH_PRIVATE_KEY" >> $GITHUB_ENV
+          ssh-add "$HOME/.ssh/id_rsa"
+          ssh-add -l
+
+      - name: Build Host Server Image
+        working-directory: $TEST_HOST_DOCKER
+        run: |
+          docker build \
+            -t ssh-host-image . \
+            --build-arg ssh_pub_key="$(cat $HOME/.ssh/id_rsa.pub)" \
+            --build-arg ssh_user=$TEST_USER \
+
+      - name: Start Host Server Container
+        working-directory: $TEST_HOST_DOCKER
+        run: |
+          docker run --name ssh-host-container -d ssh-host-image
+
+      - name: Get IP of Host Server
+        run: |
+          docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ssh-host-container > ip.txt
+          cat ip.txt
+          EXAMPLE_REMOTE_HOST=$(cat ip.txt)
+          echo "EXAMPLE_REMOTE_HOST=$EXAMPLE_REMOTE_HOST" >> $GITHUB_ENV
+
+      - name: Create project file
+        run: |
+          mkdir $TEST_PROJECT && cd $TEST_PROJECT
+          touch index.html
+          date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
+          cat index.html
+          
+      - name: e2e Test ssh-deploy action
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          ARGS: "-rltgoDzvO"
+          SOURCE: "dist/"
+          REMOTE_HOST: $EXAMPLE_REMOTE_HOST
+          REMOTE_USER: $TEST_USER
+          TARGET: "/var/www/html/"
+          EXCLUDE: "/dist/, /node_modules/"
+

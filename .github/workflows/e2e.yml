@@ -59,10 +59,10 @@ jobs:
           npm run build
           node ./src/test.js
         env:
-          SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          SSH_PRIVATE_KEY: "$EXAMPLE_SSH_PRIVATE_KEY"
           ARGS: "-rltgoDzvO"
           SOURCE: "test_project/"
-          REMOTE_HOST: $EXAMPLE_REMOTE_HOST
+          REMOTE_HOST: "$EXAMPLE_REMOTE_HOST"
           REMOTE_USER: ${{ env.TEST_USER }}
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"

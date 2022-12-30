@@ -38,7 +38,7 @@ jobs:
           docker build \
             -t ssh-host-image . \
             --build-arg ssh_pub_key="$(cat $HOME/.ssh/id_rsa.pub)" \
-            --build-arg ssh_user=$TEST_USER \
+            --build-arg ssh_user="${{ env.TEST_USER }}" \
 
       - name: Start Host Server Container
         working-directory: ${{ env.TEST_HOST_DOCKER }}
@@ -67,7 +67,7 @@ jobs:
           ARGS: "-rltgoDzvO"
           SOURCE: "test_project/"
           REMOTE_HOST: env.EXAMPLE_REMOTE_HOST
-          REMOTE_USER: $TEST_USER
+          REMOTE_USER: env.TEST_USER
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
 

@@ -6,7 +6,6 @@ on:
       - feature/add-tests
 
 env:
-  TEST_PROJECT: ./test_project
   TEST_HOST_DOCKER: ./test
   TEST_USER: kaja
 
@@ -18,16 +17,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Clean up old test files
+        run: |
+          docker stop ssh-host-container || true && docker rm ssh-host-container || true
+
       - name: 1. Create ssh keys
         run: |
+          echo $HOME
+          ls -la $HOME
           ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
-          EXAMPLE_SSH_PRIVATE_KEY=$(cat $HOME/.ssh/id_rsa)
-          echo "EXAMPLE_SSH_PRIVATE_KEY=$EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
-          ssh-add "$HOME/.ssh/id_rsa"
-          ssh-add -l
+          # ssh-add "$HOME/.ssh/id_rsa"
+          # ssh-add -l
+          echo "EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Build Host Server Image
-        working-directory: $TEST_HOST_DOCKER
+        working-directory: ${{ env.TEST_HOST_DOCKER }}
         run: |
           docker build \
             -t ssh-host-image . \
@@ -35,7 +41,7 @@ jobs:
             --build-arg ssh_user=$TEST_USER \
 
       - name: Start Host Server Container
-        working-directory: $TEST_HOST_DOCKER
+        working-directory: ${{ env.TEST_HOST_DOCKER }}
         run: |
           docker run --name ssh-host-container -d ssh-host-image
 
@@ -48,7 +54,8 @@ jobs:
 
       - name: Create project file
         run: |
-          mkdir $TEST_PROJECT && cd $TEST_PROJECT
+          mkdir test_project
+          cd test_project
           touch index.html
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
@@ -56,10 +63,10 @@ jobs:
       - name: e2e Test ssh-deploy action
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          SSH_PRIVATE_KEY: env.EXAMPLE_SSH_PRIVATE_KEY
           ARGS: "-rltgoDzvO"
-          SOURCE: "dist/"
-          REMOTE_HOST: $EXAMPLE_REMOTE_HOST
+          SOURCE: "test_project/"
+          REMOTE_HOST: env.EXAMPLE_REMOTE_HOST
           REMOTE_USER: $TEST_USER
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"

@@ -3,7 +3,7 @@ FROM nginx
 ARG ssh_pub_key
 ARG ssh_user
 # Add a user to the container
-RUN adduser -D $ssh_user
+RUN adduser --disabled-password $ssh_user
 USER $ssh_user
 # Add the ssh public key to the container
 RUN mkdir -p $HOME/.ssh

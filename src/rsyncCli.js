@@ -3,7 +3,8 @@ const { get: nodeCmd } = require('node-cmd');
 
 const validateRsync = (callback = () => {}) => {
   const rsyncCli = commandExists('rsync');
-
+  console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
+  console.log('nodeCmd: ', nodeCmd);
   if (!rsyncCli) {
     nodeCmd(
       'sudo apt-get --no-install-recommends install rsync',

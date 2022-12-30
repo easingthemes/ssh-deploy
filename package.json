@@ -9,11 +9,6 @@
     "./README.md",
     "LICENSE"
   ],
-  "dependencies": {
-    "command-exists": "^1.2.9",
-    "node-cmd": "^5.0.0",
-    "rsyncwrapper": "^3.0.1"
-  },
   "scripts": {
     "build": "npm run lint && ncc build ./src/index.js -o dist -m",
     "lint": "eslint ./src/index.js",
@@ -34,9 +29,14 @@
     "url": "https://github.com/easingthemes/ssh-deploy/issues"
   },
   "homepage": "https://github.com/easingthemes/ssh-deploy#readme",
+  "dependencies": {
+    "command-exists": "^1.2.9",
+    "node-cmd": "^5.0.0",
+    "rsyncwrapper": "^3.0.1"
+  },
   "devDependencies": {
-    "@vercel/ncc": "^0.34.0",
-    "eslint": "^8.26.0",
+    "@vercel/ncc": "^0.36.0",
+    "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0"
   }

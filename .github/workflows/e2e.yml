@@ -2,7 +2,7 @@ name: e2e Test
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'feature/add-tests' ]
 
 env:
   TEST_HOST_DOCKER: ./test

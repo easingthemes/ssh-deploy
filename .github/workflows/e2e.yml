@@ -63,7 +63,7 @@ jobs:
           ARGS: "-rltgoDzvO"
           SOURCE: "test_project/"
           REMOTE_HOST: $EXAMPLE_REMOTE_HOST
-          REMOTE_USER: $TEST_USER
+          REMOTE_USER: ${{ TEST_USER }}
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
 

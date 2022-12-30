@@ -57,7 +57,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          node ./src/test.js
+          node ./src/index.js
         env:
           SSH_PRIVATE_KEY: ${{ env.EXAMPLE_SSH_PRIVATE_KEY }}
           ARGS: "-rltgoDzvO"
@@ -67,14 +67,14 @@ jobs:
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
 
-      # - name: e2e Test published ssh-deploy action
-      #   uses: easingthemes/ssh-deploy@main
-      #   env:
-      #     SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
-      #     ARGS: "-rltgoDzvO"
-      #     SOURCE: "test_project/"
-      #     REMOTE_HOST: $EXAMPLE_REMOTE_HOST
-      #     REMOTE_USER: $TEST_USER
-      #     TARGET: "/var/www/html/"
-      #     EXCLUDE: "/dist/, /node_modules/"
+      - name: e2e Test published ssh-deploy action
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ env.EXAMPLE_SSH_PRIVATE_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "test_project/"
+          REMOTE_HOST: ${{ env.EXAMPLE_REMOTE_HOST }}
+          REMOTE_USER: ${{ env.TEST_USER }}
+          TARGET: "/var/www/html/"
+          EXCLUDE: "/dist/, /node_modules/"
 

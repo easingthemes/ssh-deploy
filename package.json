@@ -31,7 +31,6 @@
   "homepage": "https://github.com/easingthemes/ssh-deploy#readme",
   "dependencies": {
     "command-exists": "^1.2.9",
-    "node-cmd": "^5.0.0",
     "rsyncwrapper": "^3.0.1"
   },
   "devDependencies": {

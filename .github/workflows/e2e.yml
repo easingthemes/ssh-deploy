@@ -1,9 +1,11 @@
 name: e2e Test
 
 on:
-  push:
-    branches:
-      - feature/add-tests
+  workflow_run:
+    workflows: ["Build"]
+    branches: [ main ]
+    types:
+      - completed
 
 env:
   TEST_HOST_DOCKER: ./test
@@ -54,19 +56,11 @@ jobs:
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
 
-      # - name: e2e Test local ssh-deploy action
-      #   run: node ./dist/index.js
-      #   env:
-      #     SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
-      #     ARGS: "-rltgoDzvO"
-      #     SOURCE: "test_project/"
-      #     REMOTE_HOST: $EXAMPLE_REMOTE_HOST
-      #     REMOTE_USER: $TEST_USER
-      #     TARGET: "/var/www/html/"
-      #     EXCLUDE: "/dist/, /node_modules/"
-
-      - name: e2e Test published ssh-deploy action
-        uses: easingthemes/ssh-deploy@main
+      - name: e2e Test local ssh-deploy action
+        run: |
+          npm ci
+          npm run build
+          node ./src/index.js
         env:
           SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           ARGS: "-rltgoDzvO"
@@ -75,4 +69,15 @@ jobs:
           REMOTE_USER: $TEST_USER
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
+
+      # - name: e2e Test published ssh-deploy action
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #     SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+      #     ARGS: "-rltgoDzvO"
+      #     SOURCE: "test_project/"
+      #     REMOTE_HOST: $EXAMPLE_REMOTE_HOST
+      #     REMOTE_USER: $TEST_USER
+      #     TARGET: "/var/www/html/"
+      #     EXCLUDE: "/dist/, /node_modules/"
 

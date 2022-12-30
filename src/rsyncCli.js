@@ -1,23 +1,20 @@
-const { sync: commandExists } = require('command-exists');
-const { get: nodeCmd } = require('node-cmd');
+const { sync: commandExists } = require("command-exists");
+const { exec, execSync } = require("child_process");
 
 const validateRsync = (callback = () => {}) => {
-  const rsyncCli = commandExists('rsync');
+  const rsyncCli = commandExists("rsync");
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
-  console.log('nodeCmd: ', nodeCmd);
   if (!rsyncCli) {
-    nodeCmd(
-      'sudo apt-get --no-install-recommends install rsync',
-      (err, data, stderr) => {
-        if (err) {
-          console.log('⚠️ [CLI] Rsync installation failed. Aborting ... ', err.message);
-          process.abort();
-        } else {
-          console.log('✅ [CLI] Rsync installed. \n', data, stderr);
-          callback();
-        }
+    execSync("sudo apt-get update");
+    exec("sudo apt-get --no-install-recommends install rsync", (err, data, stderr) => {
+      if (err) {
+        console.log("⚠️ [CLI] Rsync installation failed. Aborting ... ", err.message);
+        process.abort();
+      } else {
+        console.log("✅ [CLI] Rsync installed. \n", data, stderr);
+        callback();
       }
-    );
+    });
   } else {
     callback();
   }
@@ -36,12 +33,12 @@ const validateInputs = (inputs) => {
   });
 
   if (validInputs.length !== inputKeys.length) {
-    console.error('⚠️ [INPUTS] Inputs not valid, aborting ...');
+    console.error("⚠️ [INPUTS] Inputs not valid, aborting ...");
     process.abort();
   }
 };
 
 module.exports = {
   validateRsync,
-  validateInputs
+  validateInputs,
 };

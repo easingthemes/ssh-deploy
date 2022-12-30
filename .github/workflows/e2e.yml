@@ -57,7 +57,7 @@ jobs:
         run: |
           npm ci
           npm run build
-          node ./src/index.js
+          node ./src/test.js
         env:
           SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           ARGS: "-rltgoDzvO"

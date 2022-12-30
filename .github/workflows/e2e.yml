@@ -1,11 +1,8 @@
 name: e2e Test
 
 on:
-  workflow_run:
-    workflows: ["Build"]
-    branches: [ main ]
-    types:
-      - completed
+  push:
+    branches: [ 'main' ]
 
 env:
   TEST_HOST_DOCKER: ./test

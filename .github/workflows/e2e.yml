@@ -53,11 +53,18 @@ jobs:
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
 
+      - name: e2e Test ssh
+        run: |
+          ssh ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}
+        env:
+          REMOTE_HOST: ${{ env.EXAMPLE_REMOTE_HOST }}
+          REMOTE_USER: ${{ env.TEST_USER }}
+
       - name: e2e Test local ssh-deploy action
         run: |
           npm ci
           npm run build
-          node ./src/index.js
+          node ./src/index.js || true
         env:
           SSH_PRIVATE_KEY: ${{ env.EXAMPLE_SSH_PRIVATE_KEY }}
           ARGS: "-rltgoDzvO"

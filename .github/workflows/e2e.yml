@@ -25,8 +25,8 @@ jobs:
           echo $HOME
           ls -la $HOME
           ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
-          # ssh-add "$HOME/.ssh/id_rsa"
-          # ssh-add -l
+          ssh-add "$HOME/.ssh/id_rsa"
+          ssh-add -l
           echo "EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
           cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV

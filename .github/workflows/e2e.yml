@@ -25,6 +25,7 @@ jobs:
           echo $HOME
           ls -la $HOME
           ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
+          eval `ssh-agent -s`
           ssh-add "$HOME/.ssh/id_rsa"
           ssh-add -l
           echo "EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV

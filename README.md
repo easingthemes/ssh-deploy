@@ -107,14 +107,21 @@ jobs:
 
 ## Issues
 
-Almost 95% of the issues are related to wrong SSH connection.
+This is a Github Action wrapping `rsync` via `ssh`. Only issues with action functionality can be fixed here.
+
+Almost 95% of the issues are related to wrong SSH connection or `rsync` params and permissions.
+This issues are not related to the action itself.
+
+- Check manually your ssh connection from your client before opening a bug report.
+- Check `rsync` params for your usecase. Default params are not going to be enough wor everyone, it highly depends on your setup.
+- Check manually your rsync command from your client before opening a bug report.
+
 I've added e2e test for this action.
+Real example is executed on every PR merge to `main`.
 Check actions tab for example.
 
-Check manually your ssh connection from your client before opening a bug report.
-Thanks.
-
 More info for SSH keys: https://www.ssh.com/ssh/public-key-authentication
+
 
 ## Disclaimer
 

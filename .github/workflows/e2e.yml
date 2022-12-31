@@ -60,8 +60,8 @@ jobs:
 
       - name: e2e Test ssh
         run: |
-          echo "$REMOTE_HOST@$REMOTE_HOST"
-          ssh -p 8822 $SSH_REMOTE_USER@$SSH_REMOTE_HOST 'exit'
+          echo "$TEST_USER@$REMOTE_HOST"
+          ssh -p 8822 $TEST_USER@$REMOTE_HOST 'exit'
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/add-tests

@@ -5,7 +5,6 @@ on:
     branches: [ 'feature/add-tests' ]
 
 env:
-  GLOBAL_WORKFLOW_ENV: __some value for GLOBAL_WORKFLOW_ENV__
   TEST_HOST_DOCKER: ./test
   TEST_USER: test
 
@@ -17,30 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # - name: Set ENV var
-      #   run: |
-      #     echo "CUSTOM_VAR=IT WORKS" >> $GITHUB_ENV
-
-      # - name: Use ENV var via `env` block
-      #   run: |
-      #     echo $CUSTOM_VAR # OK
-      #     echo ${{ env.CUSTOM_VAR }} # OK
-      #     echo $USE_CUSTOM_VAR # NOT OK, prints ''
-      #     echo ${{ env.USE_CUSTOM_VAR }} # NOT OK, prints ''
-      #     echo $USE_CUSTOM_VAR_2 # NOT OK, prints '$CUSTOM_VAR'
-      #     echo ${{ env.USE_CUSTOM_VAR_2 }} # OK
-      #     echo $USE_CUSTOM_VAR_3 # NOT OK, prints '$GLOBAL_WORKFLOW_ENV'
-      #     echo ${{ env.USE_CUSTOM_VAR_3 }} # OK
-      #   env:
-      #     USE_CUSTOM_VAR: ${{ env.CUSTOM_VAR }}
-      #     USE_CUSTOM_VAR_2: $CUSTOM_VAR
-      #     USE_CUSTOM_VAR_3: $GLOBAL_WORKFLOW_ENV
+      - name: Set ENV var
+        run: |
+          echo "CUSTOM_VAR=IT WORKS" >> $GITHUB_ENV
 
       - name: Clean up old test files
         run: |
           docker stop ssh-host-container || true && docker rm ssh-host-container || true
 
-      - name: 1. Create ssh keys
+      - name: Create ssh keys
         run: |
           echo $HOME
           ls -la $HOME
@@ -48,7 +32,7 @@ jobs:
           eval `ssh-agent -s`
           ssh-add "$HOME/.ssh/id_rsa"
           ssh-add -l
-          echo "EXAMPLE_SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
           cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
@@ -61,7 +45,7 @@ jobs:
             --build-arg ssh_user="${{ env.TEST_USER }}"
           docker run -d -p 8822:22 --name=ssh-host-container ssh-host-image
           docker exec ssh-host-container sh -c "hostname --ip-address" > ip.txt
-          echo "EXAMPLE_REMOTE_HOST<<EOF" >> $GITHUB_ENV
+          echo "REMOTE_HOST<<EOF" >> $GITHUB_ENV
           cat ip.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
         shell: bash
@@ -74,36 +58,18 @@ jobs:
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
 
-      # - name: e2e Test local ssh-deploy action
-      #   run: |
-      #     echo "${{ env.REMOTE_HOST }} -- $EXAMPLE_REMOTE_HOST -- ${{ env.EXAMPLE_REMOTE_HOST }}"
-      #     npm ci
-      #     npm run build
-      #     node ./src/test.js || true
-      #   env:
-      #     SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
-      #     ARGS: "-rltgoDzvO"
-      #     SOURCE: "test_project/"
-      #     REMOTE_HOST: $EXAMPLE_REMOTE_HOST
-      #     REMOTE_USER: ${{ env.TEST_USER }}
-      #     TARGET: "/var/www/html/"
-      #     EXCLUDE: "/dist/, /node_modules/"
-
-      # - name: e2e Test ssh
-      #   run: |
-      #     echo "$SSH_REMOTE_USER@$SSH_REMOTE_HOST"
-      #     ssh -p 8822 $SSH_REMOTE_USER@$SSH_REMOTE_HOST 'exit'
-      #   env:
-      #     SSH_REMOTE_HOST: ${{ env.EXAMPLE_REMOTE_HOST }}
-      #     SSH_REMOTE_USER: ${{ env.TEST_USER }}
+      - name: e2e Test ssh
+        run: |
+          echo "$REMOTE_HOST@$REMOTE_HOST"
+          ssh -p 8822 $SSH_REMOTE_USER@$SSH_REMOTE_HOST 'exit'
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/add-tests
-        with:
-          SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+        env:
+          # SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+          # REMOTE_HOST: $REMOTE_HOST
+          REMOTE_USER: ${{ env.TEST_USER }}
           ARGS: "-rltgoDzvO"
           SOURCE: "test_project/"
-          REMOTE_HOST: $EXAMPLE_REMOTE_HOST
-          REMOTE_USER: ${{ env.TEST_USER }}
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"

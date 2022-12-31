@@ -11,12 +11,12 @@ const validateRsync = (callback = () => {}) => {
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
   try {
-    execSync("sudo apt-get update");
+    execSync("sudo apt-get update", { stdio: 'inherit' });
   } catch (e) {
     console.log( "⚠️ [CLI] Cant run . apt-get update. Skipping ...". e.message);
   }
 
-  exec("sudo apt-get --no-install-recommends install rsync", (err, data, stderr) => {
+  exec("sudo apt-get --no-install-recommends install rsync", { stdio: 'inherit' }, (err, data, stderr) => {
     if (err) {
       console.log("⚠️ [CLI] Rsync installation failed. Aborting ... ", err.message);
       process.abort();

@@ -1,0 +1,66 @@
+name: e2e Test
+
+on:
+  push:
+    branches: [ 'main' ]
+
+env:
+  TEST_HOST_DOCKER: ./test
+  TEST_USER: test
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Clean up old test files
+        run: |
+          docker stop ssh-host-container || true && docker rm ssh-host-container || true
+
+      - name: Create ssh keys
+        run: |
+          echo $HOME
+          ls -la $HOME
+          ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
+          eval `ssh-agent -s`
+          ssh-add "$HOME/.ssh/id_rsa"
+          ssh-add -l
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Build Host Server Image
+        working-directory: ${{ env.TEST_HOST_DOCKER }}
+        run: |
+          docker build \
+            -t ssh-host-image . \
+            --build-arg SSH_PUB_KEY="$(cat $HOME/.ssh/id_rsa.pub)" \
+            --build-arg ssh_user="${{ env.TEST_USER }}"
+          docker run -d -p 8822:22 --name=ssh-host-container ssh-host-image
+          docker exec ssh-host-container sh -c "hostname --ip-address" > ip.txt
+          echo "REMOTE_HOST<<EOF" >> $GITHUB_ENV
+          cat ip.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Create project file
+        run: |
+          mkdir test_project
+          cd test_project
+          touch index.html
+          date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
+          cat index.html
+
+      - name: e2e Test published ssh-deploy action
+        uses: easingthemes/ssh-deploy@main
+        env:
+          # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          # REMOTE_HOST: $EXAMPLE_REMOTE_HOST1
+          REMOTE_USER: ${{ env.TEST_USER }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "test_project/"
+          TARGET: "/var/www/html/"
+          EXCLUDE: "/dist/, /node_modules/"

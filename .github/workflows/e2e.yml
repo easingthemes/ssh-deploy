@@ -54,11 +54,6 @@ jobs:
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
 
-      - name: e2e Test ssh
-        run: |
-          echo "$TEST_USER@$REMOTE_HOST"
-          # ssh -p 8822 $TEST_USER@$REMOTE_HOST 'exit'
-
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/add-tests
         env:

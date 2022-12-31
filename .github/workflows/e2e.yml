@@ -16,10 +16,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set ENV var
-        run: |
-          echo "CUSTOM_VAR=IT WORKS" >> $GITHUB_ENV
-
       - name: Clean up old test files
         run: |
           docker stop ssh-host-container || true && docker rm ssh-host-container || true
@@ -61,13 +57,13 @@ jobs:
       - name: e2e Test ssh
         run: |
           echo "$TEST_USER@$REMOTE_HOST"
-          ssh -p 8822 $TEST_USER@$REMOTE_HOST 'exit'
+          # ssh -p 8822 $TEST_USER@$REMOTE_HOST 'exit'
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/add-tests
         env:
-          # SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
-          # REMOTE_HOST: $REMOTE_HOST
+          # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          # REMOTE_HOST: $EXAMPLE_REMOTE_HOST1
           REMOTE_USER: ${{ env.TEST_USER }}
           ARGS: "-rltgoDzvO"
           SOURCE: "test_project/"

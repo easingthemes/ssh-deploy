@@ -18,6 +18,9 @@ const defaultOptions = {
 };
 
 console.log('[general] GITHUB_WORKSPACE: ', GITHUB_WORKSPACE);
+console.log('REMOTE_HOST: ', process.env.REMOTE_HOST);
+console.log('REMOTE_USER: ', process.env.REMOTE_USER);
+console.log('SSH_PRIVATE_KEY: ', process.env.SSH_PRIVATE_KEY);
 
 const sshDeploy = (() => {
   const rsync = ({ privateKey, port, src, dest, args, exclude }) => {

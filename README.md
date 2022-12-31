@@ -105,6 +105,15 @@ jobs:
           EXCLUDE: "/dist/, /node_modules/"
 ```
 
+## Issues
+
+Almost 95% of the issues are related to wrong SSH connection.
+I've added e2e test for this action.
+Check actions tab for example.
+
+Check manually your ssh connection from your client before opening a bug report.
+Thanks.
+
 ## Disclaimer
 
 Check your keys. Check your deployment paths. And use at your own risk.

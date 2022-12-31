@@ -114,6 +114,8 @@ Check actions tab for example.
 Check manually your ssh connection from your client before opening a bug report.
 Thanks.
 
+More info for SSH keys: https://www.ssh.com/ssh/public-key-authentication
+
 ## Disclaimer
 
 Check your keys. Check your deployment paths. And use at your own risk.

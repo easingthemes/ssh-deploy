@@ -98,7 +98,7 @@ jobs:
       #     SSH_REMOTE_USER: ${{ env.TEST_USER }}
 
       - name: e2e Test published ssh-deploy action
-        uses: easingthemes/ssh-deploy@main
+        uses: easingthemes/ssh-deploy@feature/add-tests
         with:
           SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           ARGS: "-rltgoDzvO"

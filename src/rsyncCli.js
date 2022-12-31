@@ -4,8 +4,8 @@ const { exec, execSync } = require("child_process");
 const validateRsync = (callback = () => {}) => {
   const rsyncCli = commandExists("rsync");
   if (rsyncCli) {
+    console.log('⚠️ [CLI] Rsync exists');
     const rsyncVersion = execSync("rsync --version", { stdio: 'inherit' });
-    console.log('⚠️ [CLI] Rsync exists', rsyncVersion);
     return callback();
   }
 

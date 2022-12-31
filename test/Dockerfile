@@ -4,7 +4,7 @@ ARG SSH_PUB_KEY
 
 RUN apt update
 
-RUN apt install openssh-server sudo -y
+RUN apt install openssh-server rsync sudo -y
 
 RUN useradd -rm -d /home/test -s /bin/bash -g root -G sudo -u 1000 test
 

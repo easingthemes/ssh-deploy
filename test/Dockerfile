@@ -14,6 +14,7 @@ RUN echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config.d/pub.conf
 RUN echo "AuthorizedKeysFile  .ssh/authorized_keys" >> /etc/ssh/sshd_config.d/pub.conf
 
 RUN mkdir -p /var/www/html
+RUN chown -R /var/www/html
 RUN mkdir -p /home/test/.ssh
 RUN echo "$SSH_PUB_KEY" > /home/test/.ssh/authorized_keys
 RUN chmod 700 /home/test/.ssh

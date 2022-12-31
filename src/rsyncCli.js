@@ -3,21 +3,27 @@ const { exec, execSync } = require("child_process");
 
 const validateRsync = (callback = () => {}) => {
   const rsyncCli = commandExists("rsync");
-  console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
-  if (!rsyncCli) {
-    execSync("sudo apt-get update");
-    exec("sudo apt-get --no-install-recommends install rsync", (err, data, stderr) => {
-      if (err) {
-        console.log("⚠️ [CLI] Rsync installation failed. Aborting ... ", err.message);
-        process.abort();
-      } else {
-        console.log("✅ [CLI] Rsync installed. \n", data, stderr);
-        callback();
-      }
-    });
-  } else {
-    callback();
+  if (rsyncCli) {
+    console.log('⚠️ [CLI] Rsync exists', execSync("rsync --version"));
+    return callback();
   }
+
+  console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
+  try {
+    execSync("sudo apt-get update");
+  } catch (e) {
+    console.log( "⚠️ [CLI] Cant run . apt-get update. Skipping ...". e.message);
+  }
+
+  exec("sudo apt-get --no-install-recommends install rsync", (err, data, stderr) => {
+    if (err) {
+      console.log("⚠️ [CLI] Rsync installation failed. Aborting ... ", err.message);
+      process.abort();
+    } else {
+      console.log("✅ [CLI] Rsync installed. \n", data, stderr);
+      callback();
+    }
+  });
 };
 
 const validateInputs = (inputs) => {

@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/easingthemes/ssh-deploy/compare/v3.0.1...v3.1.0) (2022-12-31)
+
+
+### Features
+
+* add e2e tests ([40f855a](https://github.com/easingthemes/ssh-deploy/commit/40f855a08b4911c3f54b7a45306af355c6d87277))
+
 ## [3.0.1](https://github.com/easingthemes/ssh-deploy/compare/v3.0.0...v3.0.1) (2022-10-28)
 
 

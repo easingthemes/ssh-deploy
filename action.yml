@@ -31,6 +31,10 @@ inputs:
     description: "An array of folder to exclude"
     required: false
     default: ""
+  SCRIPT:
+    description: "Script to run on host machine"
+    required: false
+    default: "ls"
 outputs:
   status:
     description: "Status"

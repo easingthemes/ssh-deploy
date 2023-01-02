@@ -11,7 +11,7 @@ const run = () => {
     deployKeyName, sshPrivateKey,
     args, exclude, sshCmdArgs,
     scriptBefore, scriptAfter,
-    sshServer
+    rsyncServer
   } = inputs;
   // Validate required inputs
   validateRequiredInputs({ sshPrivateKey, remoteHost, remoteUser });
@@ -30,7 +30,7 @@ const run = () => {
   }
   /* eslint-disable object-property-newline */
   sshDeploy({
-    source, sshServer, exclude, remotePort,
+    source, rsyncServer, exclude, remotePort,
     privateKey, args, sshCmdArgs, callback
   });
 };

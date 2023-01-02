@@ -18,9 +18,8 @@ const validateRsync = new Promise(async (resolve, reject) => {
   }
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
-
   try {
-    execSync('sudo apt-get update && sudo apt-get --no-install-recommends install rsync', { stdio: 'inherit' });
+    execSync('sudo DEBIAN_FRONTEND=noninteractive apt-get -y update && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install rsync', { stdio: 'inherit' });
     console.log('✅ [CLI] Rsync installed. \n');
     resolve();
   } catch (err) {

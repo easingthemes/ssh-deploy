@@ -29,11 +29,10 @@ inputNames.forEach((input) => {
   let extendedVal = validVal;
   // eslint-disable-next-line default-case
   switch (inputName) {
-    case 'source':
-      extendedVal = `${githubWorkspace}/${validVal}`;
+    case 'args':
+      extendedVal = validVal.split(' ');
       break;
     case 'exclude':
-    case 'args':
     case 'sshCmdArgs':
       extendedVal = validVal.split(',').map((item) => item.trim());
       break;

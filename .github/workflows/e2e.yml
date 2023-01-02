@@ -8,7 +8,7 @@ on:
       ARGS:
         description: 'ARGS'
         required: true
-        default: '-rltgoDzvO --delete --chmod=ugo=rwX'
+        default: '-rltgoDzvO --delete --chmod=ugo=rwX --progress'
       EXCLUDE:
         description: 'EXCLUDE'
         required: true
@@ -16,7 +16,7 @@ on:
       SSH_CMD_ARGS:
         description: 'SSH_CMD_ARGS'
         required: true
-        default: '-o StrictHostKeyChecking=no, -o AnotherArg=7'
+        default: '-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null'
 
 
 env:
@@ -66,6 +66,9 @@ jobs:
           mkdir test_project
           cd test_project
           touch index.html
+          touch image.svg
+          touch text.txt
+          truncate -s 500MB big_file.txt
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
 
@@ -76,8 +79,8 @@ jobs:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}
-          ARGS: ${{ github.event.inputs.ARGS || '-rltgoDzvO --delete --chmod=ugo=rwX' }}
-          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-o StrictHostKeyChecking=no, -o AnotherArg=7' }}
+          ARGS: ${{ github.event.inputs.ARGS || '-rltgoDzvO --delete --chmod=ugo=rwX --progress' }}
+          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null' }}
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
           EXCLUDE: ${{ github.event.inputs.EXCLUDE || '/dist/, /node_modules/' }}

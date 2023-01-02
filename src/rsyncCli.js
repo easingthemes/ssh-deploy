@@ -51,7 +51,9 @@ const rsyncCli = async ({
 
   const defaultOptions = {
     ssh: true,
-    recursive: true
+    recursive: true,
+    onStdout: (data) => console.log(data.toString()),
+    onStderr: (data) => console.error(data.toString())
   };
 
   // RSYNC COMMAND
@@ -59,8 +61,7 @@ const rsyncCli = async ({
   return nodeRsyncPromise({
     ...defaultOptions,
     src: source, dest: rsyncServer, excludeFirst: exclude, port: remotePort,
-    privateKey: privateKeyPath, args, sshCmdArgs,
-    onStdout: (data) => console.log(data), onStderr: (data) => console.error(data)
+    privateKey: privateKeyPath, args, sshCmdArgs
   });
 };
 

@@ -2,6 +2,10 @@ const { existsSync, mkdirSync, writeFileSync } = require('fs');
 const { join } = require('path');
 
 const validateDir = (dir) => {
+  if (!dir) {
+    console.log('[SSH] dir is not defined');
+    return;
+  }
   if (existsSync(dir)) {
     console.log(`[SSH] ${dir} dir exist`);
     return;

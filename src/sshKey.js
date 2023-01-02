@@ -10,7 +10,7 @@ const addSshKey = (content, filename) => {
   writeToFile({ dir, filename: 'known_hosts', content: '' });
   writeToFile({ dir, filename, content, isRequired: true });
 
-  console.log('✅ Ssh key added to `.ssh` dir ', dir);
+  console.log('✅ [SSH] key added to `.ssh` dir ', dir);
 
   return filePath;
 };

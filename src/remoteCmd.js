@@ -1,15 +1,14 @@
-const { join } = require('path');
 const { exec } = require('child_process');
 
 const { sshServer, githubWorkspace } = require('./inputs');
 const { writeToFile } = require('./helpers');
 
-const remoteCmd = (cmd, label) => {
-  const localScriptPath = join(githubWorkspace, `local_ssh_script-${label}.sh`);
+const remoteCmd = (content, label) => {
+  const filename = `local_ssh_script-${label}.sh`;
   try {
-    writeToFile(localScriptPath, cmd);
+    writeToFile({ dir: githubWorkspace, filename, content });
 
-    exec(`ssh ${sshServer} 'bash -s' < ${localScriptPath}`, (err, data, stderr) => {
+    exec(`ssh ${sshServer} 'bash -s' < ${filename}`, (err, data, stderr) => {
       if (err) {
         console.log('⚠️ [CMD] Remote script failed. ', err.message);
       } else {

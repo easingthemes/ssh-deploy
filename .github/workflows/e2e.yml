@@ -76,8 +76,8 @@ jobs:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}
-          ARGS: ${{ github.event.inputs.ARGS || '-o StrictHostKeyChecking=no, -o AnotherArg=7' }}
-          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-rltgoDzvO --delete --chmod=ugo=rwX' }}
+          ARGS: ${{ github.event.inputs.ARGS || '-rltgoDzvO --delete --chmod=ugo=rwX' }}
+          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-o StrictHostKeyChecking=no, -o AnotherArg=7' }}
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
           EXCLUDE: ${{ github.event.inputs.EXCLUDE || '/dist/, /node_modules/' }}

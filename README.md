@@ -67,6 +67,11 @@ Execution is preformed by storing commands in `.sh` file and executing it via `.
 Script to run on host machine after rsync.
 Rsync output is stored in `$RSYNC_STDOUT` env variable.
 
+##### 11. `SSH_CMD_ARGS` (optional, default '-o StrictHostKeyChecking=no')
+
+A list of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5
+
+
 # Usage
 
 Use the latest version from Marketplace,eg: ssh-deploy@v2

@@ -66,11 +66,12 @@ jobs:
           mkdir test_project
           cd test_project
           touch index.html
-          touch image.svg
-          touch text.txt
+          truncate -s 50MB image.svg
+          truncate -s 5MB text.txt
           truncate -s 500MB big_file.txt
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
           cat index.html
+          ls -l
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@main

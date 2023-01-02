@@ -1,3 +1,10 @@
+## [3.3.4](https://github.com/easingthemes/ssh-deploy/compare/v3.3.3...v3.3.4) (2023-01-02)
+
+
+### Bug Fixes
+
+* Add visible Rsync CMD for debugging ([91b6d28](https://github.com/easingthemes/ssh-deploy/commit/91b6d280aee6a7ae666a11426fb356406f4a25a5))
+
 ## [3.3.3](https://github.com/easingthemes/ssh-deploy/compare/v3.3.2...v3.3.3) (2023-01-02)
 
 

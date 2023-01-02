@@ -1,3 +1,10 @@
+## [3.3.1](https://github.com/easingthemes/ssh-deploy/compare/v3.3.0...v3.3.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* Log rsync command ([85f4a96](https://github.com/easingthemes/ssh-deploy/commit/85f4a967435d7d44edf2fea628c9f59db5e890ee))
+
 # [3.3.0](https://github.com/easingthemes/ssh-deploy/compare/v3.2.0...v3.3.0) (2023-01-02)
 
 

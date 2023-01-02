@@ -16,9 +16,9 @@ jobs:
         node-version: [ 16.x ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix['node-version'] }}
       - name: Install dependencies
@@ -28,11 +28,11 @@ jobs:
       - name: Run Tests
         run: npm test --if-present
       - name: Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v3
         with:
           dry_run: ${{ github.event.inputs.dryrun == 'true' }}
           extra_plugins: |
-            @semantic-release/changelog@3.0.0
+            @semantic-release/changelog
             @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

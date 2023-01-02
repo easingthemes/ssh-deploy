@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/easingthemes/ssh-deploy/compare/v3.1.1...v3.2.0) (2023-01-02)
+
+
+### Features
+
+* Add SSH remote script support -  before and after rsync ([2cd8a82](https://github.com/easingthemes/ssh-deploy/commit/2cd8a820e22135b7002fbe6a47cf33f99e2d337b))
+
 ## [3.1.1](https://github.com/easingthemes/ssh-deploy/compare/v3.1.0...v3.1.1) (2023-01-02)
 
 

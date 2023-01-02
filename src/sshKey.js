@@ -5,7 +5,7 @@ const { writeToFile } = require('./helpers');
 const KNOWN_HOSTS = 'known_hosts';
 const getPrivateKeyPath = (filename = '') => {
   const { HOME } = process.env;
-  const dir = join(HOME || __dirname, '.ssh');
+  const dir = join(HOME || '~', '.ssh');
   const knownHostsPath = join(dir, KNOWN_HOSTS);
   return {
     dir,

@@ -73,8 +73,8 @@ jobs:
           truncate -s 5MB text_in_skip_dir.txt
           cd ../
           cat index.html
-          echo "test_project: \n" && ls -l
-          echo "skip_dir: \n" && ls -l skip_dir
+          echo "test_project:" && ls -l
+          echo "skip_dir:" && ls -l skip_dir
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@main

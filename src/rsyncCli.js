@@ -1,6 +1,5 @@
 const { execSync } = require('child_process');
 const nodeRsync = require('rsyncwrapper');
-const { writeToFile } = require('./helpers');
 
 const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
   try {
@@ -26,7 +25,7 @@ const validateRsync = async () => {
     console.log('⚠️ [CLI] Rsync exists');
     return;
   } catch (error) {
-    console.log('⚠️ [CLI] Rsync doesn\'t exists', error);
+    console.log('⚠️ [CLI] Rsync doesn\'t exists', error.message);
   }
 
   console.log('⚠️ [CLI] Start rsync installation with "apt-get" \n');
@@ -55,7 +54,8 @@ const rsyncCli = async ({
   return nodeRsyncPromise({
     ...defaultOptions,
     src: source, dest: rsyncServer, excludeFirst: exclude, port: remotePort,
-    privateKey: privateKeyPath, args, sshCmdArgs
+    privateKey: privateKeyPath, args, sshCmdArgs,
+    onStdout: (data) => console.log(data), onStderr: (data) => console.error(data)
   });
 };
 

@@ -56,7 +56,7 @@ jobs:
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/ssh-cmd
-        with:
+        env:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST1
           REMOTE_USER: ${{ env.TEST_USER }}

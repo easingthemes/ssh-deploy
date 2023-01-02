@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/easingthemes/ssh-deploy/compare/v3.2.0...v3.3.0) (2023-01-02)
+
+
+### Features
+
+* Add SSH_CMD_ARGS support ([51a0063](https://github.com/easingthemes/ssh-deploy/commit/51a00631e2b91983fb610ca2157a673b9ae03c95))
+
 # [3.2.0](https://github.com/easingthemes/ssh-deploy/pull/94/files) (2023-01-02)
 
 

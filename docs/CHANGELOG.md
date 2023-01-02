@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/easingthemes/ssh-deploy/compare/v3.3.1...v3.3.2) (2023-01-02)
+
+
+### Bug Fixes
+
+* Add manual inputs for e2e test ([8f71595](https://github.com/easingthemes/ssh-deploy/commit/8f715957ab9283ab2934dd1e5be9d78f2eaf3fae))
+
 ## [3.3.1](https://github.com/easingthemes/ssh-deploy/compare/v3.3.0...v3.3.1) (2023-01-02)
 
 

@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/easingthemes/ssh-deploy/compare/v3.1.0...v3.1.1) (2023-01-02)
+
+
+### Bug Fixes
+
+* use main branch for e2e testes ([21451fe](https://github.com/easingthemes/ssh-deploy/commit/21451fec978a02b55672490a2c11c6c17995ff95))
+
 # [3.1.0](https://github.com/easingthemes/ssh-deploy/compare/v3.0.1...v3.1.0) (2022-12-31)
 
 

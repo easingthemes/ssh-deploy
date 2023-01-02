@@ -2,13 +2,14 @@ const { execSync } = require('child_process');
 const which = require('which');
 const nodeRsync = require('rsyncwrapper');
 
-const validateRsync = async () => {
+// eslint-disable-next-line no-async-promise-executor
+const validateRsync = () => new Promise(async (resolve, reject) => {
   const rsyncCli = await which('rsync', { nothrow: true });
   execSync('rsync --version', { stdio: 'inherit' });
   if (rsyncCli) {
     console.log('⚠️ [CLI] Rsync exists');
     execSync('rsync --version', { stdio: 'inherit' });
-    return;
+    resolve();
   }
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
@@ -16,10 +17,11 @@ const validateRsync = async () => {
   try {
     execSync('sudo apt-get update && sudo apt-get --no-install-recommends install rsync', { stdio: 'inherit' });
     console.log('✅ [CLI] Rsync installed. \n');
+    resolve();
   } catch (err) {
-    throw new Error(`⚠️ [CLI] Rsync installation failed. Aborting ... error: ${err.message}`);
+    reject(Error(`⚠️ [CLI] Rsync installation failed. Aborting ... error: ${err.message}`));
   }
-};
+});
 
 const rsyncCli = ({
   source, sshServer, exclude, remotePort,
@@ -39,7 +41,7 @@ const rsyncCli = ({
     /* eslint-disable object-property-newline */
     nodeRsync({
       src: source, dest: sshServer, excludeFirst: exclude, port: remotePort,
-      privateKey, args, callback,
+      privateKey, args,
       ...defaultOptions
     }, (error, stdout, stderr, cmd) => {
       if (error) {

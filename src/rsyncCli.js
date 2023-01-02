@@ -8,7 +8,7 @@ const validateRsync = new Promise(async (resolve, reject) => {
     execSync('rsync --version', { stdio: 'inherit' });
     rsyncCli = true;
   } catch (e) {
-    rsyncCli = true;
+    rsyncCli = false;
   }
 
   if (rsyncCli) {

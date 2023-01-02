@@ -3,6 +3,21 @@ name: e2e Test
 on:
   push:
     branches: [ 'main' ]
+  workflow_dispatch:
+    inputs:
+      ARGS:
+        description: 'ARGS'
+        required: true
+        default: '-rltgoDzvO'
+      EXCLUDE:
+        description: 'EXCLUDE'
+        required: true
+        default: '/dist/, /node_modules/'
+      SSH_CMD_ARGS:
+        description: 'SSH_CMD_ARGS'
+        required: true
+        default: '-o StrictHostKeyChecking=no'
+
 
 env:
   TEST_HOST_DOCKER: ./test
@@ -61,10 +76,11 @@ jobs:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}
-          ARGS: "-rltgoDzvO"
+          ARGS: ${{ github.event.inputs.ARGS }}
+          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS }}
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
-          EXCLUDE: "/dist/, /node_modules/"
+          EXCLUDE: ${{ github.event.inputs.EXCLUDE }}
           SCRIPT_BEFORE: |
             whoami
             ls -al

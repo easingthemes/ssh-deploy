@@ -9,6 +9,7 @@ const validateRsync = new Promise(async (resolve, reject) => {
     rsyncCli = true;
   } catch (e) {
     rsyncCli = false;
+    console.log('⚠️ [CLI] Rsync doesn\'t exists', e);
   }
 
   if (rsyncCli) {

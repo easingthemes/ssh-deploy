@@ -5,7 +5,7 @@ const { addSshKey, getPrivateKeyPath } = require('./sshKey');
 const { validateRequiredInputs } = require('./helpers');
 const inputs = require('./inputs');
 
-const run = () => {
+const run = async () => {
   const {
     source, remoteUser, remoteHost, remotePort,
     deployKeyName, sshPrivateKey,
@@ -20,20 +20,25 @@ const run = () => {
   const { path: privateKeyPath } = getPrivateKeyPath(deployKeyName);
   // Check Script before
   if (scriptBefore) {
-    remoteCmdBefore(scriptBefore);
+    await remoteCmdBefore(scriptBefore);
   }
-  // Check script after
-  let callback = () => {};
-  if (scriptAfter) {
-    callback = (...result) => {
-      remoteCmdAfter(scriptAfter, result);
-    };
-  }
+
   /* eslint-disable object-property-newline */
-  sshDeploy({
+  await sshDeploy({
     source, rsyncServer, exclude, remotePort,
-    privateKeyPath, args, sshCmdArgs, callback
+    privateKeyPath, args, sshCmdArgs
   });
+
+  // Check script after
+  if (scriptAfter) {
+    await remoteCmdAfter(scriptAfter);
+  }
 };
 
-run();
+run()
+  .then(() => {
+    console.log('DONE');
+  })
+  .catch(() => {
+    console.error('ERROR');
+  });

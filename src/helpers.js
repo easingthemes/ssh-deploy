@@ -23,7 +23,7 @@ const handleError = (message, isRequired) => {
   console.warn(message);
 };
 
-const writeToFile = ({ dir, filename, content, isRequired, mode = '0o644' }) => {
+const writeToFile = ({ dir, filename, content, isRequired, mode = '0644' }) => {
   validateDir(dir);
   const filePath = join(dir, filename);
 

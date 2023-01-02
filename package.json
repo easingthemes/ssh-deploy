@@ -30,8 +30,7 @@
   },
   "homepage": "https://github.com/easingthemes/ssh-deploy#readme",
   "dependencies": {
-    "rsyncwrapper": "^3.0.1",
-    "which": "^3.0.0"
+    "rsyncwrapper": "^3.0.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.36.0",

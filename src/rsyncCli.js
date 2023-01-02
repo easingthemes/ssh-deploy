@@ -3,7 +3,7 @@ const nodeRsync = require('rsyncwrapper');
 
 // eslint-disable-next-line no-async-promise-executor
 const validateRsync = new Promise(async (resolve, reject) => {
-  let rsyncCli = false;
+  let rsyncCli;
   try {
     execSync('rsync --version', { stdio: 'inherit' });
     rsyncCli = true;
@@ -14,8 +14,8 @@ const validateRsync = new Promise(async (resolve, reject) => {
 
   if (rsyncCli) {
     console.log('⚠️ [CLI] Rsync exists');
-    execSync('rsync --version', { stdio: 'inherit' });
     resolve();
+    return;
   }
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');

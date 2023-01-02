@@ -1,12 +1,16 @@
 # ssh deployments
 
-Deploy code with rsync over ssh, using NodeJS.
+Deploy code with rsync over ssh.
+
+Execute remote scripts before or after rsync
 
 NodeJS version is more than a minute `faster` than simple Docker version.
 
 This GitHub Action deploys specific directory from `GITHUB_WORKSPACE` to a folder on a server via rsync over ssh, using NodeJS.
 
 This action would usually follow a build/test action which leaves deployable code in `GITHUB_WORKSPACE`, eg `dist`;
+
+In addition to rsync, this action provides scripts execution on remote host before and/or after rsync.
 
 # Configuration
 
@@ -53,6 +57,16 @@ The target directory
 
 path to exclude separated by `,`, ie: `/dist/, /node_modules/`
 
+##### 9. `SCRIPT_BEFORE` (optional, default '')
+
+Script to run on host machine before rsync. Single line or multiline commands.
+Execution is preformed by storing commands in `.sh` file and executing it via `.bash` over `ssh`
+
+##### 10. `SCRIPT_AFTER` (optional, default '')
+
+Script to run on host machine after rsync.
+Rsync output is stored in `$RSYNC_STDOUT` env variable.
+
 # Usage
 
 Use the latest version from Marketplace,eg: ssh-deploy@v2
@@ -69,6 +83,13 @@ or use the latest version from a branch, eg: ssh-deploy@main
       REMOTE_USER: ${{ secrets.REMOTE_USER }}
       TARGET: ${{ secrets.REMOTE_TARGET }}
       EXCLUDE: "/dist/, /node_modules/"
+      SCRIPT_BEFORE: |
+        whoami
+        ls -al
+      SCRIPT_AFTER: |
+        whoami
+        ls -al
+        echo $RSYNC_STDOUT
 ```
 
 # Example usage in workflow

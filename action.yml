@@ -1,9 +1,9 @@
 name: "ssh deploy"
-description: "NodeJS action for FAST deployment with rsync/ssh"
+description: "NodeJS action for FAST deployment with rsync/ssh and remote script execution before/after rsync"
 author: "easingthemes"
 inputs:
-  SSH_PRIVATE_KEY: # Private Key
-    description: "Private Key"
+  SSH_PRIVATE_KEY:
+    description: "Private key part of an SSH key pair"
     required: true
   REMOTE_HOST:
     description: "Remote host"
@@ -16,7 +16,7 @@ inputs:
     required: false
     default: "22"
   SOURCE:
-    description: "Source directory"
+    description: "Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`"
     required: false
     default: ""
   TARGET:
@@ -32,17 +32,17 @@ inputs:
     required: false
     default: "-o StrictHostKeyChecking=no"
   EXCLUDE:
-    description: "An array of folder to exclude"
+    description: "paths to exclude separated by `,`, ie: `/dist/, /node_modules/`"
     required: false
     default: ""
   SCRIPT_BEFORE:
     description: "Script to run on host machine before rsync"
     required: false
-    default: "echo 'Before rsync'"
+    default: ""
   SCRIPT_AFTER:
     description: "Script to run on host machine after rsync"
     required: false
-    default: "echo 'After rsync'"
+    default: ""
 outputs:
   status:
     description: "Status"

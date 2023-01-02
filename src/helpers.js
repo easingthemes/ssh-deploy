@@ -16,15 +16,20 @@ const validateDir = (dir) => {
   console.log('✅ [DIR] dir created.');
 };
 
+const handleError = (message, isRequired) => {
+  if (isRequired) {
+    throw new Error(message);
+  }
+  console.warn(message);
+};
+
 const writeToFile = ({ dir, filename, content, isRequired, mode = '0o644' }) => {
   validateDir(dir);
   const filePath = join(dir, filename);
 
   if (existsSync(filePath)) {
-    console.log(`[FILE] ${filePath} file exist`);
-    if (isRequired) {
-      throw new Error(`⚠️ [FILE] ${filePath} Required file exist, aborting ...`);
-    }
+    const message = `⚠️ [FILE] ${filePath} Required file exist.`;
+    handleError(message, isRequired);
     return;
   }
 
@@ -34,8 +39,9 @@ const writeToFile = ({ dir, filename, content, isRequired, mode = '0o644' }) => 
       encoding: 'utf8',
       mode
     });
-  } catch (e) {
-    throw new Error(`⚠️[FILE] Writing to file error. filePath: ${filePath}, message:  ${e.message}`);
+  } catch (error) {
+    const message = `⚠️[FILE] Writing to file error. filePath: ${filePath}, message:  ${error.message}`;
+    handleError(message, isRequired);
   }
 };
 

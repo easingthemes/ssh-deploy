@@ -15,7 +15,7 @@ const remoteCmd = async (content, label, isRequired) => new Promise((resolve, re
   const filename = `local_ssh_script-${label}.sh`;
   try {
     writeToFile({ dir: githubWorkspace, filename, content });
-    console.log(`Executing remote script: ssh -i ${privateKey} ${sshServer}`);
+    console.log(`Executing remote script: ssh -i ${privateKey} ${sshServer}`, content);
     exec(`DEBIAN_FRONTEND=noninteractive ssh -i ${privateKey} ${sshServer} 'RSYNC_STDOUT=${process.env.RSYNC_STDOUT} bash -s' < ${filename}`, (err, data, stderr) => {
       if (err) {
         const message = `⚠️ [CMD] Remote script failed: ${err.message}`;

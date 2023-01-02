@@ -38,9 +38,10 @@ const run = async () => {
 };
 
 run()
-  .then(() => {
-    console.log('DONE');
+  .then((data) => {
+    console.log('DONE', data);
   })
-  .catch(() => {
-    console.error('ERROR');
+  .catch((error) => {
+    console.error('ERROR', error.message);
+    process.exit(1);
   });

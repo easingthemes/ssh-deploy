@@ -67,7 +67,7 @@ const sshDeploy = async (params) => {
   await validateRsync();
   const stdout = await rsyncCli(params);
   console.log('✅ [Rsync] finished.', stdout);
-  process.env.RSYNC_STDOUT = stdout;
+  process.env.RSYNC_STDOUT = `${stdout}`;
   return stdout;
 };
 

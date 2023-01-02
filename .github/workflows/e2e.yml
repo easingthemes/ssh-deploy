@@ -64,9 +64,10 @@ jobs:
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
-#          SCRIPT_BEFORE: |
-#            whoami
-#            ls -al
-#          SCRIPT_AFTER: |
-#            whoami
-#            ls -al
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT

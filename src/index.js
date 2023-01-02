@@ -38,10 +38,10 @@ const run = async () => {
 };
 
 run()
-  .then((data) => {
-    console.log('[DONE]', data);
+  .then((data = '') => {
+    console.log('✅ [DONE]', data);
   })
   .catch((error) => {
-    console.error('[ERROR]', error.message);
+    console.error('❌ [ERROR]', error.message);
     process.exit(1);
   });

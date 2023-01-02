@@ -5,20 +5,20 @@ const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
   try {
     nodeRsync(config, (error, stdout, stderr, cmd) => {
       if (error) {
-        console.error('⚠️ [Rsync] error: ');
+        console.error('❌ [Rsync] error: ');
         console.error(error);
-        console.error('⚠️ [Rsync] stderr: ');
+        console.error('❌ [Rsync] stderr: ');
         console.error(stderr);
-        console.error('⚠️ [Rsync] stdout: ');
+        console.error('❌️ [Rsync] stdout: ');
         console.error(stdout);
-        console.error('⚠️ [Rsync] cmd: ', cmd);
+        console.error('❌ [Rsync] cmd: ', cmd);
         reject(new Error(`${error.message}\n\n${stderr}`));
       } else {
         resolve(stdout);
       }
     });
   } catch (error) {
-    console.error('⚠️ [Rsync] command error: ', error.message, error.stack);
+    console.error('❌ [Rsync] command error: ', error.message, error.stack);
     reject(error);
   }
 });
@@ -26,13 +26,13 @@ const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
 const validateRsync = async () => {
   try {
     execSync('rsync --version', { stdio: 'inherit' });
-    console.log('⚠️ [CLI] Rsync exists');
+    console.log('✅️ [CLI] Rsync exists');
     return;
   } catch (error) {
-    console.log('⚠️ [CLI] Rsync doesn\'t exists', error.message);
+    console.warn('⚠️ [CLI] Rsync doesn\'t exists', error.message);
   }
 
-  console.log('⚠️ [CLI] Start rsync installation with "apt-get" \n');
+  console.log('[CLI] Start rsync installation with "apt-get" \n');
   try {
     execSync('sudo DEBIAN_FRONTEND=noninteractive apt-get -y update && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install rsync', { stdio: 'inherit' });
     console.log('✅ [CLI] Rsync installed. \n');

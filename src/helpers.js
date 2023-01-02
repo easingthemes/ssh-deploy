@@ -3,11 +3,11 @@ const { join } = require('path');
 
 const validateDir = (dir) => {
   if (!dir) {
-    console.log('[DIR] dir is not defined');
+    console.warn('⚠️ [DIR] dir is not defined');
     return;
   }
   if (existsSync(dir)) {
-    console.log(`[DIR] ${dir} dir exist`);
+    console.log(`✅ [DIR] ${dir} dir exist`);
     return;
   }
 
@@ -51,7 +51,7 @@ const validateRequiredInputs = (inputs) => {
     const inputValue = inputs[inputKey];
 
     if (!inputValue) {
-      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
+      console.error(`❌ [INPUTS] ${inputKey} is mandatory`);
     }
 
     return inputValue;

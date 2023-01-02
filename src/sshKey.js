@@ -25,13 +25,13 @@ const addSshKey = (content, deployKeyName) => {
 
 const updateKnownHosts = (host) => {
   const { knownHostsPath } = getPrivateKeyPath();
-  console.log('✅ [SSH] Adding host to `known_hosts` ....', host, knownHostsPath);
+  console.log('[SSH] Adding host to `known_hosts` ....', host, knownHostsPath);
   try {
     execSync(`ssh-keyscan -H ${host}  >> ${knownHostsPath}`, {
       stdio: 'inherit'
     });
   } catch (error) {
-    console.error('✅ [SSH] Adding host to `known_hosts` ERROR', host, error.message);
+    console.error('❌ [SSH] Adding host to `known_hosts` ERROR', host, error.message);
   }
   console.log('✅ [SSH] Adding host to `known_hosts` DONE', host, knownHostsPath);
 };

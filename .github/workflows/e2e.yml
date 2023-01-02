@@ -57,6 +57,7 @@ jobs:
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@main
         env:
+          # ENV Vars created in previous steps:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}

@@ -16,7 +16,7 @@ const validateDir = (dir) => {
   console.log('✅ [DIR] dir created.');
 };
 
-const writeToFile = ({ dir, filename, content, isRequired }) => {
+const writeToFile = ({ dir, filename, content, isRequired, mode = '0o644' }) => {
   validateDir(dir);
   const filePath = join(dir, filename);
 
@@ -32,7 +32,7 @@ const writeToFile = ({ dir, filename, content, isRequired }) => {
     console.log(`[FILE] writing ${filePath} file ...`, content.length);
     writeFileSync(filePath, content, {
       encoding: 'utf8',
-      mode: 0o600
+      mode
     });
   } catch (e) {
     throw new Error(`⚠️[FILE] Writing to file error. filePath: ${filePath}, message:  ${e.message}`);

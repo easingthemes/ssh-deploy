@@ -17,7 +17,7 @@ const remoteCmd = async (content, label, isRequired) => new Promise((resolve, re
   try {
     writeToFile({ dir: githubWorkspace, filename, content });
 
-    exec(`ssh -i ${privateKey} ${sshServer} 'RSYNC_STDOUT=${process.env.RSYNC_STDOUT} bash -s' < ${filename}`, (err, data, stderr) => {
+    exec(`DEBIAN_FRONTEND=noninteractive ssh -i ${privateKey} ${sshServer} 'RSYNC_STDOUT=${process.env.RSYNC_STDOUT} bash -s' < ${filename}`, (err, data, stderr) => {
       if (err) {
         handleError(err.message, isRequired, reject);
       } else {

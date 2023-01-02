@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 
-const { sshServer, githubWorkspace } = require('./inputs');
+const { privateKey, sshServer, githubWorkspace } = require('./inputs');
 const { writeToFile } = require('./helpers');
 
 const remoteCmd = (content, label) => {
@@ -8,7 +8,7 @@ const remoteCmd = (content, label) => {
   try {
     writeToFile({ dir: githubWorkspace, filename, content });
 
-    exec(`ssh ${sshServer} 'bash -s' < ${filename}`, (err, data, stderr) => {
+    exec(`ssh -i ${privateKey} ${sshServer} 'bash -s' < ${filename}`, (err, data, stderr) => {
       if (err) {
         console.log('⚠️ [CMD] Remote script failed. ', err.message);
       } else {

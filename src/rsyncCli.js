@@ -3,19 +3,13 @@ const nodeRsync = require('rsyncwrapper');
 
 // eslint-disable-next-line no-async-promise-executor
 const validateRsync = new Promise(async (resolve, reject) => {
-  let rsyncCli;
   try {
     execSync('rsync --version', { stdio: 'inherit' });
-    rsyncCli = true;
-  } catch (e) {
-    rsyncCli = false;
-    console.log('⚠️ [CLI] Rsync doesn\'t exists', e);
-  }
-
-  if (rsyncCli) {
     console.log('⚠️ [CLI] Rsync exists');
     resolve();
     return;
+  } catch (e) {
+    console.log('⚠️ [CLI] Rsync doesn\'t exists', e);
   }
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
@@ -30,7 +24,7 @@ const validateRsync = new Promise(async (resolve, reject) => {
 
 const rsyncCli = ({
   source, rsyncServer, exclude, remotePort,
-  privateKey, args, sshCmdArgs, callback
+  privateKeyPath, args, sshCmdArgs, callback
 }) => {
   console.log(`[Rsync] Starting Rsync Action: ${source} to ${rsyncServer}`);
   if (exclude) console.log(`[Rsync] excluding folders ${exclude}`);
@@ -46,7 +40,7 @@ const rsyncCli = ({
     nodeRsync({
       ...defaultOptions,
       src: source, dest: rsyncServer, excludeFirst: exclude, port: remotePort,
-      privateKey, args, sshCmdArgs,
+      privateKey: privateKeyPath, args, sshCmdArgs
     }, (error, stdout, stderr, cmd) => {
       if (error) {
         console.error('⚠️ [Rsync] error: ', error.message);

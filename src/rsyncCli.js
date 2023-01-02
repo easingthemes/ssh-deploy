@@ -2,6 +2,12 @@ const { execSync } = require('child_process');
 const nodeRsync = require('rsyncwrapper');
 
 const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
+  const logCMD = (cmd) => {
+    console.warn('================================================================');
+    console.log(cmd);
+    console.warn('================================================================');
+  };
+
   try {
     nodeRsync(config, (error, stdout, stderr, cmd) => {
       if (error) {
@@ -11,10 +17,12 @@ const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
         console.error(stderr);
         console.error('❌️ [Rsync] stdout: ');
         console.error(stdout);
-        console.error('❌ [Rsync] cmd: ', cmd);
+        console.error('❌ [Rsync] command: ');
+        logCMD(cmd);
         reject(new Error(`${error.message}\n\n${stderr}`));
       } else {
-        console.log('⭐ [Rsync] cmd finished: ', cmd);
+        console.log('⭐ [Rsync] command finished: ');
+        logCMD(cmd);
         resolve(stdout);
       }
     });

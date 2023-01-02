@@ -12,7 +12,7 @@ on:
       EXCLUDE:
         description: 'EXCLUDE'
         required: true
-        default: '/dist/, /node_modules/'
+        default: 'skip_dir/, /node_modules/'
       SSH_CMD_ARGS:
         description: 'SSH_CMD_ARGS'
         required: true
@@ -63,15 +63,18 @@ jobs:
 
       - name: Create project file
         run: |
-          mkdir test_project
-          cd test_project
+          mkdir test_project && cd "$_"
           touch index.html
-          truncate -s 50MB image.svg
-          truncate -s 5MB text.txt
-          truncate -s 500MB big_file.txt
           date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
+          truncate -s 50MB image.svg
+          truncate -s 5MB info.txt
+          truncate -s 500MB big_file.txt
+          mkdir skip_dir && cd "$_"
+          truncate -s 5MB text_in_skip_dir.txt
+          cd ../
           cat index.html
-          ls -l
+          echo "test_project: \n" && ls -l
+          echo "skip_dir: \n" && ls -l skip_dir
 
       - name: e2e Test published ssh-deploy action
         uses: easingthemes/ssh-deploy@main
@@ -84,11 +87,10 @@ jobs:
           SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null' }}
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
-          EXCLUDE: ${{ github.event.inputs.EXCLUDE || '/dist/, /node_modules/' }}
+          EXCLUDE: ${{ github.event.inputs.EXCLUDE || 'skip_dir/, /node_modules/' }}
           SCRIPT_BEFORE: |
             whoami
-            ls -al
+            ls -al /var/www/html/
           SCRIPT_AFTER: |
-            whoami
-            ls -al
+            ls -al /var/www/html/
             echo $RSYNC_STDOUT

@@ -3,7 +3,7 @@ const which = require('which');
 const nodeRsync = require('rsyncwrapper');
 
 // eslint-disable-next-line no-async-promise-executor
-const validateRsync = async () => new Promise(async (resolve, reject) => {
+const validateRsync = new Promise(async (resolve, reject) => {
   const rsyncCli = await which('rsync', { nothrow: true });
   execSync('rsync --version', { stdio: 'inherit' });
   if (rsyncCli) {

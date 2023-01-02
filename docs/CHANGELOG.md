@@ -1,3 +1,10 @@
+## [3.3.3](https://github.com/easingthemes/ssh-deploy/compare/v3.3.2...v3.3.3) (2023-01-02)
+
+
+### Bug Fixes
+
+* log buffer from rsync stdout ([8e19e0d](https://github.com/easingthemes/ssh-deploy/commit/8e19e0d6bc9b1c332925ce0268ad64b50728fae5))
+
 ## [3.3.2](https://github.com/easingthemes/ssh-deploy/compare/v3.3.1...v3.3.2) (2023-01-02)
 
 

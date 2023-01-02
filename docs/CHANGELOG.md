@@ -4,6 +4,21 @@
 ### Features
 
 * Add SSH remote script support -  before and after rsync ([2cd8a82](https://github.com/easingthemes/ssh-deploy/commit/2cd8a820e22135b7002fbe6a47cf33f99e2d337b))
+* feat: add sshCmdArgs option
+* feat: add onStderr and onStdout logs
+* feat: Add RSYNC_STDOUT env variable
+* feat: Update emojis
+
+### Bug Fixes
+
+* fix: remove _unsafe _dirname
+* fix: Add promise instead of callback
+* fix: improve logs
+* fix: Add simple command exists instead of a plugin
+* fix: add non interactive install
+* fix: Improve reject messages
+* fix: update workflow actions
+
 
 ## [3.1.1](https://github.com/easingthemes/ssh-deploy/compare/v3.1.0...v3.1.1) (2023-01-02)
 

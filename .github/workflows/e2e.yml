@@ -8,7 +8,7 @@ on:
       ARGS:
         description: 'ARGS'
         required: true
-        default: '-rltgoDzvO'
+        default: '-rltgoDzvO --delete --chmod=ugo=rwX'
       EXCLUDE:
         description: 'EXCLUDE'
         required: true
@@ -16,7 +16,7 @@ on:
       SSH_CMD_ARGS:
         description: 'SSH_CMD_ARGS'
         required: true
-        default: '-o StrictHostKeyChecking=no'
+        default: '-o StrictHostKeyChecking=no, -o AnotherArg=7'
 
 
 env:
@@ -76,11 +76,11 @@ jobs:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}
-          ARGS: ${{ github.event.inputs.ARGS }}
-          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS }}
+          ARGS: ${{ github.event.inputs.ARGS || '-o StrictHostKeyChecking=no, -o AnotherArg=7' }}
+          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS || '-rltgoDzvO --delete --chmod=ugo=rwX' }}
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
-          EXCLUDE: ${{ github.event.inputs.EXCLUDE }}
+          EXCLUDE: ${{ github.event.inputs.EXCLUDE || '/dist/, /node_modules/' }}
           SCRIPT_BEFORE: |
             whoami
             ls -al

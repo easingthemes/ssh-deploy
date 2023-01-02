@@ -14,7 +14,7 @@ const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
         console.error('❌ [Rsync] cmd: ', cmd);
         reject(new Error(`${error.message}\n\n${stderr}`));
       } else {
-        console.log('[Rsync] cmd finished: ', cmd);
+        console.log('⭐ [Rsync] cmd finished: ', cmd);
         resolve(stdout);
       }
     });

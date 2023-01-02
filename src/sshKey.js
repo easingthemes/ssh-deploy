@@ -1,37 +1,43 @@
-const { writeFileSync } = require('fs');
 const { join } = require('path');
+const { execSync } = require('child_process');
+const { writeToFile } = require('./helpers');
 
-const {
-  validateDir,
-  validateFile
-} = require('./helpers');
+const KNOWN_HOSTS = 'known_hosts';
+const getPrivateKeyPath = (filename = '') => {
+  const { HOME } = process.env;
+  const dir = join(HOME || '~', '.ssh');
+  const knownHostsPath = join(dir, KNOWN_HOSTS);
+  return {
+    dir,
+    filename,
+    path: join(dir, filename),
+    knownHostsPath
+  };
+};
 
-const {
-  HOME
-} = process.env;
+const addSshKey = (content, deployKeyName) => {
+  const { dir, filename } = getPrivateKeyPath(deployKeyName);
+  writeToFile({ dir, filename: KNOWN_HOSTS, content: '' });
+  console.log('✅ [SSH] known_hosts file ensured', dir);
+  writeToFile({ dir, filename, content, isRequired: true, mode: '0400' });
+  console.log('✅ [SSH] key added to `.ssh` dir ', dir, filename);
+};
 
-const addSshKey = (key, name) => {
-  const sshDir = join(HOME || __dirname, '.ssh');
-  const filePath = join(sshDir, name);
-
-  validateDir(sshDir);
-  validateFile(`${sshDir}/known_hosts`);
-
+const updateKnownHosts = (host) => {
+  const { knownHostsPath } = getPrivateKeyPath();
+  console.log('[SSH] Adding host to `known_hosts` ....', host, knownHostsPath);
   try {
-    writeFileSync(filePath, key, {
-      encoding: 'utf8',
-      mode: 0o600
+    execSync(`ssh-keyscan -H ${host}  >> ${knownHostsPath}`, {
+      stdio: 'inherit'
     });
-  } catch (e) {
-    console.error('⚠️ writeFileSync error', filePath, e.message);
-    process.abort();
+  } catch (error) {
+    console.error('❌ [SSH] Adding host to `known_hosts` ERROR', host, error.message);
   }
-
-  console.log('✅ Ssh key added to `.ssh` dir ', filePath);
-
-  return filePath;
+  console.log('✅ [SSH] Adding host to `known_hosts` DONE', host, knownHostsPath);
 };
 
 module.exports = {
+  getPrivateKeyPath,
+  updateKnownHosts,
   addSshKey
-}
+};

@@ -3,17 +3,17 @@ const { join } = require('path');
 
 const validateDir = (dir) => {
   if (!dir) {
-    console.log('[SSH] dir is not defined');
+    console.log('[DIR] dir is not defined');
     return;
   }
   if (existsSync(dir)) {
-    console.log(`[SSH] ${dir} dir exist`);
+    console.log(`[DIR] ${dir} dir exist`);
     return;
   }
 
-  console.log(`[SSH] Creating ${dir} dir in workspace root`);
+  console.log(`[DIR] Creating ${dir} dir in workspace root`);
   mkdirSync(dir);
-  console.log('✅ [SSH] dir created.');
+  console.log('✅ [DIR] dir created.');
 };
 
 const writeToFile = ({ dir, filename, content, isRequired }) => {
@@ -29,6 +29,7 @@ const writeToFile = ({ dir, filename, content, isRequired }) => {
   }
 
   try {
+    console.log(`[FILE] writing ${filePath} file ...`, content.length);
     writeFileSync(filePath, content, {
       encoding: 'utf8',
       mode: 0o600

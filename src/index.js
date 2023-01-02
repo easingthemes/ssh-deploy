@@ -9,7 +9,7 @@ const run = () => {
   const {
     source, remoteUser, remoteHost, remotePort,
     deployKeyName, sshPrivateKey,
-    args, exclude,
+    args, exclude, sshCmdArgs,
     scriptBefore, scriptAfter,
     sshServer
   } = inputs;
@@ -31,7 +31,7 @@ const run = () => {
   /* eslint-disable object-property-newline */
   sshDeploy({
     source, sshServer, exclude, remotePort,
-    privateKey, args, callback
+    privateKey, args, sshCmdArgs, callback
   });
 };
 

@@ -1,46 +1,78 @@
-const { sync: commandExists } = require("command-exists");
-const { exec, execSync } = require("child_process");
+const { execSync } = require('child_process');
+const which = require('which');
+const nodeRsync = require('rsyncwrapper');
 
-const validateRsync = (callback = () => {}) => {
-  const rsyncCli = commandExists("rsync");
+const validateRsync = async () => {
+  const rsyncCli = await which('rsync', { nothrow: true });
+  execSync('rsync --version', { stdio: 'inherit' });
   if (rsyncCli) {
     console.log('⚠️ [CLI] Rsync exists');
-    execSync("rsync --version", { stdio: 'inherit' });
-    return callback();
+    execSync('rsync --version', { stdio: 'inherit' });
+    return;
   }
 
   console.log('⚠️ [CLI] Rsync doesn\'t exists. Start installation with "apt-get" \n');
 
-  exec("sudo apt-get update && sudo apt-get --no-install-recommends install rsync", (err, data, stderr) => {
-    if (err) {
-      console.log("⚠️ [CLI] Rsync installation failed. Aborting ... ", err.message);
-      process.abort();
-    } else {
-      console.log("✅ [CLI] Rsync installed. \n", data, stderr);
-      callback();
-    }
-  });
+  try {
+    execSync('sudo apt-get update && sudo apt-get --no-install-recommends install rsync', { stdio: 'inherit' });
+    console.log('✅ [CLI] Rsync installed. \n');
+  } catch (err) {
+    throw new Error(`⚠️ [CLI] Rsync installation failed. Aborting ... error: ${err.message}`);
+  }
 };
 
-const validateInputs = (inputs) => {
-  const inputKeys = Object.keys(inputs);
-  const validInputs = inputKeys.filter((inputKey) => {
-    const inputValue = inputs[inputKey];
+const rsyncCli = ({
+  source, sshServer, exclude, remotePort,
+  privateKey, args, callback
+}) => {
+  console.log(`[Rsync] Starting Rsync Action: ${source} to ${sshServer}`);
+  if (exclude) console.log(`[Rsync] excluding folders ${exclude}`);
 
-    if (!inputValue) {
-      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
-    }
+  const defaultOptions = {
+    ssh: true,
+    sshCmdArgs: ['-o StrictHostKeyChecking=no'],
+    recursive: true
+  };
 
-    return inputValue;
-  });
+  try {
+    // RSYNC COMMAND
+    /* eslint-disable object-property-newline */
+    nodeRsync({
+      src: source, dest: sshServer, excludeFirst: exclude, port: remotePort,
+      privateKey, args, callback,
+      ...defaultOptions
+    }, (error, stdout, stderr, cmd) => {
+      if (error) {
+        console.error('⚠️ [Rsync] error: ', error.message);
+        console.log('⚠️ [Rsync] stderr: ', stderr);
+        console.log('⚠️ [Rsync] stdout: ', stdout);
+        console.log('⚠️ [Rsync] cmd: ', cmd);
+      } else {
+        console.log('✅ [Rsync] finished.', stdout);
+      }
 
-  if (validInputs.length !== inputKeys.length) {
-    console.error("⚠️ [INPUTS] Inputs not valid, aborting ...");
+      callback(error, stdout, stderr, cmd);
+
+      if (error) {
+        process.abort();
+      }
+    });
+  } catch (err) {
+    console.error('⚠️ [Rsync] command error: ', err.message, err.stack);
     process.abort();
   }
 };
 
+const sshDeploy = (params) => {
+  validateRsync
+    .then(() => {
+      rsyncCli(params);
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
 module.exports = {
-  validateRsync,
-  validateInputs,
+  sshDeploy
 };

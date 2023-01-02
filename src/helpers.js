@@ -1,38 +1,60 @@
 const { existsSync, mkdirSync, writeFileSync } = require('fs');
-
-const {
-  GITHUB_WORKSPACE
-} = process.env;
+const { join } = require('path');
 
 const validateDir = (dir) => {
-  if (!existsSync(dir)) {
-    console.log(`[SSH] Creating ${dir} dir in `, GITHUB_WORKSPACE);
-    mkdirSync(dir);
-    console.log('✅ [SSH] dir created.');
-  } else {
+  if (existsSync(dir)) {
     console.log(`[SSH] ${dir} dir exist`);
+    return;
+  }
+
+  console.log(`[SSH] Creating ${dir} dir in workspace root`);
+  mkdirSync(dir);
+  console.log('✅ [SSH] dir created.');
+};
+
+const writeToFile = ({ dir, filename, content, isRequired }) => {
+  validateDir(dir);
+  const filePath = join(dir, filename);
+
+  if (existsSync(filePath)) {
+    console.log(`[FILE] ${filePath} file exist`);
+    if (isRequired) {
+      throw new Error(`⚠️ [FILE] ${filePath} Required file exist, aborting ...`);
+    }
+    return;
+  }
+
+  try {
+    writeFileSync(filePath, content, {
+      encoding: 'utf8',
+      mode: 0o600
+    });
+  } catch (e) {
+    throw new Error(`⚠️[FILE] Writing to file error. filePath: ${filePath}, message:  ${e.message}`);
   }
 };
 
-const validateFile = (filePath) => {
-  if (!existsSync(filePath)) {
-    console.log(`[SSH] Creating ${filePath} file in `, GITHUB_WORKSPACE);
-    try {
-      writeFileSync(filePath, '', {
-        encoding: 'utf8',
-        mode: 0o600
-      });
-      console.log('✅ [SSH] file created.');
-    } catch (e) {
-      console.error('⚠️ [SSH] writeFileSync error', filePath, e.message);
-      process.abort();
+const validateRequiredInputs = (inputs) => {
+  const inputKeys = Object.keys(inputs);
+  const validInputs = inputKeys.filter((inputKey) => {
+    const inputValue = inputs[inputKey];
+
+    if (!inputValue) {
+      console.error(`⚠️ [INPUTS] ${inputKey} is mandatory`);
     }
-  } else {
-    console.log(`[SSH] ${filePath} file exist`);
+
+    return inputValue;
+  });
+
+  if (validInputs.length !== inputKeys.length) {
+    throw new Error('⚠️ [INPUTS] Inputs not valid, aborting ...');
   }
 };
+
+const snakeToCamel = (str) => str.replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 
 module.exports = {
-  validateDir,
-  validateFile
+  writeToFile,
+  validateRequiredInputs,
+  snakeToCamel
 };

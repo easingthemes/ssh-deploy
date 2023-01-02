@@ -107,13 +107,13 @@ jobs:
 
 ## Issues
 
-This is a Github Action wrapping `rsync` via `ssh`. Only issues with action functionality can be fixed here.
+This is a GitHub Action wrapping `rsync` via `ssh`. Only issues with action functionality can be fixed here.
 
 Almost 95% of the issues are related to wrong SSH connection or `rsync` params and permissions.
-This issues are not related to the action itself.
+These issues are not related to the action itself.
 
 - Check manually your ssh connection from your client before opening a bug report.
-- Check `rsync` params for your usecase. Default params are not going to be enough wor everyone, it highly depends on your setup.
+- Check `rsync` params for your use-case. Default params are not going to be enough wor everyone, it highly depends on your setup.
 - Check manually your rsync command from your client before opening a bug report.
 
 I've added e2e test for this action.

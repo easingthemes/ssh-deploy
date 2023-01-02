@@ -31,10 +31,14 @@ inputs:
     description: "An array of folder to exclude"
     required: false
     default: ""
-  SCRIPT:
-    description: "Script to run on host machine"
+  SCRIPT_BEFORE:
+    description: "Script to run on host machine before rsync"
     required: false
-    default: "ls"
+    default: "echo 'Before rsync'"
+  SCRIPT_AFTER:
+    description: "Script to run on host machine after rsync"
+    required: false
+    default: "echo 'After rsync'"
 outputs:
   status:
     description: "Status"

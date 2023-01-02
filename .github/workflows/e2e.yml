@@ -2,7 +2,7 @@ name: e2e Test
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'feature/ssh-cmd' ]
 
 env:
   TEST_HOST_DOCKER: ./test
@@ -55,7 +55,7 @@ jobs:
           cat index.html
 
       - name: e2e Test published ssh-deploy action
-        uses: easingthemes/ssh-deploy@v3.1.0
+        uses: easingthemes/ssh-deploy@feature/ssh-cmd
         with:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
           # REMOTE_HOST: $EXAMPLE_REMOTE_HOST1
@@ -64,6 +64,9 @@ jobs:
           SOURCE: "test_project/"
           TARGET: "/var/www/html/"
           EXCLUDE: "/dist/, /node_modules/"
-          SCRIPT: |
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
             whoami
             ls -al

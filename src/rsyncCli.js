@@ -5,10 +5,14 @@ const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
   try {
     nodeRsync(config, (error, stdout, stderr, cmd) => {
       if (error) {
-        console.log('⚠️ [Rsync] stderr: ', stderr);
-        console.log('⚠️ [Rsync] stdout: ', stdout);
-        console.log('⚠️ [Rsync] cmd: ', cmd);
-        reject(error);
+        console.error('⚠️ [Rsync] error: ');
+        console.error(error);
+        console.error('⚠️ [Rsync] stderr: ');
+        console.error(stderr);
+        console.error('⚠️ [Rsync] stdout: ');
+        console.error(stdout);
+        console.error('⚠️ [Rsync] cmd: ', cmd);
+        reject(new Error(`${error.message}\n\n${stderr}`));
       } else {
         resolve(stdout);
       }

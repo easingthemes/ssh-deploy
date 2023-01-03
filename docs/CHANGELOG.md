@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/easingthemes/ssh-deploy/compare/v3.4.0...v3.4.1) (2023-01-03)
+
+
+### Bug Fixes
+
+* move e2e tests to main branch ([0069fae](https://github.com/easingthemes/ssh-deploy/commit/0069faea9ff3ea3cdd095b0f2663c9e2bcd97480))
+
 # [3.4.0](https://github.com/easingthemes/ssh-deploy/compare/v3.3.4...v3.4.0) (2023-01-03)
 
 

@@ -10,7 +10,7 @@ const githubWorkspace = process.env.GITHUB_WORKSPACE;
 const remoteUser = process.env.REMOTE_USER;
 
 const defaultInputs = {
-  source: './',
+  source: '',
   target: `/home/${remoteUser}/`,
   exclude: '',
   args: '-rltgoDzvO',
@@ -30,7 +30,7 @@ inputNames.forEach((input) => {
   // eslint-disable-next-line default-case
   switch (inputName) {
     case 'source':
-      extendedVal = validVal.indexOf(' ') > -1 ? validVal.split(' ') : (validVal || './');
+      extendedVal = validVal.split(' ').map((src) => `${githubWorkspace}/${src}`);
       break;
     case 'args':
       extendedVal = validVal.split(' ');

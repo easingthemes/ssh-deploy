@@ -1,3 +1,10 @@
+## [3.4.3](https://github.com/easingthemes/ssh-deploy/compare/v3.4.2...v3.4.3) (2023-01-03)
+
+
+### Bug Fixes
+
+* move e2e tests typo branch name ([6d3554b](https://github.com/easingthemes/ssh-deploy/commit/6d3554b01e9a05de9a9d2b30274bee411a4986ed))
+
 ## [3.4.2](https://github.com/easingthemes/ssh-deploy/compare/v3.4.1...v3.4.2) (2023-01-03)
 
 

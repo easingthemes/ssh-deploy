@@ -55,7 +55,7 @@ const rsyncCli = async ({
   privateKeyPath, args, sshCmdArgs
 }) => {
   console.log(`[Rsync] Starting Rsync Action: ${source} to ${rsyncServer}`);
-  if (exclude) console.log(`[Rsync] excluding folders ${exclude}`);
+  if (exclude && exclude.length > 0) console.log(`[Rsync] excluding folders ${exclude}`);
 
   const defaultOptions = {
     ssh: true,

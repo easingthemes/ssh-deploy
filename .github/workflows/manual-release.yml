@@ -2,43 +2,72 @@ name: Manual Release
 on:
   workflow_dispatch:
     inputs:
-      dryrun:
-        description: 'DryRUn'
+      version:
+        description: 'Version'
+        type: choice
         required: true
-        default: 'false'
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+      dryRun:
+        description: 'DryRun'
+        type: boolean
+        default: true
+# ENV and Config
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  GIT_AUTHOR_NAME: github-actions
+  GIT_AUTHOR_EMAIL: github-actions@github.com
+  GIT_COMMITTER_NAME: github-actions
+  GIT_COMMITTER_EMAIL: github-actions@github.com
+  CI: true
+  CONFIG_NODE_VERSION: '["lts/*"]'
+  CONFIG_OS: '["ubuntu-latest"]'
+# Main Job
 jobs:
-  release:
-    name: Test, Build and Release
-    runs-on: ${{ matrix.os }}
+  config:
+    runs-on: ubuntu-latest
+    outputs:
+      NODE_VERSION: ${{ steps.set-config.outputs.CONFIG_NODE_VERSION }}
+      OS: ${{ steps.set-config.outputs.CONFIG_OS }}
+    steps:
+      - id: set-config
+        run: |
+          echo "CONFIG_NODE_VERSION=${{ toJSON(env.CONFIG_NODE_VERSION) }}" >> $GITHUB_OUTPUT
+          echo "CONFIG_OS=${{ toJSON(env.CONFIG_OS) }}" >> $GITHUB_OUTPUT
+  release-manual:
+    name: Test, Build and force Release
+    needs: config
+
+    runs-on: ${{ matrix.OS }}
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        node-version: [ 16.x ]
+        OS: ${{ fromJSON(needs.config.outputs.OS) }}
+        NODE_VERSION: ${{ fromJSON(needs.config.outputs.NODE_VERSION) }}
+
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix['node-version'] }}
+          node-version: ${{ matrix.NODE_VERSION }}
+      - name: Commit trigger
+        run: |
+          git commit --allow-empty -m "${{ github.event.inputs.version }}: Trigger Manual Release"
       - name: Install dependencies
         run: npm ci
       - name: Build Library
         run: npm run build --if-present
       - name: Run Tests
         run: npm test --if-present
-      - name: Release
+      - name: Publish npm package
         uses: cycjimmy/semantic-release-action@v3
         with:
-          dry_run: ${{ github.event.inputs.dryrun == 'true' }}
+          dry_run: ${{ github.event.inputs.dryRun == 'true' }}
           extra_plugins: |
             @semantic-release/changelog
             @semantic-release/git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GIT_AUTHOR_NAME: github-actions
-          GIT_AUTHOR_EMAIL: github-actions@github.com
-          GIT_COMMITTER_NAME: github-actions
-          GIT_COMMITTER_EMAIL: github-actions@github.com
-          CI: true

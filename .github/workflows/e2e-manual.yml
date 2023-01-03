@@ -1,25 +1,37 @@
-name: e2e Test
+name: e2e Manual Test
 
 on:
-  push:
-    branches: [ 'feature/multi-src' ]
+  workflow_dispatch:
+    inputs:
+      ARGS:
+        description: 'ARGS'
+        required: true
+        default: '-rltgoDzvO --delete --chmod=ugo+rwX --progress'
+      EXCLUDE:
+        description: 'EXCLUDE'
+        required: true
+        default: 'skip_dir/, /node_modules/'
+      SSH_CMD_ARGS:
+        description: 'SSH_CMD_ARGS'
+        required: true
+        default: '-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null'
+
 
 env:
   TEST_HOST_DOCKER: ./test
   TEST_USER: test
-  TEST_USER2: test2
 
 jobs:
-  e2e:
+  e2e-manual:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-#         : ---------------------------------------------------------------
-#         : START E2E Test Specific - steps
-#         : ----------------------------------------------------------------
+#         ----------------------------------------------------------------
+#         START E2E Test Specific - steps
+#         ----------------------------------------------------------------
 
       - name: E2E Test Specific - Clean up old test files
         run: |
@@ -72,31 +84,21 @@ jobs:
 #         END E2E Test Specific - steps
 #         ----------------------------------------------------------------
 
-      - name: set shared ENV variables for multi target deployment
-        run: |
-          echo "ARGS=-rltgoDzvOR --delete --chmod=ugo+rwX --progress" >> $GITHUB_ENV
-          echo "SSH_CMD_ARGS=-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null" >> $GITHUB_ENV
-          echo "SOURCE=test_project/ test_project2/" >> $GITHUB_ENV
-          echo "EXCLUDE=skip_dir/, /node_modules/" >> $GITHUB_ENV
-          echo "SCRIPT_BEFORE<<EOF" >> $GITHUB_ENV
-          echo "whoami" >> $GITHUB_ENV
-          echo "ls -lR /var/www/html/" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "SCRIPT_AFTER<<EOF" >> $GITHUB_ENV
-          echo $RSYNC_STDOUT >> $GITHUB_ENV
-          echo "ls -lR /var/www/html/" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: e2e Test ssh-deploy action - Target 1
+      - name: e2e Test ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/multi-src
         env:
-          # Shared ENV Vars created in previous steps
+          # ENV Vars created in previous steps:
+          # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY
+          # REMOTE_HOST: $EXAMPLE_REMOTE_HOST
           REMOTE_USER: ${{ env.TEST_USER }}
-          TARGET: /var/www/html/${{ env.TEST_USER }}
-
-      - name: e2e Test ssh-deploy action - Target 2
-        uses: easingthemes/ssh-deploy@feature/multi-src
-        env:
-          # Shared ENV Vars created in previous steps
-          REMOTE_USER: ${{ env.TEST_USER2 }}
-          TARGET: /var/www/html/${{ env.TEST_USER2 }}
+          ARGS: ${{ github.event.inputs.ARGS }}
+          SSH_CMD_ARGS: ${{ github.event.inputs.SSH_CMD_ARGS }}
+          SOURCE: test_project/ test_project2/
+          TARGET: /var/www/html/
+          EXCLUDE: ${{ github.event.inputs.EXCLUDE }}
+          SCRIPT_BEFORE: |
+            whoami
+            ls -lR /var/www/html/
+          SCRIPT_AFTER: |
+            ls -lR /var/www/html/
+            echo $RSYNC_STDOUT

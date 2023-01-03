@@ -47,7 +47,8 @@ For any initial/required rsync flags, eg: `-avzr --delete`
 
 ##### 6. `SOURCE` (optional, default '')
 
-The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
+The source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`.
+Multiple sources should be separated by space.
 
 ##### 7. `TARGET` (optional, default '/home/REMOTE_USER/')
 
@@ -147,6 +148,14 @@ Real example is executed on every PR merge to `main`.
 Check actions tab for example.
 
 More info for SSH keys: https://www.ssh.com/ssh/public-key-authentication
+
+## Tips
+
+- Optional ENV variables are created for simple requirements.
+For complex use cases, use `ARGS` and `SSH_CMD_ARGS` to fully configure `rsync` with all possible options.
+- If you need to use multiple steps, eg multi targets deployment, save shared ENV variables in `>> $GITHUB_ENV`.
+Check .github/workflows/e2e.yml for an example
+- For multi sources, use -R ARG to manipulate folders structure.
 
 
 ## Disclaimer

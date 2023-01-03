@@ -13,7 +13,7 @@ const defaultInputs = {
   source: './',
   target: `/home/${remoteUser}/`,
   exclude: '',
-  args: '-rltgoDzvO',
+  args: '-rlgoDzvc -i',
   sshCmdArgs: '-o StrictHostKeyChecking=no',
   deployKeyName: `deploy_key_${remoteUser}_${Date.now()}`
 };

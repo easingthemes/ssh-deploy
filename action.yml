@@ -26,7 +26,7 @@ inputs:
   ARGS:
     description: "Arguments to pass to rsync"
     required: false
-    default: "-rltgoDzvO"
+    default: "-rlgoDzvc -i"
   SSH_CMD_ARGS:
     description: "An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 "
     required: false

@@ -30,7 +30,7 @@ inputNames.forEach((input) => {
   // eslint-disable-next-line default-case
   switch (inputName) {
     case 'source':
-      extendedVal = validVal.indexOf(' ') > -1 ? validVal.split(' ') : validVal;
+      extendedVal = validVal.indexOf(' ') > -1 ? validVal.split(' ') : (validVal || './');
       break;
     case 'args':
       extendedVal = validVal.split(' ');

@@ -1,3 +1,10 @@
+## [3.4.2](https://github.com/easingthemes/ssh-deploy/compare/v3.4.1...v3.4.2) (2023-01-03)
+
+
+### Bug Fixes
+
+* Update changelog ([765f5ff](https://github.com/easingthemes/ssh-deploy/commit/765f5ffd3153c76442521c61c04656cafc182731))
+
 ## [3.4.1](https://github.com/easingthemes/ssh-deploy/compare/v3.4.0...v3.4.1) (2023-01-03)
 
 

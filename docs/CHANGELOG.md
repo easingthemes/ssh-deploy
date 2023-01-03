@@ -8,14 +8,20 @@
 # [3.4.0](https://github.com/easingthemes/ssh-deploy/compare/v3.3.4...v3.4.0) (2023-01-03)
 
 
-### Bug Fixes
-
-* yaml step name ([5c13615](https://github.com/easingthemes/ssh-deploy/commit/5c13615d4b7b0bda47f622ac5f4444484d8bcdb4))
-
+**Full Changelog**: https://github.com/easingthemes/ssh-deploy/compare/v3.1.0...v3.4.1
 
 ### Features
 
+* Add SSH remote script support -  before and after rsync ([2cd8a82](https://github.com/easingthemes/ssh-deploy/commit/2cd8a820e22135b7002fbe6a47cf33f99e2d337b))
 * Add multi source and multi target support ([73a65ec](https://github.com/easingthemes/ssh-deploy/commit/73a65ec97c5046a53f6b4c40823be5fd3826ede0))
+* Add SSH_CMD_ARGS support ([51a0063](https://github.com/easingthemes/ssh-deploy/commit/51a00631e2b91983fb610ca2157a673b9ae03c95))
+* Add manual inputs for e2e test ([8f71595](https://github.com/easingthemes/ssh-deploy/commit/8f715957ab9283ab2934dd1e5be9d78f2eaf3fae))
+
+### Bug Fixes
+
+* Add visible Rsync CMD for debugging ([91b6d28](https://github.com/easingthemes/ssh-deploy/commit/91b6d280aee6a7ae666a11426fb356406f4a25a5))
+* log buffer from rsync stdout ([8e19e0d](https://github.com/easingthemes/ssh-deploy/commit/8e19e0d6bc9b1c332925ce0268ad64b50728fae5))
+* fix e2e yaml step name ([5c13615](https://github.com/easingthemes/ssh-deploy/commit/5c13615d4b7b0bda47f622ac5f4444484d8bcdb4))
 
 ## [3.3.4](https://github.com/easingthemes/ssh-deploy/compare/v3.3.3...v3.3.4) (2023-01-02)
 

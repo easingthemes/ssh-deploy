@@ -1,3 +1,21 @@
+# [4.0.0](https://github.com/easingthemes/ssh-deploy/compare/v3.4.3...v4.0.0) (2023-01-03)
+
+
+### Bug Fixes
+
+* rebuild ([2169399](https://github.com/easingthemes/ssh-deploy/commit/2169399fef9a60a2fea1ab03cce4ec8c2371e5c2))
+
+
+### Performance Improvements
+
+* update default rsync options ([2be7efb](https://github.com/easingthemes/ssh-deploy/commit/2be7efb376866327c1d1209f51eb43f34f07b354))
+
+
+### BREAKING CHANGES
+
+* Default rsync options updated to speed up default deployments.
+from `rltgoDzvO` to `-rlgoDzvc -i`
+
 ## [3.4.3](https://github.com/easingthemes/ssh-deploy/compare/v3.4.2...v3.4.3) (2023-01-03)
 
 

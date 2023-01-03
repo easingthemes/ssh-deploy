@@ -29,15 +29,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-        # #################################################################
-        # START [E2E Test Specific] steps
-        # #################################################################
+#         ----------------------------------------------------------------
+#         START E2E Test Specific - steps
+#         ----------------------------------------------------------------
 
-      - name: [E2E Test Specific] Clean up old test files
+      - name: E2E Test Specific - Clean up old test files
         run: |
           docker stop ssh-host-container || true && docker rm ssh-host-container || true
 
-      - name: [E2E Test Specific] Create ssh keys
+      - name: E2E Test Specific - Create ssh keys
         run: |
           echo $HOME
           ls -la $HOME
@@ -49,7 +49,7 @@ jobs:
           cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-      - name: [E2E Test Specific] Build Host Server Image
+      - name: E2E Test Specific - Build Host Server Image
         working-directory: ${{ env.TEST_HOST_DOCKER }}
         run: |
           docker build \
@@ -62,7 +62,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
         shell: bash
 
-      - name: [E2E Test Specific] Create project file
+      - name: E2E Test Specific - Create project file
         run: |
           mkdir test_project2 && cd "$_"
           truncate -s 5MB info2.txt
@@ -80,9 +80,9 @@ jobs:
           echo "test_project:" && ls -lR
           echo "skip_dir:" && ls -lR skip_dir
 
-        # #################################################################
-        # END [E2E Test Specific] steps
-        # #################################################################
+#         ----------------------------------------------------------------
+#         END E2E Test Specific - steps
+#         ----------------------------------------------------------------
 
       - name: e2e Test ssh-deploy action
         uses: easingthemes/ssh-deploy@feature/multi-src

@@ -41,7 +41,7 @@ eg: myusername
 
 eg: '59184'
 
-##### 5. `ARGS` (optional, default '-rltgoDzvO')
+##### 5. `ARGS` (optional, default '-rlgoDzvc -i')
 
 For any initial/required rsync flags, eg: `-avzr --delete`
 
@@ -83,7 +83,7 @@ or use the latest version from a branch, eg: ssh-deploy@main
     uses: easingthemes/ssh-deploy@main
     env:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      ARGS: "-rltgoDzvO"
+      ARGS: "-rlgoDzvc -i"
       SOURCE: "dist/"
       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
       REMOTE_USER: ${{ secrets.REMOTE_USER }}
@@ -124,7 +124,7 @@ jobs:
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "-rltgoDzvO --delete"
+          ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}

@@ -74,7 +74,7 @@ jobs:
 
       - name: set shared ENV variables for multi target deployment
         run: |
-          echo "ARGS=-rltgoDzvOR --delete --chmod=ugo+rwX --progress" >> $GITHUB_ENV
+          echo "ARGS=-rlgoDzvcR -i --delete --chmod=ugo+rwX --progress" >> $GITHUB_ENV
           echo "SSH_CMD_ARGS=-o StrictHostKeyChecking=no, -o UserKnownHostsFile=/dev/null" >> $GITHUB_ENV
           echo "SOURCE=test_project/ test_project2/" >> $GITHUB_ENV
           echo "EXCLUDE=skip_dir/, /node_modules/" >> $GITHUB_ENV

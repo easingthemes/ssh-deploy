@@ -6,7 +6,7 @@ on:
       ARGS:
         description: 'ARGS'
         required: true
-        default: '-rltgoDzvO --delete --chmod=ugo+rwX --progress'
+        default: '-rlgoDzvc -i --delete --chmod=ugo+rwX --progress'
       EXCLUDE:
         description: 'EXCLUDE'
         required: true

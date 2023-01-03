@@ -10,12 +10,12 @@ const githubWorkspace = process.env.GITHUB_WORKSPACE;
 const remoteUser = process.env.REMOTE_USER;
 
 const defaultInputs = {
-  source: '',
+  source: './',
   target: `/home/${remoteUser}/`,
   exclude: '',
   args: '-rltgoDzvO',
   sshCmdArgs: '-o StrictHostKeyChecking=no',
-  deployKeyName: 'deploy_key'
+  deployKeyName: `deploy_key_${remoteUser}_${Date.now()}`
 };
 
 const inputs = {
@@ -29,6 +29,9 @@ inputNames.forEach((input) => {
   let extendedVal = validVal;
   // eslint-disable-next-line default-case
   switch (inputName) {
+    case 'source':
+      extendedVal = validVal.indexOf(' ') > -1 ? validVal.split(' ') : validVal;
+      break;
     case 'args':
       extendedVal = validVal.split(' ');
       break;

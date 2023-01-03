@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/easingthemes/ssh-deploy/compare/v4.0.1...v4.0.2) (2023-01-03)
+
+
+### Bug Fixes
+
+* add githubWorkspace as default source root ([3ef66d0](https://github.com/easingthemes/ssh-deploy/commit/3ef66d0be999ee45434505e8bedea4f8b5b5a909))
+
 ## [4.0.1](https://github.com/easingthemes/ssh-deploy/compare/v4.0.0...v4.0.1) (2023-01-03)
 
 

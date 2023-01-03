@@ -100,3 +100,74 @@ jobs:
           # Shared ENV Vars created in previous steps
           REMOTE_USER: ${{ env.TEST_USER2 }}
           TARGET: /var/www/html/${{ env.TEST_USER2 }}
+  e2e-v3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      #         : ---------------------------------------------------------------
+      #         : START E2E Test Specific - steps
+      #         : ----------------------------------------------------------------
+
+      - name: E2E Test Specific - Clean up old test files
+        run: |
+          docker stop ssh-host-container || true && docker rm ssh-host-container || true
+
+      - name: E2E Test Specific - Create ssh keys
+        run: |
+          echo $HOME
+          ls -la $HOME
+          ssh-keygen -m PEM -t rsa -b 4096 -f "$HOME/.ssh/id_rsa" -N ""
+          eval `ssh-agent -s`
+          ssh-add "$HOME/.ssh/id_rsa"
+          ssh-add -l
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          cat $HOME/.ssh/id_rsa >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: E2E Test Specific - Build Host Server Image
+        working-directory: ${{ env.TEST_HOST_DOCKER }}
+        run: |
+          docker build \
+            -t ssh-host-image . \
+            --build-arg SSH_PUB_KEY="$(cat $HOME/.ssh/id_rsa.pub)"
+          docker run -d -p 8822:22 --name=ssh-host-container ssh-host-image
+          docker exec ssh-host-container sh -c "hostname --ip-address" > ip.txt
+          echo "REMOTE_HOST<<EOF" >> $GITHUB_ENV
+          cat ip.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        shell: bash
+
+      - name: E2E Test Specific - Create project file
+        run: |
+          mkdir test_project2 && cd "$_"
+          truncate -s 5MB info2.txt
+          cd ../
+          mkdir test_project && cd "$_"
+          touch index.html
+          date +"%Y-%m-%d %H:%M:%S,%3N" >> index.html
+          truncate -s 50MB image.svg
+          truncate -s 5MB info.txt
+          truncate -s 500MB big_file.txt
+          mkdir skip_dir && cd "$_"
+          truncate -s 5MB text_in_skip_dir.txt
+          cd ../
+          cat index.html
+          echo "test_project:" && ls -lR
+          echo "skip_dir:" && ls -lR skip_dir
+
+      #         ----------------------------------------------------------------
+      #         END E2E Test Specific - steps
+      #         ----------------------------------------------------------------
+
+      - name: e2e Test ssh-deploy action - Target 1
+        uses: easingthemes/ssh-deploy@v3.4.3
+        env:
+          # Shared ENV Vars created in previous steps
+          REMOTE_USER: ${{ env.TEST_USER }}
+          TARGET: /var/www/html/${{ env.TEST_USER }}
+          SOURCE: test_project/
+          EXCLUDE: skip_dir/, /node_modules/
+          ARGS: -rlgoDzvcO

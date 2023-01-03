@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/easingthemes/ssh-deploy/compare/v3.3.4...v3.4.0) (2023-01-03)
+
+
+### Bug Fixes
+
+* yaml step name ([5c13615](https://github.com/easingthemes/ssh-deploy/commit/5c13615d4b7b0bda47f622ac5f4444484d8bcdb4))
+
+
+### Features
+
+* Add multi source and multi target support ([73a65ec](https://github.com/easingthemes/ssh-deploy/commit/73a65ec97c5046a53f6b4c40823be5fd3826ede0))
+
 ## [3.3.4](https://github.com/easingthemes/ssh-deploy/compare/v3.3.3...v3.3.4) (2023-01-02)
 
 

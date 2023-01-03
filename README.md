@@ -62,6 +62,8 @@ path to exclude separated by `,`, ie: `/dist/, /node_modules/`
 
 Script to run on host machine before rsync. Single line or multiline commands.
 Execution is preformed by storing commands in `.sh` file and executing it via `.bash` over `ssh`
+If you have issues with `ssh` connection, use this var, eg `SCRIPT_BEFORE: ls`.
+This will force `known_hosts` update, adding your host via `ssh-keyscan`.
 
 ##### 10. `SCRIPT_AFTER` (optional, default '')
 
@@ -156,6 +158,7 @@ For complex use cases, use `ARGS` and `SSH_CMD_ARGS` to fully configure `rsync` 
 - If you need to use multiple steps, eg multi targets deployment, save shared ENV variables in `>> $GITHUB_ENV`.
 Check .github/workflows/e2e.yml for an example
 - For multi sources, use -R ARG to manipulate folders structure.
+- Great post about `rsync` options specific to usage of this action: https://logansnotes.com/2020/gh-action-site-deploy/
 
 
 ## Disclaimer

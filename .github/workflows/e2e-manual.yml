@@ -85,7 +85,7 @@ jobs:
 #         ----------------------------------------------------------------
 
       - name: e2e Test ssh-deploy action
-        uses: easingthemes/ssh-deploy@feature/multi-src
+        uses: easingthemes/ssh-deploy@main
         env:
           # ENV Vars created in previous steps:
           # SSH_PRIVATE_KEY: $EXAMPLE_SSH_PRIVATE_KEY

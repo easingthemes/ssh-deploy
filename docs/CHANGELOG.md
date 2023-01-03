@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/easingthemes/ssh-deploy/compare/v4.0.0...v4.0.1) (2023-01-03)
+
+
+### Bug Fixes
+
+* fix default source if empty ([9f191f4](https://github.com/easingthemes/ssh-deploy/commit/9f191f42633c4a0f66054f0fc229c9e30a08f00c))
+
 # [4.0.0](https://github.com/easingthemes/ssh-deploy/compare/v3.4.3...v4.0.0) (2023-01-03)
 
 

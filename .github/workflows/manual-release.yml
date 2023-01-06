@@ -6,11 +6,10 @@ on:
         description: 'Version'
         type: choice
         required: true
-        default: patch
+        default: fix
         options:
-          - patch
-          - minor
-          - major
+          - fix
+          - feat
       dryRun:
         description: 'DryRun'
         type: boolean
@@ -64,7 +63,7 @@ jobs:
         run: npm run build --if-present
       - name: Run Tests
         run: npm test --if-present
-      - name: Publish npm package
+      - name: Create a release - ${{ github.event.inputs.version }}
         uses: cycjimmy/semantic-release-action@v3
         with:
           dry_run: ${{ github.event.inputs.dryRun == 'true' }}

@@ -1,3 +1,10 @@
+## [4.0.5](https://github.com/easingthemes/ssh-deploy/compare/v4.0.4...v4.0.5) (2023-01-06)
+
+
+### Bug Fixes
+
+* fix manual release action ([245b7a9](https://github.com/easingthemes/ssh-deploy/commit/245b7a9d2fe5272ee34608f86a612d643694c23b))
+
 ## [4.0.4](https://github.com/easingthemes/ssh-deploy/compare/v4.0.3...v4.0.4) (2023-01-03)
 
 

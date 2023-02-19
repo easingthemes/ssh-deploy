@@ -20,7 +20,7 @@ const run = async () => {
   const { path: privateKeyPath } = getPrivateKeyPath(deployKeyName);
   // Update known hosts if ssh command is present to avoid prompt
   if (scriptBefore || scriptAfter) {
-    updateKnownHosts(remoteHost);
+    updateKnownHosts(remoteHost, remotePort);
   }
   // Check Script before
   if (scriptBefore) {

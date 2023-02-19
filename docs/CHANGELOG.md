@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/easingthemes/ssh-deploy/compare/v4.0.5...v4.1.0) (2023-02-19)
+
+
+### Features
+
+* add ssh port from VARs, fix package-lock ([808b002](https://github.com/easingthemes/ssh-deploy/commit/808b0020d44b7c25ef1c13b3979ffdab4f503236))
+
 ## [4.0.5](https://github.com/easingthemes/ssh-deploy/compare/v4.0.4...v4.0.5) (2023-01-06)
 
 

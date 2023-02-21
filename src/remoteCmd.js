@@ -24,8 +24,9 @@ const remoteCmd = async (content, privateKeyPath, isRequired, label) => new Prom
           console.warn(`${message} \n`, data, stderr);
           handleError(message, isRequired, reject);
         } else {
-          console.log('✅ [CMD] Remote script executed. \n', data, stderr);
-          resolve(data);
+          const limited = data.substring(0, 10000);
+          console.log('✅ [CMD] Remote script executed. \n', limited, stderr);
+          resolve(limited);
         }
       }
     );

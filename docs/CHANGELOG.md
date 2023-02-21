@@ -1,3 +1,10 @@
+## [4.1.3](https://github.com/easingthemes/ssh-deploy/compare/v4.1.2...v4.1.3) (2023-02-21)
+
+
+### Bug Fixes
+
+* [#113](https://github.com/easingthemes/ssh-deploy/issues/113) limit ssh script output - rebuild ([756a522](https://github.com/easingthemes/ssh-deploy/commit/756a522533d2206203b5d13b5aa11c88b3313784))
+
 ## [4.1.2](https://github.com/easingthemes/ssh-deploy/compare/v4.1.1...v4.1.2) (2023-02-21)
 
 

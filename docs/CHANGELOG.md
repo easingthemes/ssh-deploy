@@ -1,3 +1,10 @@
+## [4.1.7](https://github.com/easingthemes/ssh-deploy/compare/v4.1.6...v4.1.7) (2023-02-21)
+
+
+### Bug Fixes
+
+* [#120](https://github.com/easingthemes/ssh-deploy/issues/120) check undefined data ([2fbb060](https://github.com/easingthemes/ssh-deploy/commit/2fbb06015d1a6ffd32e0100aaf1a1a46949e990e))
+
 ## [4.1.6](https://github.com/easingthemes/ssh-deploy/compare/v4.1.5...v4.1.6) (2023-02-21)
 
 

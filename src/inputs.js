@@ -10,15 +10,9 @@ const githubWorkspace = process.env.GITHUB_WORKSPACE;
 const remoteUser = process.env.REMOTE_USER || process.env.INPUT_REMOTE_USER;
 
 const defaultInputs = {
-  source: '',
   target: `/home/${remoteUser}/`,
-  exclude: '',
-  args: '-rlgoDzvc -i',
-  sshCmdArgs: '-o StrictHostKeyChecking=no',
   deployKeyName: `deploy_key_${remoteUser}_${Date.now()}`
 };
-
-console.log('[DEFAULTS] default inputs', defaultInputs);
 
 const inputs = {
   githubWorkspace
@@ -26,20 +20,19 @@ const inputs = {
 
 inputNames.forEach((input) => {
   const inputName = snakeToCamel(input.toLowerCase());
-  const inputVal = process.env[input] || process.env[`INPUT_${input}`];
-  const validVal = inputVal === undefined ? defaultInputs[inputName] : inputVal;
-  let extendedVal = validVal;
+  const inputVal = process.env[input] || process.env[`INPUT_${input}`] || defaultInputs[inputName];
+  let extendedVal = inputVal;
   // eslint-disable-next-line default-case
   switch (inputName) {
     case 'source':
-      extendedVal = validVal.split(' ').map((src) => `${githubWorkspace}/${src}`);
+      extendedVal = inputVal.split(' ').map((src) => `${githubWorkspace}/${src}`);
       break;
     case 'args':
-      extendedVal = validVal.split(' ');
+      extendedVal = inputVal.split(' ');
       break;
     case 'exclude':
     case 'sshCmdArgs':
-      extendedVal = validVal.split(',').map((item) => item.trim());
+      extendedVal = inputVal.split(',').map((item) => item.trim());
       break;
   }
 

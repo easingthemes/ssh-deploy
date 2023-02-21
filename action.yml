@@ -22,7 +22,7 @@ inputs:
   TARGET:
     description: "Target directory"
     required: false
-    default: "/home/REMOTE_USER/"
+    default: ""
   ARGS:
     description: "Arguments to pass to rsync"
     required: false

@@ -113,11 +113,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: Install Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: '10.x'
+        node-version: '16.x'
     - name: Install npm dependencies
       run: npm install
     - name: Run build task
@@ -148,6 +148,8 @@ These issues are not related to the action itself.
 I've added e2e test for this action.
 Real example is executed on every PR merge to `main`.
 Check actions tab for example.
+
+When opening an issue, please add example of your step with env vars. You can add dummy values.
 
 More info for SSH keys: https://www.ssh.com/ssh/public-key-authentication
 

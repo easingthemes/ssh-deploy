@@ -16,11 +16,11 @@ const remoteCmd = async (content, privateKeyPath, isRequired, label) => new Prom
   try {
     writeToFile({ dir: githubWorkspace, filename, content });
     const dataLimit = 10000;
-    const rsyncStdout = process.env.RSYNC_STDOUT.substring(0, dataLimit);
+    const rsyncStdout = (process.env.RSYNC_STDOUT || '').substring(0, dataLimit);
     console.log(`Executing remote script: ssh -i ${privateKeyPath} ${sshServer}`);
     exec(
       `DEBIAN_FRONTEND=noninteractive ssh -p ${(remotePort || 22)} -i ${privateKeyPath} -o StrictHostKeyChecking=no ${sshServer} 'RSYNC_STDOUT="${rsyncStdout}" bash -s' < ${filename}`,
-      (err, data, stderr) => {
+      (err, data = '', stderr = '') => {
         if (err) {
           const message = `⚠️ [CMD] Remote script failed: ${err.message}`;
           console.warn(`${message} \n`, data, stderr);

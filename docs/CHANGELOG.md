@@ -1,3 +1,10 @@
+## [4.1.6](https://github.com/easingthemes/ssh-deploy/compare/v4.1.5...v4.1.6) (2023-02-21)
+
+
+### Bug Fixes
+
+* [#118](https://github.com/easingthemes/ssh-deploy/issues/118) check undefined default values rebuild ([54f8b6c](https://github.com/easingthemes/ssh-deploy/commit/54f8b6c60b8f2f926d5ed9538557e5521a905d87))
+
 ## [4.1.5](https://github.com/easingthemes/ssh-deploy/compare/v4.1.4...v4.1.5) (2023-02-21)
 
 

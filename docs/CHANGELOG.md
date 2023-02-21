@@ -1,3 +1,10 @@
+## [4.1.8](https://github.com/easingthemes/ssh-deploy/compare/v4.1.7...v4.1.8) (2023-02-21)
+
+
+### Bug Fixes
+
+* rebuild and update readme ([98025d6](https://github.com/easingthemes/ssh-deploy/commit/98025d680e96a5c6c805e377a1b81de2f626aa1e))
+
 ## [4.1.7](https://github.com/easingthemes/ssh-deploy/compare/v4.1.6...v4.1.7) (2023-02-21)
 
 

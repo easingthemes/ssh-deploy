@@ -100,6 +100,12 @@ jobs:
           # Shared ENV Vars created in previous steps
           REMOTE_USER: ${{ env.TEST_USER2 }}
           TARGET: /var/www/html/${{ env.TEST_USER2 }}
+
+      - name: e2e Test ssh-deploy action - Default values
+        uses: easingthemes/ssh-deploy@v3
+        env:
+          # Shared ENV Vars created in previous steps
+          REMOTE_USER: ${{ env.TEST_USER }}
   e2e-v3:
     runs-on: ubuntu-latest
 

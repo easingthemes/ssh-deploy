@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/easingthemes/ssh-deploy/compare/v4.1.0...v4.1.1) (2023-02-21)
+
+
+### Bug Fixes
+
+* fix default TARGET ([4d08634](https://github.com/easingthemes/ssh-deploy/commit/4d086346af62ac5d57fa37ee6bb46f8de8ad48c3))
+
 # [4.1.0](https://github.com/easingthemes/ssh-deploy/compare/v4.0.5...v4.1.0) (2023-02-19)
 
 

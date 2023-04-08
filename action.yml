@@ -35,6 +35,10 @@ inputs:
     description: "paths to exclude separated by `,`, ie: `/dist/, /node_modules/`"
     required: false
     default: ""
+  INCLUDE:
+    description: "paths to include separated by `,`, ie: `/dist/, /node_modules/`"
+    required: false
+    default: ""    
   SCRIPT_BEFORE:
     description: "Script to run on host machine before rsync"
     required: false

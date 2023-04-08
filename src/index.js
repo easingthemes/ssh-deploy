@@ -9,7 +9,7 @@ const run = async () => {
   const {
     source, remoteUser, remoteHost, remotePort,
     deployKeyName, sshPrivateKey,
-    args, exclude, sshCmdArgs,
+    args, exclude, include, sshCmdArgs,
     scriptBefore, scriptAfter,
     rsyncServer
   } = inputs;
@@ -28,7 +28,7 @@ const run = async () => {
   }
   /* eslint-disable object-property-newline */
   await sshDeploy({
-    source, rsyncServer, exclude, remotePort,
+    source, rsyncServer, exclude, include, remotePort,
     privateKeyPath, args, sshCmdArgs
   });
   // Check script after

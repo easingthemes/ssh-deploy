@@ -58,19 +58,23 @@ The target directory
 
 path to exclude separated by `,`, ie: `/dist/, /node_modules/`
 
-##### 9. `SCRIPT_BEFORE` (optional, default '')
+##### 9. `INCLUDE` (optional, default '')
+
+path to include separated by `,`, ie: `/dist/, /node_modules/`
+
+##### 10. `SCRIPT_BEFORE` (optional, default '')
 
 Script to run on host machine before rsync. Single line or multiline commands.
 Execution is preformed by storing commands in `.sh` file and executing it via `.bash` over `ssh`
 If you have issues with `ssh` connection, use this var, eg `SCRIPT_BEFORE: ls`.
 This will force `known_hosts` update, adding your host via `ssh-keyscan`.
 
-##### 10. `SCRIPT_AFTER` (optional, default '')
+##### 11. `SCRIPT_AFTER` (optional, default '')
 
 Script to run on host machine after rsync.
 Rsync output is stored in `$RSYNC_STDOUT` env variable.
 
-##### 11. `SSH_CMD_ARGS` (optional, default '-o StrictHostKeyChecking=no')
+##### 12. `SSH_CMD_ARGS` (optional, default '-o StrictHostKeyChecking=no')
 
 A list of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5
 
@@ -91,6 +95,7 @@ or use the latest version from a branch, eg: ssh-deploy@main
       REMOTE_USER: ${{ secrets.REMOTE_USER }}
       TARGET: ${{ secrets.REMOTE_TARGET }}
       EXCLUDE: "/dist/, /node_modules/"
+      INCLUDE: "/dist/example.txt"
       SCRIPT_BEFORE: |
         whoami
         ls -al
@@ -132,6 +137,7 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
           EXCLUDE: "/dist/, /node_modules/"
+          INCLUDE: "/dist/example.txt"
 ```
 
 ## Issues

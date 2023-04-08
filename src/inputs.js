@@ -3,7 +3,7 @@ const { snakeToCamel } = require('./helpers');
 const inputNames = [
   'REMOTE_HOST', 'REMOTE_USER', 'REMOTE_PORT',
   'SSH_PRIVATE_KEY', 'DEPLOY_KEY_NAME',
-  'SOURCE', 'TARGET', 'ARGS', 'SSH_CMD_ARGS', 'EXCLUDE',
+  'SOURCE', 'TARGET', 'ARGS', 'SSH_CMD_ARGS', 'EXCLUDE', 'INCLUDE'
   'SCRIPT_BEFORE', 'SCRIPT_AFTER'];
 
 const githubWorkspace = process.env.GITHUB_WORKSPACE;
@@ -13,6 +13,7 @@ const defaultInputs = {
   source: '',
   target: `/home/${remoteUser}/`,
   exclude: '',
+  include: '',
   args: '-rlgoDzvc -i',
   sshCmdArgs: '-o StrictHostKeyChecking=no',
   deployKeyName: `deploy_key_${remoteUser}_${Date.now()}`
@@ -36,6 +37,7 @@ inputNames.forEach((input) => {
       extendedVal = validVal.split(' ');
       break;
     case 'exclude':
+    case 'include':
     case 'sshCmdArgs':
       extendedVal = validVal.split(',').map((item) => item.trim());
       break;

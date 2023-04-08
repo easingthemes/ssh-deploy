@@ -51,11 +51,12 @@ const validateRsync = async () => {
 };
 
 const rsyncCli = async ({
-  source, rsyncServer, exclude, remotePort,
+  source, rsyncServer, exclude, include, remotePort,
   privateKeyPath, args, sshCmdArgs
 }) => {
   console.log(`[Rsync] Starting Rsync Action: ${source} to ${rsyncServer}`);
   if (exclude && exclude.length > 0) console.log(`[Rsync] excluding folders ${exclude}`);
+  if (include && include.length > 0) console.log(`[Rsync] including folders ${include}`);
 
   const defaultOptions = {
     ssh: true,
@@ -68,7 +69,7 @@ const rsyncCli = async ({
   /* eslint-disable object-property-newline */
   return nodeRsyncPromise({
     ...defaultOptions,
-    src: source, dest: rsyncServer, excludeFirst: exclude, port: remotePort,
+    src: source, dest: rsyncServer, excludeFirst: exclude, includeFirst: include, port: remotePort,
     privateKey: privateKeyPath, args, sshCmdArgs
   });
 };

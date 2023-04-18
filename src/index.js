@@ -10,7 +10,8 @@ const run = async () => {
     source, remoteUser, remoteHost, remotePort,
     deployKeyName, sshPrivateKey,
     args, exclude, sshCmdArgs,
-    scriptBefore, scriptAfter,
+    scriptBefore, scriptBeforeRequired,
+    scriptAfter, scriptAfterRequired,
     rsyncServer
   } = inputs;
   // Validate required inputs
@@ -24,7 +25,7 @@ const run = async () => {
   }
   // Check Script before
   if (scriptBefore) {
-    await remoteCmdBefore(scriptBefore, privateKeyPath);
+    await remoteCmdBefore(scriptBefore, privateKeyPath, scriptBeforeRequired);
   }
   /* eslint-disable object-property-newline */
   await sshDeploy({
@@ -33,7 +34,7 @@ const run = async () => {
   });
   // Check script after
   if (scriptAfter) {
-    await remoteCmdAfter(scriptAfter, privateKeyPath);
+    await remoteCmdAfter(scriptAfter, privateKeyPath, scriptAfterRequired);
   }
 };
 

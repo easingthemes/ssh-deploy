@@ -24,7 +24,7 @@ const run = async () => {
   }
   // Check Script before
   if (scriptBefore) {
-    await remoteCmdBefore(scriptBefore, privateKeyPath);
+    await remoteCmdBefore(scriptBefore, privateKeyPath, true);
   }
   /* eslint-disable object-property-newline */
   await sshDeploy({
@@ -33,7 +33,7 @@ const run = async () => {
   });
   // Check script after
   if (scriptAfter) {
-    await remoteCmdAfter(scriptAfter, privateKeyPath);
+    await remoteCmdAfter(scriptAfter, privateKeyPath, true);
   }
 };
 

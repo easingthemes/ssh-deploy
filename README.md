@@ -142,7 +142,7 @@ Almost 95% of the issues are related to wrong SSH connection or `rsync` params a
 These issues are not related to the action itself.
 
 - Check manually your ssh connection from your client before opening a bug report.
-- Check `rsync` params for your use-case. Default params are not going to be enough wor everyone, it highly depends on your setup.
+- Check `rsync` params for your use-case. Default params are not necessarily going to be enough for everyone, it highly depends on your setup.
 - Check manually your rsync command from your client before opening a bug report.
 
 I've added e2e test for this action.

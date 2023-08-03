@@ -83,7 +83,7 @@ or use the latest version from a branch, eg: ssh-deploy@main
 ```
   - name: Deploy to Staging server
     uses: easingthemes/ssh-deploy@main
-    env:
+    with:
       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       ARGS: "-rlgoDzvc -i"
       SOURCE: "dist/"
@@ -124,7 +124,7 @@ jobs:
       run: npm run build --if-present
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
-      env:
+      with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "dist/"

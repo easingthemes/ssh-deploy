@@ -37,5 +37,9 @@
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0"
+  },
+  "overrides": {
+    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.5",
+    "semver": "^7.5.2"
   }
 }

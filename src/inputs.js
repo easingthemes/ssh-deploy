@@ -4,7 +4,7 @@ const inputNames = [
   'REMOTE_HOST', 'REMOTE_USER', 'REMOTE_PORT',
   'SSH_PRIVATE_KEY', 'DEPLOY_KEY_NAME',
   'SOURCE', 'TARGET', 'ARGS', 'SSH_CMD_ARGS', 'EXCLUDE',
-  'SCRIPT_BEFORE', 'SCRIPT_AFTER'];
+  'SCRIPT_BEFORE', 'SCRIPT_AFTER', 'SCRIPT_BEFORE_REQUIRED', 'SCRIPT_AFTER_REQUIRED'];
 
 const githubWorkspace = process.env.GITHUB_WORKSPACE;
 const remoteUser = process.env.REMOTE_USER || process.env.INPUT_REMOTE_USER;

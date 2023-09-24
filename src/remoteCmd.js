@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const crypto = require('crypto');
 const { sshServer, githubWorkspace, remotePort } = require('./inputs');
 const { writeToFile } = require('./helpers');
 
@@ -12,7 +13,8 @@ const handleError = (message, isRequired, callback) => {
 
 // eslint-disable-next-line max-len
 const remoteCmd = async (content, privateKeyPath, isRequired, label) => new Promise((resolve, reject) => {
-  const filename = `local_ssh_script-${label}.sh`;
+  const uuid = crypto.randomUUID();
+  const filename = `local_ssh_script-${label}-${uuid}.sh`;
   try {
     writeToFile({ dir: githubWorkspace, filename, content });
     const dataLimit = 10000;

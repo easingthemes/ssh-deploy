@@ -28,6 +28,8 @@ The keys should be generated using the PEM format. You can use this command
 ```
 ssh-keygen -m PEM -t rsa -b 4096
 ```
+**Please Note:** You should not set a Passphrase (keep it empty) for the private key you generated.
+Because rsync ssh (used for deploy) does not support private key password to be entered as a command line parameter.
 
 ##### 2. `REMOTE_HOST` [required]
 

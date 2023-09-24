@@ -1,3 +1,11 @@
+## [4.1.9](https://github.com/easingthemes/ssh-deploy/compare/v4.1.8...v4.1.9) (2023-09-24)
+
+
+### Bug Fixes
+
+* add compiled file ([627ac29](https://github.com/easingthemes/ssh-deploy/commit/627ac29ece9dc2f1185a50d1002bc2c968fc973c))
+* add uuid for ssh scripts ([66f6e4b](https://github.com/easingthemes/ssh-deploy/commit/66f6e4b367ea39479c285234797a4e86c90d9abd))
+
 ## [4.1.8](https://github.com/easingthemes/ssh-deploy/compare/v4.1.7...v4.1.8) (2023-02-21)
 
 

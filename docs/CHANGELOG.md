@@ -1,3 +1,10 @@
+## [4.1.10](https://github.com/easingthemes/ssh-deploy/compare/v4.1.9...v4.1.10) (2023-09-30)
+
+
+### Bug Fixes
+
+* normalize line endings in SSH key for the underlying OS ([3f5d9aa](https://github.com/easingthemes/ssh-deploy/commit/3f5d9aab1a743bd426a4d132d07f1f5e9ed0310c))
+
 ## [4.1.9](https://github.com/easingthemes/ssh-deploy/compare/v4.1.8...v4.1.9) (2023-09-24)
 
 

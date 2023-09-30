@@ -1,5 +1,6 @@
 const { join } = require('path');
 const { execSync } = require('child_process');
+const { EOL } = require('os');
 const { writeToFile } = require('./helpers');
 
 const KNOWN_HOSTS = 'known_hosts';
@@ -19,7 +20,7 @@ const addSshKey = (content, deployKeyName) => {
   const { dir, filename } = getPrivateKeyPath(deployKeyName);
   writeToFile({ dir, filename: KNOWN_HOSTS, content: '' });
   console.log('✅ [SSH] known_hosts file ensured', dir);
-  writeToFile({ dir, filename, content: `${content}\r\n`, isRequired: true, mode: '0400' });
+  writeToFile({ dir, filename, content: `${content}${EOL}`, isRequired: true, mode: '0400' });
   console.log('✅ [SSH] key added to `.ssh` dir ', dir, filename);
 };
 

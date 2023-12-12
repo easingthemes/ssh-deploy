@@ -1,3 +1,14 @@
+# [5.0.0](https://github.com/easingthemes/ssh-deploy/compare/v4.1.10...v5.0.0) (2023-12-12)
+
+
+* Merge pull request #173 from jeromelachaud/main ([ac1908e](https://github.com/easingthemes/ssh-deploy/commit/ac1908e5d2dc749496fdbe8a918aa073e3357d85)), closes [#173](https://github.com/easingthemes/ssh-deploy/issues/173)
+
+
+### BREAKING CHANGES
+
+* update to use nodeJS v20
+* update to use nodeJS v20
+
 ## [4.1.10](https://github.com/easingthemes/ssh-deploy/compare/v4.1.9...v4.1.10) (2023-09-30)
 
 

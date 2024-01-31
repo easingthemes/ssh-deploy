@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/easingthemes/ssh-deploy/compare/v5.0.0...v5.0.1) (2024-01-31)
+
+
+### Bug Fixes
+
+* Add info for Permission denied issue. ([845b578](https://github.com/easingthemes/ssh-deploy/commit/845b578606c0c5a956c70caf61e00a7d2b13ee37))
+
 # [5.0.0](https://github.com/easingthemes/ssh-deploy/compare/v4.1.10...v5.0.0) (2023-12-12)
 
 

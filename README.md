@@ -146,6 +146,9 @@ These issues are not related to the action itself.
 - Check manually your ssh connection from your client before opening a bug report.
 - Check `rsync` params for your use-case. Default params are not necessarily going to be enough for everyone, it highly depends on your setup.
 - Check manually your rsync command from your client before opening a bug report.
+- `Deployment Failed, Permission denied (publickey,password)`: This issue occures in some cases, it is related to OS and ssh. This action can only provide a workaround:
+  - Use `SCRIPT_BEFORE` param, eg `SCRIPT_BEFORE: ls`. This will force `known_hosts` update, adding your host via `ssh-keyscan`.
+  - Or manually add public key to authorized_keys and add a new line to a private key.
 
 I've added e2e test for this action.
 Real example is executed on every PR merge to `main`.

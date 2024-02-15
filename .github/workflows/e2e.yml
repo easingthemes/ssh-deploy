@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
 #         : ---------------------------------------------------------------
 #         : START E2E Test Specific - steps
@@ -111,7 +111,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       #         : ---------------------------------------------------------------
       #         : START E2E Test Specific - steps
@@ -169,7 +169,7 @@ jobs:
       #         ----------------------------------------------------------------
 
       - name: e2e Test ssh-deploy action - Target 1
-        uses: easingthemes/ssh-deploy@v3
+        uses: easingthemes/ssh-deploy@v4
         env:
           # Shared ENV Vars created in previous steps
           REMOTE_USER: ${{ env.TEST_USER }}

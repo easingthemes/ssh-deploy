@@ -28,7 +28,7 @@ jobs:
       - name: Run Tests
         run: npm test --if-present
       - name: Release
-        uses: cycjimmy/semantic-release-action@v3
+        uses: cycjimmy/semantic-release-action@v4
         with:
           dry_run: false
           extra_plugins: |

@@ -1,6 +1,6 @@
 {
   "name": "@draganfilipovic/ssh-deploy",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "description": "Fast NodeJS action to deploy specific directory from `GITHUB_WORKSPACE` to a server via rsync over ssh.",
   "main": "dist/index.js",
   "files": [

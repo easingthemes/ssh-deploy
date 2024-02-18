@@ -1,3 +1,11 @@
+## [5.0.2](https://github.com/easingthemes/ssh-deploy/compare/v5.0.1...v5.0.2) (2024-02-18)
+
+
+### Bug Fixes
+
+* added the missing declarations [#177](https://github.com/easingthemes/ssh-deploy/issues/177) ([bb271fe](https://github.com/easingthemes/ssh-deploy/commit/bb271fe4c69eeeacb986a38cdb3347104143c61f))
+* Fix default values used incorrectly. ([a1b383f](https://github.com/easingthemes/ssh-deploy/commit/a1b383f560a7f52a65da3670e61efe6e02f8639a))
+
 ## [5.0.1](https://github.com/easingthemes/ssh-deploy/compare/v5.0.0...v5.0.1) (2024-01-31)
 
 

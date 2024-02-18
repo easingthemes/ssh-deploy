@@ -39,8 +39,16 @@ inputs:
     description: "Script to run on host machine before rsync"
     required: false
     default: ""
+  SCRIPT_BEFORE_REQUIRED:
+    description: "If not an empty string, the action will fail if the before script fails. Note: The string 'false' will be treated as true"
+    required: false
+    default: ""
   SCRIPT_AFTER:
     description: "Script to run on host machine after rsync"
+    required: false
+    default: ""
+  SCRIPT_AFTER_REQUIRED:
+    description: "If not an empty string, the action will fail if the after script fails. Note: The string 'false' will be treated as true"
     required: false
     default: ""
 outputs:

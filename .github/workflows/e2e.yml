@@ -169,7 +169,7 @@ jobs:
       #         ----------------------------------------------------------------
 
       - name: e2e Test ssh-deploy action - Target 1
-        uses: easingthemes/ssh-deploy@v4
+        uses: easingthemes/ssh-deploy@main
         env:
           # Shared ENV Vars created in previous steps
           REMOTE_USER: ${{ env.TEST_USER }}

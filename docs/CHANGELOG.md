@@ -1,3 +1,10 @@
+## [5.0.3](https://github.com/easingthemes/ssh-deploy/compare/v5.0.2...v5.0.3) (2024-02-27)
+
+
+### Bug Fixes
+
+* trigger automated release ([4d8bbf0](https://github.com/easingthemes/ssh-deploy/commit/4d8bbf0debaade9fb03b8dc3be3c020955557b12))
+
 ## [5.0.2](https://github.com/easingthemes/ssh-deploy/compare/v5.0.1...v5.0.2) (2024-02-18)
 
 

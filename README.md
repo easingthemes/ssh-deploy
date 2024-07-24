@@ -67,19 +67,27 @@ Execution is preformed by storing commands in `.sh` file and executing it via `.
 If you have issues with `ssh` connection, use this var, eg `SCRIPT_BEFORE: ls`.
 This will force `known_hosts` update, adding your host via `ssh-keyscan`.
 
-##### 10. `SCRIPT_AFTER` (optional, default '')
+##### 10. `SCRIPT_BEFORE_REQUIRED` (optional, default false)
+
+If set to `true`, Job will fail if SCRIPT_BEFORE fails.
+
+##### 11. `SCRIPT_AFTER` (optional, default '')
 
 Script to run on host machine after rsync.
 Rsync output is stored in `$RSYNC_STDOUT` env variable.
 
-##### 11. `SSH_CMD_ARGS` (optional, default '-o StrictHostKeyChecking=no')
+##### 12. `SCRIPT_AFTER_REQUIRED` (optional, default false)
+
+If set to `true`, Job will fail if SCRIPT_AFTER fails.
+
+##### 13. `SSH_CMD_ARGS` (optional, default '-o StrictHostKeyChecking=no')
 
 A list of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5
 
 
 # Usage
 
-Use the latest version from Marketplace,eg: ssh-deploy@v2
+Use the latest version from Marketplace,eg: ssh-deploy@v5.1.0
 or use the latest version from a branch, eg: ssh-deploy@main
 
 ```

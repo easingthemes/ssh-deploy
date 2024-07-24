@@ -1,7 +1,7 @@
 const { exec } = require('child_process');
 const crypto = require('crypto');
 const { sshServer, githubWorkspace, remotePort } = require('./inputs');
-const { writeToFile } = require('./helpers');
+const { writeToFile, deleteFile } = require('./helpers');
 
 const handleError = (message, isRequired, callback) => {
   if (isRequired) {
@@ -30,6 +30,8 @@ const remoteCmd = async (content, privateKeyPath, isRequired, label) => new Prom
         } else {
           const limited = data.substring(0, dataLimit);
           console.log('✅ [CMD] Remote script executed. \n', limited, stderr);
+          deleteFile({ dir: githubWorkspace, filename });
+          console.log('✅ [FILE] Script file deleted.');
           resolve(limited);
         }
       }

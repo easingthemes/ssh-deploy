@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/easingthemes/ssh-deploy/compare/v5.1.0...v5.1.1) (2024-07-24)
+
+
+### Bug Fixes
+
+* Update README.md ([f007431](https://github.com/easingthemes/ssh-deploy/commit/f007431332cb2dae49153363ad22fb9f90f4aa75))
+
 # [5.1.0](https://github.com/easingthemes/ssh-deploy/compare/v5.0.3...v5.1.0) (2024-07-24)
 
 

@@ -1,3 +1,11 @@
+# [5.1.0](https://github.com/easingthemes/ssh-deploy/compare/v5.0.3...v5.1.0) (2024-07-24)
+
+
+### Features
+
+* Add deleteFile function to helpers module ([1befdb1](https://github.com/easingthemes/ssh-deploy/commit/1befdb1c6bf3282aa34e6caa431cb2da23d2b17d))
+* apply deleteFile function to remoteCmd ([b82eced](https://github.com/easingthemes/ssh-deploy/commit/b82eced4571cb3f63369d51760a81820ffb1bc7f))
+
 ## [5.0.3](https://github.com/easingthemes/ssh-deploy/compare/v5.0.2...v5.0.3) (2024-02-27)
 
 

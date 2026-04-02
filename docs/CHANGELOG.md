@@ -1,3 +1,10 @@
+## [5.1.2](https://github.com/easingthemes/ssh-deploy/compare/v5.1.1...v5.1.2) (2026-04-02)
+
+
+### Bug Fixes
+
+* update Node.js runtime from 20 to 24 ([681efb5](https://github.com/easingthemes/ssh-deploy/commit/681efb59f1b7a4f41e72cf98a4e30f8860ab66f9)), closes [#207](https://github.com/easingthemes/ssh-deploy/issues/207)
+
 ## [5.1.1](https://github.com/easingthemes/ssh-deploy/compare/v5.1.0...v5.1.1) (2024-07-24)
 
 

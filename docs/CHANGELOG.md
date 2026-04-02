@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/easingthemes/ssh-deploy/compare/v6.0.1...v6.0.2) (2026-04-02)
+
+
+### Bug Fixes
+
+* add @semantic-release/github plugin to create GitHub Releases ([9e4918b](https://github.com/easingthemes/ssh-deploy/commit/9e4918b4e1c18dfdf7b93e70301baaefeb15bab3))
+
 ## [6.0.1](https://github.com/easingthemes/ssh-deploy/compare/v6.0.0...v6.0.1) (2026-04-02)
 
 

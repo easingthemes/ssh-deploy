@@ -46,7 +46,7 @@ const validateRsync = async () => {
     execSync('sudo DEBIAN_FRONTEND=noninteractive apt-get -y update && sudo DEBIAN_FRONTEND=noninteractive apt-get --no-install-recommends -y install rsync', { stdio: 'inherit' });
     console.log('✅ [CLI] Rsync installed. \n');
   } catch (error) {
-    throw new Error(`⚠️ [CLI] Rsync installation failed. Aborting ... error: ${error.message}`);
+    throw new Error(`⚠️ [CLI] Rsync installation failed. Aborting ... error: ${error.message}`, { cause: error });
   }
 };
 
@@ -65,7 +65,6 @@ const rsyncCli = async ({
   };
 
   // RSYNC COMMAND
-  /* eslint-disable object-property-newline */
   return nodeRsyncPromise({
     ...defaultOptions,
     src: source, dest: rsyncServer, excludeFirst: exclude, port: remotePort,

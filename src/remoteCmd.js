@@ -11,7 +11,6 @@ const handleError = (message, isRequired, callback) => {
   }
 };
 
-// eslint-disable-next-line max-len
 const remoteCmd = async (content, privateKeyPath, isRequired, label) => new Promise((resolve, reject) => {
   const uuid = crypto.randomUUID();
   const filename = `local_ssh_script-${label}-${uuid}.sh`;

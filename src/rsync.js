@@ -51,4 +51,6 @@ module.exports = (options, callback) => {
     }
     callback(error, stdout, stderr, cmd);
   });
+
+  proc.on('error', (err) => callback(err, stdout, stderr, cmd));
 };

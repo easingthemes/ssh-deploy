@@ -1,3 +1,26 @@
+# [6.0.0](https://github.com/easingthemes/ssh-deploy/compare/v5.1.2...v6.0.0) (2026-04-02)
+
+
+* feat!: replace rsyncwrapper with direct child_process.spawn ([b11fb7f](https://github.com/easingthemes/ssh-deploy/commit/b11fb7f9113ccfec263a5645d472d0351e4874da))
+* feat!: replace rsyncwrapper with local rsync module ([71b8eb3](https://github.com/easingthemes/ssh-deploy/commit/71b8eb300f807e47a87dc96ace9e083d606c05e7))
+
+
+### Bug Fixes
+
+* add proc.on('error') handler to prevent hanging on spawn failure ([c81b43c](https://github.com/easingthemes/ssh-deploy/commit/c81b43c5bf3a389da4168d71e71ddf2f118c2939))
+
+
+### BREAKING CHANGES
+
+* rsyncwrapper dependency removed, rsync command is now
+constructed and executed via a local module using child_process.spawn.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+* rsyncwrapper dependency removed, rsync command is now
+constructed and executed directly via child_process.spawn.
+
+Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>
+
 ## [5.1.2](https://github.com/easingthemes/ssh-deploy/compare/v5.1.1...v5.1.2) (2026-04-02)
 
 

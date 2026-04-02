@@ -28,6 +28,7 @@ jobs:
       - name: Run Tests
         run: npm test --if-present
       - name: Release
+        id: semantic
         uses: cycjimmy/semantic-release-action@v6
         with:
           semantic_version: 24
@@ -43,3 +44,11 @@ jobs:
           GIT_COMMITTER_NAME: github-actions
           GIT_COMMITTER_EMAIL: github-actions@github.com
           CI: true
+      - name: Update major version tag
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          MAJOR="v${{ steps.semantic.outputs.new_release_major_version }}"
+          TAG="v${{ steps.semantic.outputs.new_release_version }}"
+          echo "Updating $MAJOR tag to point to $TAG"
+          git tag -f "$MAJOR" "$TAG"
+          git push -f origin "$MAJOR"

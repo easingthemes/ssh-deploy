@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/easingthemes/ssh-deploy/compare/v6.0.0...v6.0.1) (2026-04-02)
+
+
+### Bug Fixes
+
+* upgrade devDependencies and migrate to eslint 10 flat config ([c88faf5](https://github.com/easingthemes/ssh-deploy/commit/c88faf565603544c354d0d27ab6948a6d2048c40))
+
 # [6.0.0](https://github.com/easingthemes/ssh-deploy/compare/v5.1.2...v6.0.0) (2026-04-02)
 
 

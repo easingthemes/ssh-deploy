@@ -30,13 +30,10 @@
   },
   "homepage": "https://github.com/easingthemes/ssh-deploy#readme",
   "devDependencies": {
-    "@vercel/ncc": "^0.36.0",
-    "eslint": "^8.30.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0"
-  },
-  "overrides": {
-    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.5",
-    "semver": "^7.5.2"
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@vercel/ncc": "^0.38.4",
+    "eslint": "^10.1.0",
+    "globals": "^17.4.0"
   }
 }

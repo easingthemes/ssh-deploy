@@ -27,7 +27,6 @@ inputNames.forEach((input) => {
   const inputVal = process.env[input] || process.env[`INPUT_${input}`] || defaultInputs[inputName];
   const validVal = inputVal === undefined ? defaultInputs[inputName] : inputVal;
   let extendedVal = validVal;
-  // eslint-disable-next-line default-case
   switch (inputName) {
     case 'source':
       extendedVal = validVal.split(' ').map((src) => `${githubWorkspace}/${src}`);

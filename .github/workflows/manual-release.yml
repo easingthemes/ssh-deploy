@@ -49,9 +49,9 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.NODE_VERSION }}
       - name: Commit trigger
@@ -64,8 +64,9 @@ jobs:
       - name: Run Tests
         run: npm test --if-present
       - name: Create a release - ${{ github.event.inputs.version }}
-        uses: cycjimmy/semantic-release-action@v4
+        uses: cycjimmy/semantic-release-action@v6
         with:
+          semantic_version: 24
           dry_run: ${{ github.event.inputs.dryRun == 'true' }}
           extra_plugins: |
             @semantic-release/changelog

@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const nodeRsync = require('rsyncwrapper');
+const nodeRsync = require('./rsync');
 
 const nodeRsyncPromise = async (config) => new Promise((resolve, reject) => {
   const logCMD = (cmd) => {

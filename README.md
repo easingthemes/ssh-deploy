@@ -90,7 +90,7 @@ A list of ssh arguments, they must be prefixed with -o and separated by a comma,
 Use the latest version from Marketplace,eg: ssh-deploy@v5.1.0
 or use the latest version from a branch, eg: ssh-deploy@main
 
-```
+```yaml
   - name: Deploy to Staging server
     uses: easingthemes/ssh-deploy@main
     with:
@@ -112,7 +112,7 @@ or use the latest version from a branch, eg: ssh-deploy@main
 
 # Example usage in workflow
 
-```
+```yaml
 name: Node CI
 
 on: [push]
